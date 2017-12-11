@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Petitesannonces list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Titre</th>
+                <th>Annonce</th>
+                <th>Telephone</th>
+                <th>Dateheure</th>
+                <th>Prix</th>
+                <th>Nombrevues</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for petitesAnnonce in petitesAnnonces %}
+            <tr>
+                <td><a href="{{ path('petitesannonces_show', { 'id': petitesAnnonce.id }) }}">{{ petitesAnnonce.id }}</a></td>
+                <td>{{ petitesAnnonce.titre }}</td>
+                <td>{{ petitesAnnonce.annonce }}</td>
+                <td>{{ petitesAnnonce.telephone }}</td>
+                <td>{% if petitesAnnonce.dateHeure %}{{ petitesAnnonce.dateHeure|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ petitesAnnonce.prix }}</td>
+                <td>{{ petitesAnnonce.nombreVues }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('petitesannonces_show', { 'id': petitesAnnonce.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('petitesannonces_edit', { 'id': petitesAnnonce.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('petitesannonces_new') }}">Create a new petitesAnnonce</a>
+        </li>
+    </ul>
+{% endblock %}

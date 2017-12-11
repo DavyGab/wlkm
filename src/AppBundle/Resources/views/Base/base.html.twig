@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>{% block title %}Wellkom{% endblock %}</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        {% block stylesheets %}
+            <link href="http://fonts.googleapis.com/css?family=Lato:100,300,400,700" media="all" rel="stylesheet" type="text/css" />
+            {% stylesheets
+                'bundles/app/css/*'
+                filter='cssrewrite' output='css/main.css' %}
+                <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+            {% endstylesheets %}
+        {% endblock %}
+    </head>
+
+    <body class="page-header-fixed bg-1">
+        <div class="modal-shiftfix">
+        {% include 'AppBundle:Base:navigation.html.twig' %}
+        {% block body %}{% endblock %}
+        </div>
+        {% block javascripts %}
+            {% javascripts
+                'bundles/app/js/*'
+                filter='cssrewrite' output='js/main.js' %}
+                <script src="{{ asset_url }}"></script>
+            {% endjavascripts %}
+        {% endblock %}
+    </body>
+
+</html>

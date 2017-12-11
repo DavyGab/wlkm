@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Typesinfosutiles list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Titre</th>
+                <th>Image</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for typesInfosUtile in typesInfosUtiles %}
+            <tr>
+                <td><a href="{{ path('typesinfosutiles_show', { 'id': typesInfosUtile.id }) }}">{{ typesInfosUtile.id }}</a></td>
+                <td>{{ typesInfosUtile.titre }}</td>
+                <td>{{ typesInfosUtile.image }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('typesinfosutiles_show', { 'id': typesInfosUtile.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('typesinfosutiles_edit', { 'id': typesInfosUtile.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('typesinfosutiles_new') }}">Create a new typesInfosUtile</a>
+        </li>
+    </ul>
+{% endblock %}

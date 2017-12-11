@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Borne</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ borne.id }}</td>
+            </tr>
+            <tr>
+                <th>Login</th>
+                <td>{{ borne.login }}</td>
+            </tr>
+            <tr>
+                <th>Adresse</th>
+                <td>{{ borne.adresse }}</td>
+            </tr>
+            <tr>
+                <th>Ville</th>
+                <td>{{ borne.ville }}</td>
+            </tr>
+            <tr>
+                <th>Codepostal</th>
+                <td>{{ borne.codePostal }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('borne_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('borne_edit', { 'id': borne.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

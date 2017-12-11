@@ -1,0 +1,3 @@
+user_homepage:
+    path:     /123
+    defaults: { _controller: UserBundle:Default:index }

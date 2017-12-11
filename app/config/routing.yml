@@ -1,0 +1,88 @@
+app_types_infos_utiles:
+    resource: "@AppBundle/Controller/TypesInfosUtilesController.php"
+    type:     annotation
+
+app_petites_annonces:
+    resource: "@AppBundle/Controller/PetitesAnnoncesController.php"
+    type:     annotation
+
+app_news:
+    resource: "@AppBundle/Controller/NewsController.php"
+    type:     annotation
+
+app_infos_utiles:
+    resource: "@AppBundle/Controller/InfosUtilesController.php"
+    type:     annotation
+
+app_images_annuaire:
+    resource: "@AppBundle/Controller/ImagesAnnuaireController.php"
+    type:     annotation
+
+app_categories_annuaire:
+    resource: "@AppBundle/Controller/CategoriesAnnuaireController.php"
+    type:     annotation
+
+app_categories_annonce:
+    resource: "@AppBundle/Controller/CategoriesAnnonceController.php"
+    type:     annotation
+
+app_annuaire:
+    resource: "@AppBundle/Controller/AnnuaireController.php"
+    type:     annotation
+
+app_annuaire_borne:
+    resource: "@AppBundle/Controller/AnnuaireBorneController.php"
+    type:     annotation
+
+app_borne:
+    resource: "@AppBundle/Controller/BorneController.php"
+    type:     annotation
+
+app_annuaire:
+    resource: "@AppBundle/Controller/AnnuaireController.php"
+    type:     annotation
+
+app_annuaire_borne:
+    resource: "@AppBundle/Controller/AnnuaireBorneController.php"
+    type:     annotation
+
+app_type_info_utile:
+    resource: "@AppBundle/Controller/TypeInfoUtileController.php"
+    type:     annotation
+
+app_petite_annonce:
+    resource: "@AppBundle/Controller/PetiteAnnonceController.php"
+    type:     annotation
+
+app_info_utile:
+    resource: "@AppBundle/Controller/InfoUtileController.php"
+    type:     annotation
+
+app_image_annuaire:
+    resource: "@AppBundle/Controller/ImageAnnuaireController.php"
+    type:     annotation
+
+app_categorie_annuaire:
+    resource: "@AppBundle/Controller/CategorieAnnuaireController.php"
+    type:     annotation
+
+app_categorie_annonce:
+    resource: "@AppBundle/Controller/CategorieAnnonceController.php"
+    type:     annotation
+
+app_annuaire:
+    resource: "@AppBundle/Controller/AnnuaireController.php"
+    type:     annotation
+
+app_borne:
+    resource: "@AppBundle/Controller/BorneController.php"
+    type:     annotation
+
+app:
+    resource: "@AppBundle/Resources/config/routing.yml"
+    prefix: /
+
+user:
+    resource: "@UserBundle/Resources/config/routing.yml"
+    prefix:   /
+

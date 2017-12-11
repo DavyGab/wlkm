@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Infosutiles list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Texte</th>
+                <th>Dateheure</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for infosUtile in infosUtiles %}
+            <tr>
+                <td><a href="{{ path('infosutiles_show', { 'id': infosUtile.id }) }}">{{ infosUtile.id }}</a></td>
+                <td>{{ infosUtile.texte }}</td>
+                <td>{% if infosUtile.dateHeure %}{{ infosUtile.dateHeure|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ infosUtile.status }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('infosutiles_show', { 'id': infosUtile.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('infosutiles_edit', { 'id': infosUtile.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('infosutiles_new') }}">Create a new infosUtile</a>
+        </li>
+    </ul>
+{% endblock %}
