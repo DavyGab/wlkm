@@ -22,18 +22,16 @@ class AnnuaireBorne
     private $id;
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="Annuaire_ID", type="integer", nullable=false)
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Annuaire", inversedBy="annuaireBorne")
+     * @ORM\JoinColumn(name="Annuaire_ID", referencedColumnName="Annuaire_ID")
      */
-    private $annuaireId;
+    private $annuaire;
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="Borne_ID", type="integer", nullable=false)
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Borne", inversedBy="annuaireBorne")
+     * @ORM\JoinColumn(name="Borne_ID", referencedColumnName="Borne_ID")
      */
-    private $borneId;
+    private $borne;
 
     /**
      * @var integer
@@ -53,38 +51,6 @@ class AnnuaireBorne
     /**
      * @return int
      */
-    public function getAnnuaireId()
-    {
-        return $this->annuaireId;
-    }
-
-    /**
-     * @param int $annuaireId
-     */
-    public function setAnnuaireId($annuaireId)
-    {
-        $this->annuaireId = $annuaireId;
-    }
-
-    /**
-     * @return int
-     */
-    public function getBorneId()
-    {
-        return $this->borneId;
-    }
-
-    /**
-     * @param int $borneId
-     */
-    public function setBorneId($borneId)
-    {
-        $this->borneId = $borneId;
-    }
-
-    /**
-     * @return int
-     */
     public function getDistance()
     {
         return $this->distance;
@@ -98,6 +64,38 @@ class AnnuaireBorne
         $this->distance = $distance;
     }
 
-    
+    /**
+     * @return mixed
+     */
+    public function getAnnuaire()
+    {
+        return $this->annuaire;
+    }
+
+    /**
+     * @param mixed $annuaire
+     */
+    public function setAnnuaire($annuaire)
+    {
+        $this->annuaire = $annuaire;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getBorne()
+    {
+        return $this->borne;
+    }
+
+    /**
+     * @param mixed $borne
+     */
+    public function setBorne($borne)
+    {
+        $this->borne = $borne;
+    }
+
+
 }
 

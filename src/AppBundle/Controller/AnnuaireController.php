@@ -3,87 +3,86 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Annuaire;
+use AppBundle\Entity\AnnuaireBorne;
+use AppBundle\Entity\Borne;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Annuaire controller.
- *
- * @Route("annuaire")
  */
 class AnnuaireController extends Controller
 {
-    /**
-     * Lists all annuaire entities.
-     *
-     * @Route("/", name="annuaire_index")
-     * @Method("GET")
-     */
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
 
         $annuaires = $em->getRepository('AppBundle:Annuaire')->findAll();
 
-        return $this->render('annuaire/index.html.twig', array(
+        return $this->render('AppBundle:Annuaire:index.html.twig', array(
             'annuaires' => $annuaires,
         ));
     }
 
-    /**
-     * Creates a new annuaire entity.
-     *
-     * @Route("/new", name="annuaire_new")
-     * @Method({"GET", "POST"})
-     */
     public function newAction(Request $request)
     {
         $annuaire = new Annuaire();
         $form = $this->createForm('AppBundle\Form\AnnuaireType', $annuaire);
         $form->handleRequest($request);
 
+        $em = $this->getDoctrine()->getManager();
+        $bornes = $em->getRepository('AppBundle:Borne')->findAll();
+
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+
+            $bornesId = $request->get('bornes');
+            foreach ($bornesId as $borneId) {
+                $annuaireBorne = new AnnuaireBorne();
+                $annuaireBorne->setBorne($borneId);
+                $annuaireBorne->setAnnuaire($annuaire);
+                $em->persist($annuaireBorne);
+            }
+
             $em->persist($annuaire);
             $em->flush();
 
             return $this->redirectToRoute('annuaire_show', array('id' => $annuaire->getId()));
         }
 
-        return $this->render('annuaire/new.html.twig', array(
+        return $this->render('AppBundle:Annuaire:form.html.twig', array(
             'annuaire' => $annuaire,
+            'bornes' => $bornes,
             'form' => $form->createView(),
+            'action' => 'new'
         ));
     }
 
-    /**
-     * Finds and displays a annuaire entity.
-     *
-     * @Route("/{id}", name="annuaire_show")
-     * @Method("GET")
-     */
     public function showAction(Annuaire $annuaire)
     {
         $deleteForm = $this->createDeleteForm($annuaire);
 
-        return $this->render('annuaire/show.html.twig', array(
+        return $this->render('AppBundle:Annuaire:show.html.twig', array(
             'annuaire' => $annuaire,
             'delete_form' => $deleteForm->createView(),
         ));
     }
 
-    /**
-     * Displays a form to edit an existing annuaire entity.
-     *
-     * @Route("/{id}/edit", name="annuaire_edit")
-     * @Method({"GET", "POST"})
-     */
     public function editAction(Request $request, Annuaire $annuaire)
     {
         $deleteForm = $this->createDeleteForm($annuaire);
         $editForm = $this->createForm('AppBundle\Form\AnnuaireType', $annuaire);
         $editForm->handleRequest($request);
+
+        $em = $this->getDoctrine()->getManager();
+        $bornes = $em->getRepository('AppBundle:Borne')->findAll();
+
+        $annuaireWithBornes = $em->getRepository('AppBundle:Annuaire')->getAnnuaireWithBornes($annuaire->getId());
+        $bornesSelected = array();
+
+        foreach ($annuaireWithBornes->getAnnuaireBorne() as $annuaireBornesSelected) {
+            $bornesSelected[$annuaireBornesSelected->getBorne()->getId()] = $annuaireBornesSelected;
+        }
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
@@ -91,19 +90,16 @@ class AnnuaireController extends Controller
             return $this->redirectToRoute('annuaire_edit', array('id' => $annuaire->getId()));
         }
 
-        return $this->render('annuaire/edit.html.twig', array(
+        return $this->render('AppBundle:Annuaire:form.html.twig', array(
             'annuaire' => $annuaire,
-            'edit_form' => $editForm->createView(),
+            'bornes' => $bornes,
+            'annuairesBornesSelected' => $bornesSelected,
+            'form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
+            'action' => 'edit'
         ));
     }
 
-    /**
-     * Deletes a annuaire entity.
-     *
-     * @Route("/{id}", name="annuaire_delete")
-     * @Method("DELETE")
-     */
     public function deleteAction(Request $request, Annuaire $annuaire)
     {
         $form = $this->createDeleteForm($annuaire);

@@ -13,7 +13,10 @@ class AnnuaireBorneType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('annuaireId')->add('borneId')->add('distance');
+        $builder
+            ->add('annuaire')
+            ->add('borne')
+            ->add('distance');
     }
     
     /**

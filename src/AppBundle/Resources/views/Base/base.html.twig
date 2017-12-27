@@ -10,6 +10,7 @@
                 filter='cssrewrite' output='css/main.css' %}
                 <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
             {% endstylesheets %}
+                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" type="text/css" />
         {% endblock %}
     </head>
 
@@ -20,10 +21,15 @@
         </div>
         {% block javascripts %}
             {% javascripts
-                'bundles/app/js/*'
+                'bundles/app/js/_jquery.js'
+                'bundles/app/js/bootstrap.min.js'
+                'bundles/app/js/jquery.dataTables.min.js'
+                'bundles/app/js/main.js'
+
                 filter='cssrewrite' output='js/main.js' %}
                 <script src="{{ asset_url }}"></script>
             {% endjavascripts %}
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
         {% endblock %}
     </body>
 

@@ -5,42 +5,31 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Borne;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Form\BorneType;
 
 /**
  * Borne controller.
- *
- * @Route("borne")
  */
 class BorneController extends Controller
 {
-    /**
-     * Lists all borne entities.
-     *
-     * @Route("/", name="borne_index")
-     * @Method("GET")
-     */
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
 
         $bornes = $em->getRepository('AppBundle:Borne')->findAll();
 
-        return $this->render('borne/index.html.twig', array(
+        return $this->render('AppBundle:Borne:index.html.twig', array(
             'bornes' => $bornes,
         ));
     }
-
-    /**
-     * Creates a new borne entity.
-     *
-     * @Route("/new", name="borne_new")
-     * @Method({"GET", "POST"})
-     */
+    
+    
     public function newAction(Request $request)
     {
         $borne = new Borne();
-        $form = $this->createForm('AppBundle\Form\BorneType', $borne);
+        $form = $this->createForm(BorneType::class, $borne);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -51,18 +40,14 @@ class BorneController extends Controller
             return $this->redirectToRoute('borne_show', array('id' => $borne->getId()));
         }
 
-        return $this->render('borne/new.html.twig', array(
+        return $this->render('AppBundle:Borne:form.html.twig', array(
             'borne' => $borne,
             'form' => $form->createView(),
+            'action' => 'new'
         ));
     }
-
-    /**
-     * Finds and displays a borne entity.
-     *
-     * @Route("/{id}", name="borne_show")
-     * @Method("GET")
-     */
+    
+    
     public function showAction(Borne $borne)
     {
         $deleteForm = $this->createDeleteForm($borne);
@@ -72,13 +57,8 @@ class BorneController extends Controller
             'delete_form' => $deleteForm->createView(),
         ));
     }
-
-    /**
-     * Displays a form to edit an existing borne entity.
-     *
-     * @Route("/{id}/edit", name="borne_edit")
-     * @Method({"GET", "POST"})
-     */
+    
+    
     public function editAction(Request $request, Borne $borne)
     {
         $deleteForm = $this->createDeleteForm($borne);
@@ -91,19 +71,15 @@ class BorneController extends Controller
             return $this->redirectToRoute('borne_edit', array('id' => $borne->getId()));
         }
 
-        return $this->render('borne/edit.html.twig', array(
+        return $this->render('AppBundle:Borne:form.html.twig', array(
             'borne' => $borne,
-            'edit_form' => $editForm->createView(),
+            'form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
+            'action' => 'edit'
         ));
     }
 
-    /**
-     * Deletes a borne entity.
-     *
-     * @Route("/{id}", name="borne_delete")
-     * @Method("DELETE")
-     */
+    
     public function deleteAction(Request $request, Borne $borne)
     {
         $form = $this->createDeleteForm($borne);

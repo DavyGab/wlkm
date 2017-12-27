@@ -9,17 +9,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component
 
 /**
  * Infosutile controller.
- *
- * @Route("infosutiles")
  */
 class InfosUtilesController extends Controller
 {
-    /**
-     * Lists all infosUtile entities.
-     *
-     * @Route("/", name="infosutiles_index")
-     * @Method("GET")
-     */
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
@@ -31,12 +23,6 @@ class InfosUtilesController extends Controller
         ));
     }
 
-    /**
-     * Creates a new infosUtile entity.
-     *
-     * @Route("/new", name="infosutiles_new")
-     * @Method({"GET", "POST"})
-     */
     public function newAction(Request $request)
     {
         $infosUtile = new Infosutile();
@@ -57,12 +43,6 @@ class InfosUtilesController extends Controller
         ));
     }
 
-    /**
-     * Finds and displays a infosUtile entity.
-     *
-     * @Route("/{id}", name="infosutiles_show")
-     * @Method("GET")
-     */
     public function showAction(InfosUtiles $infosUtile)
     {
         $deleteForm = $this->createDeleteForm($infosUtile);
@@ -73,12 +53,6 @@ class InfosUtilesController extends Controller
         ));
     }
 
-    /**
-     * Displays a form to edit an existing infosUtile entity.
-     *
-     * @Route("/{id}/edit", name="infosutiles_edit")
-     * @Method({"GET", "POST"})
-     */
     public function editAction(Request $request, InfosUtiles $infosUtile)
     {
         $deleteForm = $this->createDeleteForm($infosUtile);
@@ -98,12 +72,6 @@ class InfosUtilesController extends Controller
         ));
     }
 
-    /**
-     * Deletes a infosUtile entity.
-     *
-     * @Route("/{id}", name="infosutiles_delete")
-     * @Method("DELETE")
-     */
     public function deleteAction(Request $request, InfosUtiles $infosUtile)
     {
         $form = $this->createDeleteForm($infosUtile);

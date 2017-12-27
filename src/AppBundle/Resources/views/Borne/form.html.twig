@@ -1,0 +1,61 @@
+{% extends 'AppBundle:Base:base.html.twig' %}
+
+{% block body %}
+    <div class="container main-content">
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+                <div class="widget-container fluid-height clearfix">
+                    <div class="heading">
+                        <i class="fa fa-bars"></i>Bornes
+                    </div>
+                    <div class="widget-content padded">
+                        {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+                            <div class="form-group">
+                                <label class="control-label col-md-2">Nom</label>
+                                <div class="col-md-7">
+                                    {{ form_widget(form.nom, {'attr': {'class': 'form-control'}}) }}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2">Adresse</label>
+                                <div class="col-md-7">
+                                    {{ form_widget(form.adresse, {'attr': {'class': 'form-control'}}) }}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2">Ville</label>
+                                <div class="col-md-7">
+                                    {{ form_widget(form.ville, {'attr': {'class': 'form-control'}}) }}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2">Code Postal</label>
+                                <div class="col-md-7">
+                                    {{ form_widget(form.codePostal, {'attr': {'class': 'form-control'}}) }}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2">Status</label>
+                                <div class="col-md-7">
+                                    {{ form_widget(form.status, {'attr': {'class': 'select2able'}}) }}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-3 col-md-offset-2">
+                                    <button class="btn btn-primary" type="submit">Enregistrer</button>
+                                </div>
+                                {% if action == "edait" %}
+                                    <div class="col-md-3 col-md-offset-1">
+                                        {{ form_start(delete_form) }}
+                                        <button class="btn btn-danger text-right" type="submit">Supprimer</button>
+                                        {{ form_end(delete_form) }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

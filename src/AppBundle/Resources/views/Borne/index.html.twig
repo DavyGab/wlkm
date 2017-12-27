@@ -1,0 +1,53 @@
+{% extends 'AppBundle:Base:base.html.twig' %}
+
+{% block body %}
+    <div class="container main-content">
+            <div class="row">
+                <div class="col-md-10 col-md-offset-1">
+                    <div class="widget-container fluid-height clearfix">
+                        <div class="heading">
+                            <i class="fa fa-table"></i>Liste des bornes
+                        </div>
+                        <div class="widget-content padded clearfix">
+                            <table class="table table-bordered table-striped" id="dataTable1">
+                                <thead>
+                                    <th class="check-header hidden-xs">
+                                        <label><input id="checkAll" name="checkAll" type="checkbox"><span></span></label>
+                                    </th>
+                                    <th> Nom </th>
+                                    <th> Ville </th>
+                                    <th class="hidden-xs"> Adresse </th>
+                                    <th class="hidden-xs"> Code Postal </th>
+                                    <th class="hidden-xs"> Status </th>
+                                    <th> Actions </th>
+                                </thead>
+                                <tbody>
+                                {% for borne in bornes %}
+                                    <tr>
+                                        <td class="check hidden-xs">
+                                            <label><input name="optionsRadios1" type="checkbox" value="option1"><span></span></label>
+                                        </td>
+                                        <td> {{ borne.nom }} </td>
+                                        <td> {{ borne.ville }} </td>
+                                        <td class="hidden-xs"> {{ borne.adresse }} </td>
+                                        <td class="hidden-xs"> {{ borne.codePostal }} </td>
+                                        <td class="hidden-xs">
+                                            <span class="label label-warning">Validé</span>
+                                        </td>
+                                        <td class="actions">
+                                            <div class="action-buttons">
+                                                <a class="table-actions" href="{{ path('borne_show', { 'id': borne.id }) }}"><i class="fa fa-eye"></i></a>
+                                                <a class="table-actions" href="{{ path('borne_edit', { 'id': borne.id }) }}"><i class="fa fa-pencil"></i></a>
+                                                <a class="table-actions" href="{{ path('borne_delete', { 'id': borne.id }) }}"><i class="fa fa-trash-o"></i></a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+{% endblock %}

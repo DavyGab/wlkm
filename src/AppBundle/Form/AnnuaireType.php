@@ -3,6 +3,7 @@
 namespace AppBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -13,7 +14,19 @@ class AnnuaireType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('nom')->add('distance')->add('adresse')->add('inFront')->add('nombreVues')->add('horaires')->add('description')->add('ville')->add('codePostal')->add('categorie')->add('borne');
+        $builder
+            ->add('nom')
+            ->add('adresse')
+            ->add('inFront')
+            ->add('horaires')
+            ->add('description')
+            ->add('ville')
+            ->add('codePostal')
+            ->add('annuaireBorne', CollectionType::class, array(
+                'entry_type' => AnnuaireBorneType::class,
+                'entry_options' => array('label' => false),
+                'allow_add' => true,
+            ));
     }
     
     /**

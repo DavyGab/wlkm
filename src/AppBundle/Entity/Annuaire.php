@@ -2,13 +2,14 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Annuaire
  *
  * @ORM\Table(name="Annuaire", indexes={@ORM\Index(name="IDX_BC1DC55D9FF5F4D4", columns={"Annuaire_Catégorie_ID"}), @ORM\Index(name="IDX_BC1DC55DDC04D878", columns={"Annuaire_Borne_ID"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\AnnuaireRepository")
  */
 class Annuaire
 {
@@ -29,13 +30,6 @@ class Annuaire
     private $nom;
 
     /**
-     * @var float
-     *
-     * @ORM\Column(name="Annuaire_Distance", type="float", precision=53, scale=0, nullable=true)
-     */
-    private $distance;
-
-    /**
      * @var string
      *
      * @ORM\Column(name="Annuaire_Adresse", type="string", length=100, nullable=true)
@@ -48,13 +42,6 @@ class Annuaire
      * @ORM\Column(name="Annuaire_Is_In_Front", type="boolean", nullable=true)
      */
     private $inFront;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="Annuaire_Nombre_Vues", type="integer", nullable=true)
-     */
-    private $nombreVues;
 
     /**
      * @var string
@@ -95,14 +82,37 @@ class Annuaire
     private $categorie;
 
     /**
-     * @var \AppBundle\Entity\Borne
-     *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Borne")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="Annuaire_Borne_ID", referencedColumnName="Borne_ID")
-     * })
-     */
-    private $borne;
+    * @ORM\OneToMany(targetEntity="AppBundle\Entity\AnnuaireBorne", mappedBy="annuaire")
+    */
+    private $annuaireBorne;
+    
+    public function __construct()
+    {
+        $this->annuaireBorne = new ArrayCollection();
+    }
+
+    public function __toString() {
+        return $this->nom;
+    }
+    
+    public function addAnnuaireBorne(AnnuaireBorne $annuaireBorne)
+    {
+        $this->annuaireBorne[] = $annuaireBorne;
+        $annuaireBorne->setAnnuaire($this);
+
+        return $this;
+    }
+    
+    public function removeAnnuaireBorne(AnnuaireBorne $annuaireBorne)
+    {
+        $this->annuaireBorne->removeElement($annuaireBorne);
+    }
+    
+    public function getAnnuaireBorne()
+    {
+        return $this->annuaireBorne;
+    }
+
 
     /**
      * @return int
@@ -126,22 +136,6 @@ class Annuaire
     public function setNom($nom)
     {
         $this->nom = $nom;
-    }
-
-    /**
-     * @return float
-     */
-    public function getDistance()
-    {
-        return $this->distance;
-    }
-
-    /**
-     * @param float $distance
-     */
-    public function setDistance($distance)
-    {
-        $this->distance = $distance;
     }
 
     /**
@@ -174,22 +168,6 @@ class Annuaire
     public function setInFront($inFront)
     {
         $this->inFront = $inFront;
-    }
-
-    /**
-     * @return int
-     */
-    public function getNombreVues()
-    {
-        return $this->nombreVues;
-    }
-
-    /**
-     * @param int $nombreVues
-     */
-    public function setNombreVues($nombreVues)
-    {
-        $this->nombreVues = $nombreVues;
     }
 
     /**
@@ -271,23 +249,5 @@ class Annuaire
     {
         $this->categorie = $categorie;
     }
-
-    /**
-     * @return ParcBornes
-     */
-    public function getBorne()
-    {
-        return $this->borne;
-    }
-
-    /**
-     * @param ParcBornes $borne
-     */
-    public function setBorne($borne)
-    {
-        $this->borne = $borne;
-    }
-
-    
 }
 

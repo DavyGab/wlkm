@@ -1,3 +1,118 @@
 homepage:
     path:     /
     defaults: { _controller: AppBundle:Home:index }
+
+##
+## BORNE
+##
+
+borne_index:
+    path:     /borne
+    defaults: { _controller: AppBundle:Borne:index }
+    methods:    [GET]
+
+borne_new:
+    path:     /borne/new
+    defaults: { _controller: AppBundle:Borne:new }
+    methods:    [GET, POST]
+
+borne_show:
+    path:     /borne/{id}
+    defaults: { _controller: AppBundle:Borne:show }
+    methods:    [DELETE]
+
+borne_edit:
+    path:     /borne/{id}/edit
+    defaults: { _controller: AppBundle:Borne:edit }
+    methods:    [GET, POST]
+
+borne_delete:
+    path:     /borne/{id}
+    defaults: { _controller: AppBundle:Borne:delete }
+    methods:    [DELETE]
+
+##
+## ANNUAIRE
+##
+
+annuaire_index:
+    path:     /annuaire
+    defaults: { _controller: AppBundle:Annuaire:index }
+    methods:    [GET]
+
+annuaire_new:
+    path:     /annuaire/new
+    defaults: { _controller: AppBundle:Annuaire:new }
+    methods:    [GET, POST]
+
+annuaire_show:
+    path:     /annuaire/{id}
+    defaults: { _controller: AppBundle:Annuaire:show }
+    methods:    [DELETE]
+
+annuaire_edit:
+    path:     /annuaire/{id}/edit
+    defaults: { _controller: AppBundle:Annuaire:edit }
+    methods:    [GET, POST]
+
+annuaire_delete:
+    path:     /annuaire/{id}
+    defaults: { _controller: AppBundle:Annuaire:delete }
+    methods:    [DELETE]
+
+##
+## INFOS UTILES
+##
+
+infosutiles_index:
+    path:     /infosutiles
+    defaults: { _controller: AppBundle:InfosUtiles:index }
+    methods:    [GET]
+
+infosutiles_new:
+    path:     /infosutiles/new
+    defaults: { _controller: AppBundle:InfosUtiles:new }
+    methods:    [GET, POST]
+
+infosutiles_show:
+    path:     /infosutiles/{id}
+    defaults: { _controller: AppBundle:InfosUtiles:show }
+    methods:    [DELETE]
+
+infosutiles_edit:
+    path:     /infosutiles/{id}/edit
+    defaults: { _controller: AppBundle:InfosUtiles:edit }
+    methods:    [GET, POST]
+
+infosutiles_delete:
+    path:     /infosutiles/{id}
+    defaults: { _controller: AppBundle:InfosUtiles:delete }
+    methods:    [DELETE]
+
+##
+## PETITES ANNONCES
+##
+petitesannonces_index:
+    path:     /petitesannonces
+    defaults: { _controller: AppBundle:PetitesAnnonces:index }
+    methods:    [GET]
+
+petitesannonces_new:
+    path:     /petitesannonces/new
+    defaults: { _controller: AppBundle:PetitesAnnonces:new }
+    methods:    [GET, POST]
+
+petitesannonces_show:
+    path:     /petitesannonces/{id}
+    defaults: { _controller: AppBundle:PetitesAnnonces:show }
+    methods:    [DELETE]
+
+petitesannonces_edit:
+    path:     /petitesannonces/{id}/edit
+    defaults: { _controller: AppBundle:PetitesAnnonces:edit }
+    methods:    [GET, POST]
+
+petitesannonces_delete:
+    path:     /petitesannonces/{id}
+    defaults: { _controller: AppBundle:PetitesAnnonces:delete }
+    methods:    [DELETE]
