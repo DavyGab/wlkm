@@ -74,16 +74,6 @@ class AnnuaireController extends Controller
         $editForm = $this->createForm('AppBundle\Form\AnnuaireType', $annuaire);
         $editForm->handleRequest($request);
 
-//        $em = $this->getDoctrine()->getManager();
-//        $bornes = $em->getRepository('AppBundle:Borne')->findAll();
-//
-//        $annuaireWithBornes = $em->getRepository('AppBundle:Annuaire')->getAnnuaireWithBornes($annuaire->getId());
-//        $bornesSelected = array();
-//
-//        foreach ($annuaireWithBornes->getAnnuaireBorne() as $annuaireBornesSelected) {
-//            $bornesSelected[$annuaireBornesSelected->getBorne()->getId()] = $annuaireBornesSelected;
-//        }
-
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
@@ -92,8 +82,6 @@ class AnnuaireController extends Controller
 
         return $this->render('AppBundle:Annuaire:form.html.twig', array(
             'annuaire' => $annuaire,
-//            'bornes' => $bornes,
-//            'annuairesBornesSelected' => $bornesSelected,
             'form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
             'action' => 'edit'
