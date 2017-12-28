@@ -1,19 +1,17 @@
 {% extends 'AppBundle:Base:base.html.twig' %}
 
-{% form_theme form _self %}
-
-{% block _annuaire_borne_entry_widget %}
-    <div class="row">
-        <div class="col-md-6">
-            {{ form_widget(form.borne, {'attr' : {'class' : 'select2 borneInput' }}) }}
-        </div>
-        <div class="col-md-4 col-md-offset-1">
-            {{ form_widget(form.distance, {'attr' : {'class' : 'form-control' }}) }}
-        </div>
-        <div class="deleteForm col-md-1">Sup</div>
-    </div>
-    {{ form_widget(form.annuaire, {'attr' : {'class' : 'hidden', 'value' : '{{ annuaire.id }}'}}) }}
-{% endblock %}
+{#{% block _annuaireBorne_entry_widget %}#}
+    {#<div class="row">#}
+        {#<div class="col-md-6">#}
+            {#{{ form_widget(form.borne, {'attr' : {'class' : 'select2 borneInput' }}) }}#}
+        {#</div>#}
+        {#<div class="col-md-4 col-md-offset-1">#}
+            {#{{ form_widget(form.distance, {'attr' : {'class' : 'form-control' }}) }}#}
+        {#</div>#}
+        {#<div class="deleteForm col-md-1">Sup</div>#}
+    {#</div>#}
+    {#{{ form_widget(form.annuaire, {'attr' : {'class' : 'hidden', 'value' : annuaire.id}}) }}#}
+{#{% endblock %}#}
 
 {% block body %}
     <div class="container main-content">
@@ -85,13 +83,15 @@
                                             <span>Distance</span>
                                         </div>
                                     </div>
-                                    <div id="annuaireBorneDiv" data-prototype="{{ form_widget(form.annuaireBorne.vars.prototype)|e('html_attr') }}">
+                                        {#{% form_theme form _self %}#}
+                                    {#<div id="annuaireBorneDiv" data-prototype="{{ form_widget(form.annuaireBorne.vars.prototype)|e('html_attr') }}">#}
+                                    <div id="annuaireBorneDiv" data-prototype="{% filter escape %}{% include 'AppBundle:AnnuaireBorne:AnnuaireBorneCollection.html.twig' with {'form': form.annuaireBorne.vars.prototype} %}{% endfilter %}">
                                         {% for annuaireBorne in form.annuaireBorne %}
                                             <div class="row">
-                                                <div class="col-md-6">
+                                                <div class="col-md-7">
                                                     {{ form_widget(annuaireBorne.borne, {'attr' : {'class' : 'select2 borneInput' }}) }}
                                                 </div>
-                                                <div class="col-md-4 col-md-offset-1">
+                                                <div class="col-md-4">
                                                     {{ form_widget(annuaireBorne.distance, {'attr' : {'class' : 'form-control' }}) }}
                                                 </div>
                                                 <div class="deleteForm col-md-1">Sup</div>
@@ -131,6 +131,10 @@
 {% block javascripts %}
     {{ parent() }}
     <script type="application/javascript">
+        $('.select2').select2({
+          placeholder: "-- Select --",
+          width: "100%",
+        });
         $('#addForm').click(function(e) {
             e.preventDefault();
             var i = $('.borneInput').length;
@@ -142,9 +146,14 @@
             return false;
         });
         function addAnnuuaireBorneForm(index) {
-            var annuaireBorneForm = $("{{ form_widget(annuaireBorne.vars.prototype)|e('html_attr') }}");
+            $('.select2.borneInput').select2('destroy');
+            var annuaireBorneForm = $("#annuaireBorneDiv").data('prototype');
             annuaireBorneForm = annuaireBorneForm.replace('__name__', index);
-            $('#annuaireBorneDiv').appendChild(annuaireBorneForm);
+            $('#annuaireBorneDiv').append(annuaireBorneForm);
+            $('.select2').select2({
+              placeholder: "-- Select --",
+              width: "100%",
+            });
         }
     </script>
 {% endblock %}
