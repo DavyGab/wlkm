@@ -1,0 +1,57 @@
+{% extends 'AppBundle:Base:base.html.twig' %}
+
+{% block body %}
+    <div class="container main-content">
+            <div class="row">
+                <div class="col-md-10 col-md-offset-1">
+                    <div class="widget-container fluid-height clearfix">
+                        <div class="heading">
+                            <i class="fa fa-table"></i>Liste des Professionnels
+                        </div>
+                        <div class="widget-content padded clearfix">
+                            <table class="table table-bordered table-striped" id="dataTable1">
+                                <thead>
+                                    <th class="check-header hidden-xs">
+                                        <label><input id="checkAll" name="checkAll" type="checkbox"><span></span></label>
+                                    </th>
+                                    <th> Nom </th>
+                                    <th> Ville </th>
+                                    <th class="hidden-xs"> Adresse </th>
+                                    <th class="hidden-xs"> Code Postal </th>
+                                    <th class="hidden-xs"> Status </th>
+                                    <th> Mis en avant </th>
+                                    <th> Bornes </th>
+                                    <th> Actions </th>
+                                </thead>
+                                <tbody>
+                                {% for annuaire in annuaires %}
+                                    <tr>
+                                        <td class="check hidden-xs">
+                                            <label><input name="optionsRadios1" type="checkbox" value="option1"><span></span></label>
+                                        </td>
+                                        <td> {{ annuaire.nom }} </td>
+                                        <td> {{ annuaire.ville }} </td>
+                                        <td class="hidden-xs"> {{ annuaire.adresse }} </td>
+                                        <td class="hidden-xs"> {{ annuaire.codePostal }} </td>
+                                        <td class="hidden-xs"> {{ annuaire.inFront }} </td>
+                                        <td class="hidden-xs"> {# { annuaire.borne } #} </td>
+                                        <td class="hidden-xs">
+                                            <span class="label label-warning">Validé</span>
+                                        </td>
+                                        <td class="actions">
+                                            <div class="action-buttons">
+                                                <a class="table-actions" href="{{ path('annuaire_show', { 'id': annuaire.id }) }}"><i class="fa fa-eye"></i></a>
+                                                <a class="table-actions" href="{{ path('annuaire_edit', { 'id': annuaire.id }) }}"><i class="fa fa-pencil"></i></a>
+                                                <a class="table-actions" href="{{ path('annuaire_delete', { 'id': annuaire.id }) }}"><i class="fa fa-trash-o"></i></a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+{% endblock %}
