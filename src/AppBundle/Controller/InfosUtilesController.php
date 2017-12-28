@@ -18,7 +18,7 @@ class InfosUtilesController extends Controller
 
         $infosUtiles = $em->getRepository('AppBundle:InfosUtiles')->findAll();
 
-        return $this->render('infosutiles/index.html.twig', array(
+        return $this->render('AppBundle:InfosUtiles:index.html.twig', array(
             'infosUtiles' => $infosUtiles,
         ));
     }
@@ -37,7 +37,7 @@ class InfosUtilesController extends Controller
             return $this->redirectToRoute('infosutiles_show', array('id' => $infosUtile->getId()));
         }
 
-        return $this->render('infosutiles/new.html.twig', array(
+        return $this->render('AppBundle:InfosUtiles:form.html.twig', array(
             'infosUtile' => $infosUtile,
             'form' => $form->createView(),
         ));
@@ -47,7 +47,7 @@ class InfosUtilesController extends Controller
     {
         $deleteForm = $this->createDeleteForm($infosUtile);
 
-        return $this->render('infosutiles/show.html.twig', array(
+        return $this->render('AppBundle:InfosUtiles:show.html.twig', array(
             'infosUtile' => $infosUtile,
             'delete_form' => $deleteForm->createView(),
         ));
@@ -65,7 +65,7 @@ class InfosUtilesController extends Controller
             return $this->redirectToRoute('infosutiles_edit', array('id' => $infosUtile->getId()));
         }
 
-        return $this->render('infosutiles/edit.html.twig', array(
+        return $this->render('AppBundle:InfosUtiles:form.html.twig', array(
             'infosUtile' => $infosUtile,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
