@@ -18,10 +18,11 @@ class AnnuaireType extends AbstractType
             ->add('nom')
             ->add('adresse')
             ->add('inFront')
-            ->add('horaires')
+//            ->add('horaires')
             ->add('description')
             ->add('ville')
             ->add('codePostal')
+            ->add('categorie')
             ->add('annuaireBorne', CollectionType::class, array(
                 'entry_type' => AnnuaireBorneType::class,
                 'entry_options' => array('label' => false),

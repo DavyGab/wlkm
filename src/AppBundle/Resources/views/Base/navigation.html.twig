@@ -24,7 +24,7 @@
                 </li>
             </ul>
         </div>
-        <button class="navbar-toggle"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a class="logo" href="index.html">se7en</a>
+        <button class="navbar-toggle"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a class="logo" href="{{ path('homepage') }}">se7en</a>
     </div>
 
 
@@ -37,7 +37,7 @@
         <div class="nav-collapse">
             <ul class="nav">
                 <li>
-                    <a class="current" href="index.html"><i class="fa fa-tachometer fa-2x logo-menu" aria-hidden="true"></i>Dashboard</a>
+                    <a class="current" href="{{ path('homepage') }}"><i class="fa fa-tachometer fa-2x logo-menu" aria-hidden="true"></i>Dashboard</a>
                 </li>
                 <li class="dropdown">
                     <a data-toggle="dropdown" href="#">
@@ -56,10 +56,10 @@
                         <i class="fa fa-vcard-o fa-2x logo-menu" aria-hidden="true"></i></span>Annuaire<b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li>
-                            <a href="annuaire.html">Tous les commercants</a>
+                            <a href="{{ path('annuaire_index') }}">Tous les commercants</a>
                         </li>
                         <li>
-                            <a href="#">Ajouter</a>
+                            <a href="{{ path('annuaire_new') }}">Ajouter</a>
                         </li>
                         <li>
                             <a href="#">Catégories</a>

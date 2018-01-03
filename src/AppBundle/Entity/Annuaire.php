@@ -82,7 +82,7 @@ class Annuaire
     private $categorie;
 
     /**
-    * @ORM\OneToMany(targetEntity="AppBundle\Entity\AnnuaireBorne", mappedBy="annuaire")
+    * @ORM\OneToMany(targetEntity="AppBundle\Entity\AnnuaireBorne", mappedBy="annuaire", cascade={"persist"})
     */
     private $annuaireBorne;
     

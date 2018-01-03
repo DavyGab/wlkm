@@ -19,7 +19,7 @@ borne_new:
 borne_show:
     path:     /borne/{id}
     defaults: { _controller: AppBundle:Borne:show }
-    methods:    [DELETE]
+    methods:    [GET, POST]
 
 borne_edit:
     path:     /borne/{id}/edit

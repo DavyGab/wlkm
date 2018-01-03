@@ -6,7 +6,28 @@
         {% block stylesheets %}
             <link href="http://fonts.googleapis.com/css?family=Lato:100,300,400,700" media="all" rel="stylesheet" type="text/css" />
             {% stylesheets
-                'bundles/app/css/*'
+                'bundles/app/css/bootstrap.min.css'
+                'bundles/app/css/font-awesome.min.css'
+                'bundles/app/css/se7en-font.css'
+                'bundles/app/css/isotope.css'
+                'bundles/app/css/jquery.fancybox.css'
+                'bundles/app/css/fullcalendar.css'
+                'bundles/app/css/wizard.css'
+                'bundles/app/css/select2.css'
+                'bundles/app/css/morris.css'
+                'bundles/app/css/datatables.css'
+                'bundles/app/css/datepicker.css'
+                'bundles/app/css/timepicker.css'
+                'bundles/app/css/colorpicker.css'
+                'bundles/app/css/bootstrap-switch.css'
+                'bundles/app/css/bootstrap-editable.css'
+                'bundles/app/css/daterange-picker.css'
+                'bundles/app/css/typeahead.css'
+                'bundles/app/css/summernote.css'
+                'bundles/app/css/ladda-themeless.min.css'
+                'bundles/app/css/social-buttons.css'
+                'bundles/app/css/pygments.css'
+                'bundles/app/css/style.css'
                 filter='cssrewrite' output='css/main.css' %}
                 <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
             {% endstylesheets %}

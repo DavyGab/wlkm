@@ -40,10 +40,11 @@
                                     {{ form_widget(form.status, {'attr': {'class': 'select2able'}}) }}
                                 </div>
                             </div>
-                            <div class="form-group">
                                 <div class="col-md-3 col-md-offset-2">
                                     <button class="btn btn-primary" type="submit">Enregistrer</button>
                                 </div>
+                        {{ form_end(form) }}
+                            <div class="form-group">
                                 {% if action == "edait" %}
                                     <div class="col-md-3 col-md-offset-1">
                                         {{ form_start(delete_form) }}
@@ -52,7 +53,6 @@
                                     </div>
                                 {% endif %}
                             </div>
-                        {{ form_end(form) }}
                     </div>
                 </div>
             </div>

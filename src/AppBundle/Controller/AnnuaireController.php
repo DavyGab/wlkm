@@ -32,27 +32,24 @@ class AnnuaireController extends Controller
         $form->handleRequest($request);
 
         $em = $this->getDoctrine()->getManager();
-        $bornes = $em->getRepository('AppBundle:Borne')->findAll();
+//        $bornes = $em->getRepository('AppBundle:Borne')->findAll();
 
         if ($form->isSubmitted() && $form->isValid()) {
-
-            $bornesId = $request->get('bornes');
-            foreach ($bornesId as $borneId) {
-                $annuaireBorne = new AnnuaireBorne();
-                $annuaireBorne->setBorne($borneId);
+            foreach($annuaire->getAnnuaireBorne() as $annuaireBorne) {
                 $annuaireBorne->setAnnuaire($annuaire);
-                $em->persist($annuaireBorne);
+                if ($annuaireBorne->getBorne() == null) {
+                    $annuaire->removeAnnuaireBorne($annuaireBorne);
+                    $em->remove($annuaireBorne);
+                }
             }
-
-            $em->persist($annuaire);
             $em->flush();
 
-            return $this->redirectToRoute('annuaire_show', array('id' => $annuaire->getId()));
+            return $this->redirectToRoute('annuaire_edit', array('id' => $annuaire->getId()));
         }
 
         return $this->render('AppBundle:Annuaire:form.html.twig', array(
             'annuaire' => $annuaire,
-            'bornes' => $bornes,
+//            'bornes' => $bornes,
             'form' => $form->createView(),
             'action' => 'new'
         ));
@@ -75,13 +72,34 @@ class AnnuaireController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+            $em = $this->getDoctrine()->getManager();
+
+            $horaires = array();
+            $horaires['lun'] = $request->get('lun', '');
+            $horaires['mar'] = $request->get('mar', '');
+            $horaires['mer'] = $request->get('mer', '');
+            $horaires['jeu'] = $request->get('jeu', '');
+            $horaires['ven'] = $request->get('ven', '');
+            $horaires['sam'] = $request->get('sam', '');
+            $horaires['dim'] = $request->get('dim', '');
+
+            $annuaire->setHoraires(json_encode($horaires));
+
+            foreach($annuaire->getAnnuaireBorne() as $annuaireBorne) {
+                $annuaireBorne->setAnnuaire($annuaire);
+                if ($annuaireBorne->getBorne() == null) {
+                    $annuaire->removeAnnuaireBorne($annuaireBorne);
+                    $em->remove($annuaireBorne);
+                }
+            }
+            $em->flush();
 
             return $this->redirectToRoute('annuaire_edit', array('id' => $annuaire->getId()));
         }
-
+        
         return $this->render('AppBundle:Annuaire:form.html.twig', array(
             'annuaire' => $annuaire,
+            'horaires' => json_decode($annuaire->getHoraires()),
             'form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
             'action' => 'edit'

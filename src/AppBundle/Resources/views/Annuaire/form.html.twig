@@ -1,18 +1,5 @@
 {% extends 'AppBundle:Base:base.html.twig' %}
 
-{#{% block _annuaireBorne_entry_widget %}#}
-    {#<div class="row">#}
-        {#<div class="col-md-6">#}
-            {#{{ form_widget(form.borne, {'attr' : {'class' : 'select2 borneInput' }}) }}#}
-        {#</div>#}
-        {#<div class="col-md-4 col-md-offset-1">#}
-            {#{{ form_widget(form.distance, {'attr' : {'class' : 'form-control' }}) }}#}
-        {#</div>#}
-        {#<div class="deleteForm col-md-1">Sup</div>#}
-    {#</div>#}
-    {#{{ form_widget(form.annuaire, {'attr' : {'class' : 'hidden', 'value' : annuaire.id}}) }}#}
-{#{% endblock %}#}
-
 {% block body %}
     <div class="container main-content">
         <div class="row">
@@ -25,78 +12,237 @@
                         {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
                             <div class="form-group">
                                 <label class="control-label col-md-2">Nom</label>
-                                <div class="col-md-7">
+                                <div class="col-md-10">
                                     {{ form_widget(form.nom, {'attr': {'class': 'form-control'}}) }}
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-md-2">Adresse</label>
-                                <div class="col-md-7">
+                                <div class="col-md-10">
                                     {{ form_widget(form.adresse, {'attr': {'class': 'form-control'}}) }}
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-md-2">Ville</label>
-                                <div class="col-md-7">
+                                <div class="col-md-10">
                                     {{ form_widget(form.ville, {'attr': {'class': 'form-control'}}) }}
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-md-2">Code Postal</label>
-                                <div class="col-md-7">
+                                <div class="col-md-10">
                                     {{ form_widget(form.codePostal, {'attr': {'class': 'form-control'}}) }}
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label class="control-label col-md-2">Description</label>
-                                <div class="col-md-7">
+                                <div class="col-md-10">
                                     {{ form_widget(form.description, {'attr': {'class': 'form-control'}}) }}
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-md-2">Mis en avant</label>
-                                <div class="col-md-7">
-                                    {{ form_widget(form.inFront, {'attr': {'class': 'form-control'}}) }}
+                                <div class="col-md-10">
+                                    <div class="toggle-switch has-switch">
+                                        <div class="switch-off">
+                                            {{ form_widget(form.inFront, {'attr': {'checked': '', 'type': 'checkbox'}}) }}
+                                            <span class="switch-left">ON</span>
+                                            <label>&nbsp;</label>
+                                            <span class="switch-right">OFF</span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-md-2">Horaires</label>
-                                <div class="col-md-7">
-                                    {{ form_widget(form.horaires, {'attr': {'class': 'form-control'}}) }}
+                                <div class="col-md-10">
+                                    {#{{ form_widget(form.horaires, {'attr': {'class': 'form-control'}}) }}#}
+                                    <div class="col-md-6">
+                                        <label>Lundi</label>
+                                        {% if horaires.lun is defined %}
+                                            {% for h in horaires.lun %}
+                                            <div class="form-group">
+                                                <input class="form-control" type="text" placeholder="08:00-12:00" name="lun[]" value="{{ h }}">
+                                            </div>
+                                            {% endfor %}
+                                            {% if horaires.lun|length == 1 %}
+                                                <div class="form-group">
+                                                    <input class="form-control" type="text" placeholder="08:00-12:00" name="lun[]" value="">
+                                                </div>
+                                            {% endif %}
+                                        {% else %}
+                                            <div class="form-group">
+                                                <input class="form-control" type="text" placeholder="08:00-12:00" name="lun[]" value="">
+                                            </div>
+                                            <div class="form-group">
+                                                <input class="form-control" type="text" placeholder="08:00-12:00" name="lun[]" value="">
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label>Mardi</label>
+                                        {% if horaires.mar is defined %}
+                                            {% for h in horaires.mar %}
+                                            <div class="form-group">
+                                                <input class="form-control" type="text" placeholder="08:00-12:00" name="mar[]" value="{{ h }}">
+                                            </div>
+                                            {% endfor %}
+                                            {% if horaires.mar|length == 1 %}
+                                                <div class="form-group">
+                                                    <input class="form-control" type="text" placeholder="08:00-12:00" name="mar[]" value="">
+                                                </div>
+                                            {% endif %}
+                                        {% else %}
+                                            <div class="form-group">
+                                                <input class="form-control" type="text" placeholder="08:00-12:00" name="mar[]" value="">
+                                            </div>
+                                            <div class="form-group">
+                                                <input class="form-control" type="text" placeholder="08:00-12:00" name="mar[]" value="">
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label>Mercredi</label>
+                                        {% if horaires.mer is defined %}
+                                            {% for h in horaires.mer %}
+                                            <div class="form-group">
+                                                <input class="form-control" type="text" placeholder="08:00-12:00" name="mer[]" value="{{ h }}">
+                                            </div>
+                                            {% endfor %}
+                                            {% if horaires.mer|length == 1 %}
+                                                <div class="form-group">
+                                                    <input class="form-control" type="text" placeholder="08:00-12:00" name="mer[]" value="">
+                                                </div>
+                                            {% endif %}
+                                        {% else %}
+                                            <div class="form-group">
+                                                <input class="form-control" type="text" placeholder="08:00-12:00" name="mer[]" value="">
+                                            </div>
+                                            <div class="form-group">
+                                                <input class="form-control" type="text" placeholder="08:00-12:00" name="mer[]" value="">
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label>Jeudi</label>
+                                        {% if horaires.jeu is defined %}
+                                            {% for h in horaires.jeu %}
+                                            <div class="form-group">
+                                                <input class="form-control" type="text" placeholder="08:00-12:00" name="jeu[]" value="{{ h }}">
+                                            </div>
+                                            {% endfor %}
+                                            {% if horaires.jeu|length == 1 %}
+                                                <div class="form-group">
+                                                    <input class="form-control" type="text" placeholder="08:00-12:00" name="jeu[]" value="">
+                                                </div>
+                                            {% endif %}
+                                        {% else %}
+                                            <div class="form-group">
+                                                <input class="form-control" type="text" placeholder="08:00-12:00" name="jeu[]" value="">
+                                            </div>
+                                            <div class="form-group">
+                                                <input class="form-control" type="text" placeholder="08:00-12:00" name="jeu[]" value="">
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label>Vendredi</label>
+                                        {% if horaires.ven is defined %}
+                                            {% for h in horaires.ven %}
+                                            <div class="form-group">
+                                                <input class="form-control" type="text" placeholder="08:00-12:00" name="ven[]" value="{{ h }}">
+                                            </div>
+                                            {% endfor %}
+                                            {% if horaires.ven|length == 1 %}
+                                                <div class="form-group">
+                                                    <input class="form-control" type="text" placeholder="08:00-12:00" name="ven[]" value="">
+                                                </div>
+                                            {% endif %}
+                                        {% else %}
+                                            <div class="form-group">
+                                                <input class="form-control" type="text" placeholder="08:00-12:00" name="ven[]" value="">
+                                            </div>
+                                            <div class="form-group">
+                                                <input class="form-control" type="text" placeholder="08:00-12:00" name="ven[]" value="">
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label>Samedi</label>
+                                        {% if horaires.sam is defined %}
+                                            {% for h in horaires.sam %}
+                                            <div class="form-group">
+                                                <input class="form-control" type="text" placeholder="08:00-12:00" name="sam[]" value="{{ h }}">
+                                            </div>
+                                            {% endfor %}
+                                            {% if horaires.sam|length == 1 %}
+                                                <div class="form-group">
+                                                    <input class="form-control" type="text" placeholder="08:00-12:00" name="sam[]" value="">
+                                                </div>
+                                            {% endif %}
+                                        {% else %}
+                                            <div class="form-group">
+                                                <input class="form-control" type="text" placeholder="08:00-12:00" name="sam[]" value="">
+                                            </div>
+                                            <div class="form-group">
+                                                <input class="form-control" type="text" placeholder="08:00-12:00" name="sam[]" value="">
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label>Dimanche</label>
+                                        {% if horaires.dim is defined %}
+                                            {% for h in horaires.dim %}
+                                            <div class="form-group">
+                                                <input class="form-control" type="text" placeholder="08:00-12:00" name="dim[]" value="{{ h }}">
+                                            </div>
+                                            {% endfor %}
+                                            {% if horaires.dim|length == 1 %}
+                                                <div class="form-group">
+                                                    <input class="form-control" type="text" placeholder="08:00-12:00" name="dim[]" value="">
+                                                </div>
+                                            {% endif %}
+                                        {% else %}
+                                            <div class="form-group">
+                                                <input class="form-control" type="text" placeholder="08:00-12:00" name="dim[]" value="">
+                                            </div>
+                                            <div class="form-group">
+                                                <input class="form-control" type="text" placeholder="08:00-12:00" name="dim[]" value="">
+                                            </div>
+                                        {% endif %}
+                                    </div>
                                 </div>
                             </div>
-                            {#<div class="form-group">#}
-                                {#<label class="control-label col-md-2">Catégorie</label>#}
-                                {#<div class="col-md-7">#}
-                                    {#{{ form_widget(form.categorie, {'attr': {'class': 'form-control'}}) }}#}
-                                {#</div>#}
-                            {#</div>#}
                             <div class="form-group">
-                                <label class="control-label col-md-2">Borne</label>
-                                <div class="col-md-7">
-                                    <div class="row">
-                                        <div class="col-md-6">
+                                <label class="control-label col-md-2">Catégorie</label>
+                                <div class="col-md-10">
+                                    {{ form_widget(form.categorie, {'attr': {'class': 'select2'}}) }}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2">Bornes</label>
+                                <div class="col-md-10">
+                                    <div class="row hidden-sm hidden-xs">
+                                        <div class="col-xs-7">
                                             <span>Nom</span>
                                         </div>
-                                        <div class="col-md-4 col-md-offset-2">
+                                        <div class="col-xs-4">
                                             <span>Distance</span>
                                         </div>
                                     </div>
-                                        {#{% form_theme form _self %}#}
-                                    {#<div id="annuaireBorneDiv" data-prototype="{{ form_widget(form.annuaireBorne.vars.prototype)|e('html_attr') }}">#}
                                     <div id="annuaireBorneDiv" data-prototype="{% filter escape %}{% include 'AppBundle:AnnuaireBorne:AnnuaireBorneCollection.html.twig' with {'form': form.annuaireBorne.vars.prototype} %}{% endfilter %}">
                                         {% for annuaireBorne in form.annuaireBorne %}
                                             <div class="row">
-                                                <div class="col-md-7">
+                                                <div class="col-xs-7">
                                                     {{ form_widget(annuaireBorne.borne, {'attr' : {'class' : 'select2 borneInput' }}) }}
                                                 </div>
-                                                <div class="col-md-4">
+                                                <div class="col-xs-4">
                                                     {{ form_widget(annuaireBorne.distance, {'attr' : {'class' : 'form-control' }}) }}
                                                 </div>
-                                                <div class="deleteForm col-md-1">Sup</div>
+                                                <div class="deleteForm col-xs-1">Sup</div>
+                                                {{ form_widget(annuaireBorne.annuaire, {'attr' : {'class' : 'hidden', 'value' : annuaire.id ~ ""}}) }}
                                             </div>
-                                            {{ form_widget(annuaireBorne.annuaire, {'attr' : {'class' : 'hidden', 'value' : '{{ annuaire.id }}'}}) }}
                                         {% endfor %}
                                     </div>
                                     <div class="row">
@@ -132,27 +278,49 @@
     {{ parent() }}
     <script type="application/javascript">
         $('.select2').select2({
-          placeholder: "-- Select --",
-          width: "100%",
+            placeholder: "-- Select --",
+            width: "100%",
+            height: "34px",
         });
         $('#addForm').click(function(e) {
             e.preventDefault();
             var i = $('.borneInput').length;
             addAnnuuaireBorneForm(i);
         });
-        $('.deleteForm').click(function(e) {
+        $('.deleteForm').on('click', onDelete);
+        function onDelete(e) {
             e.preventDefault();
             $(this).parent().remove();
             return false;
-        });
+        }
         function addAnnuuaireBorneForm(index) {
+            if ($('.select2.borneInput').length > 0 && $('.select2.borneInput').length >= $('.select2.borneInput:first option').size()-1) {
+                return;
+            }
             $('.select2.borneInput').select2('destroy');
+            $('.borneInput').off('change', onchangeDisableOption).change();
+            $('.deleteForm').off('click', onDelete);
             var annuaireBorneForm = $("#annuaireBorneDiv").data('prototype');
             annuaireBorneForm = annuaireBorneForm.replace('__name__', index);
             $('#annuaireBorneDiv').append(annuaireBorneForm);
             $('.select2').select2({
               placeholder: "-- Select --",
               width: "100%",
+              height: "34px",
+            });
+            $('.deleteForm').on('click', onDelete);
+            $('.borneInput').on('change', onchangeDisableOption).change();
+        }
+
+        $('.borneInput').on('change', onchangeDisableOption).change();
+
+        function onchangeDisableOption() {
+            $('option').prop('disabled', false);
+            $('.borneInput').each(function() {
+                var val = this.value;
+                $('.borneInput').not(this).find('option').filter(function() {
+                    return this.value === val;
+                }).prop('disabled', true);
             });
         }
     </script>

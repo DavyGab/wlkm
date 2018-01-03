@@ -65,7 +65,7 @@ class Borne
     private $status;
 
     /**
-    * @ORM\OneToMany(targetEntity="AppBundle\Entity\AnnuaireBorne", mappedBy="borne")
+    * @ORM\OneToMany(targetEntity="AppBundle\Entity\AnnuaireBorne", mappedBy="borne", cascade={"persist"})
     */
     private $annuaireBorne;
     
