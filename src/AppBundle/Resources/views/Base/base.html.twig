@@ -5,15 +5,15 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         {% block stylesheets %}
             <link href="http://fonts.googleapis.com/css?family=Lato:100,300,400,700" media="all" rel="stylesheet" type="text/css" />
+                {#'bundles/app/css/bootstrap.min.css'#}
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" type="text/css" />
             {% stylesheets
-                'bundles/app/css/bootstrap.min.css'
                 'bundles/app/css/font-awesome.min.css'
                 'bundles/app/css/se7en-font.css'
                 'bundles/app/css/isotope.css'
                 'bundles/app/css/jquery.fancybox.css'
                 'bundles/app/css/fullcalendar.css'
                 'bundles/app/css/wizard.css'
-                'bundles/app/css/select2.css'
                 'bundles/app/css/morris.css'
                 'bundles/app/css/datatables.css'
                 'bundles/app/css/datepicker.css'
@@ -40,11 +40,58 @@
         {% include 'AppBundle:Base:navigation.html.twig' %}
         {% block body %}{% endblock %}
         </div>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        {#<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>#}
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+                {#'bundles/app/js/raphael.min.js'#}
+                {#'bundles/app/js/selectivizr-min.js'#}
+                {#'bundles/app/js/jquery.mousewheel.js'#}
+                {#'bundles/app/js/jquery.vmap.min.js'#}
+                {#'bundles/app/js/jquery.vmap.sampledata.js'#}
+                {#'bundles/app/js/jquery.vmap.world.js'#}
+                {#'bundles/app/js/jquery.bootstrap.wizard.js'#}
+                {#'bundles/app/js/fullcalendar.min.js'#}
+                {#'bundles/app/js/gcal.js'#}
+                {#'bundles/app/js/datatable-editable.js'#}
+                {#'bundles/app/js/jquery.easy-pie-chart.js'#}
+                {#'bundles/app/js/excanvas.min.js'#}
+                {#'bundles/app/js/jquery.isotope.min.js'#}
+                {#'bundles/app/js/isotope_extras.js'#}
+                {#'bundles/app/js/modernizr.custom.js'#}
+                {#'bundles/app/js/jquery.fancybox.pack.js'#}
+                {#'bundles/app/js/wysiwyg.js'#}
+                {#'bundles/app/js/typeahead.js'#}
+                {#'bundles/app/js/summernote.min.js'#}
+                {#'bundles/app/js/jquery.inputmask.min.js'#}
+                {#'bundles/app/js/jquery.validate.js'#}
+                {#'bundles/app/js/bootstrap-fileupload.js'#}
+                {#'bundles/app/js/bootstrap-datepicker.js'#}
+                {#'bundles/app/js/bootstrap-timepicker.js'#}
+                {#'bundles/app/js/bootstrap-colorpicker.js'#}
+                {#'bundles/app/js/typeahead.js'#}
+                {#'bundles/app/js/spin.min.js'#}
+                {#'bundles/app/js/ladda.min.js'#}
+                {#'bundles/app/js/moment.js'#}
+                {#'bundles/app/js/mockjax.js'#}
+                {#'bundles/app/js/bootstrap-editable.min.js'#}
+                {#'bundles/app/js/xeditable-demo-mock.js'#}
+                {#'bundles/app/js/xeditable-demo.js'#}
+                {#'bundles/app/js/address.js'#}
+                {#'bundles/app/js/daterange-picker.js'#}
+                {#'bundles/app/js/date.js'#}
+                {#'bundles/app/js/morris.min.js'#}
+                {#'bundles/app/js/skycons.js'#}
+                {#'bundles/app/js/fitvids.js'#}
+                {#'bundles/app/js/jquery.sparkline.min.js'#}
+                {#'bundles/app/js/dropzone.js'#}
+                {#'bundles/app/js/respond.js'#}
+                {#'bundles/app/js/bootstrap.min.js'#}
         {% block javascripts %}
             {% javascripts
-                'bundles/app/js/_jquery.js'
-                'bundles/app/js/bootstrap.min.js'
                 'bundles/app/js/jquery.dataTables.min.js'
+                'bundles/app/js/bootstrap-switch.min.js'
+                'bundles/app/js/styleswitcher.js'
                 'bundles/app/js/main.js'
 
                 filter='cssrewrite' output='js/main.js' %}
