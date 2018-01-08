@@ -60,6 +60,11 @@ annuaire_delete:
     defaults: { _controller: AppBundle:Annuaire:delete }
     methods:    [DELETE]
 
+upload_img_categorie_annuaire:
+    path:     /upload_img/categorie/annuaire
+    defaults: { _controller: AppBundle:CategoriesAnnuaire:uploadImage }
+    methods:    [GET, POST]
+
 ##
 ## INFOS UTILES
 ##

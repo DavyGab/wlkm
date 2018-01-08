@@ -26,7 +26,7 @@ class CategoriesAnnuaireController extends Controller
 
         $categoriesAnnuaires = $em->getRepository('AppBundle:CategoriesAnnuaire')->findAll();
 
-        return $this->render('categoriesannuaire/index.html.twig', array(
+        return $this->render('AppBundle:CategoriesAnnuaire:index.html.twig', array(
             'categoriesAnnuaires' => $categoriesAnnuaires,
         ));
     }
@@ -48,7 +48,7 @@ class CategoriesAnnuaireController extends Controller
             $em->persist($categoriesAnnuaire);
             $em->flush();
 
-            return $this->redirectToRoute('categoriesannuaire_show', array('id' => $categoriesAnnuaire->getId()));
+            return $this->redirectToRoute('AppBundle:CategoriesAnnuaire:form.html.twig', array('id' => $categoriesAnnuaire->getId()));
         }
 
         return $this->render('categoriesannuaire/new.html.twig', array(
@@ -67,7 +67,7 @@ class CategoriesAnnuaireController extends Controller
     {
         $deleteForm = $this->createDeleteForm($categoriesAnnuaire);
 
-        return $this->render('categoriesannuaire/show.html.twig', array(
+        return $this->render('AppBundle:CategoriesAnnuaire:form.html.twig', array(
             'categoriesAnnuaire' => $categoriesAnnuaire,
             'delete_form' => $deleteForm->createView(),
         ));
@@ -91,7 +91,7 @@ class CategoriesAnnuaireController extends Controller
             return $this->redirectToRoute('categoriesannuaire_edit', array('id' => $categoriesAnnuaire->getId()));
         }
 
-        return $this->render('categoriesannuaire/edit.html.twig', array(
+        return $this->render('AppBundle:CategoriesAnnuaire:form.html.twig', array(
             'categoriesAnnuaire' => $categoriesAnnuaire,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
@@ -132,5 +132,26 @@ class CategoriesAnnuaireController extends Controller
             ->setMethod('DELETE')
             ->getForm()
         ;
+    }
+
+    /**
+     */
+    private function uploadImage (Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $categoriesAnnuaire = new CategoriesAnnuaire();
+        $media = $request->files->get('file');
+
+        $categoriesAnnuaire->setFile($media);
+        $categoriesAnnuaire->setPath($media->getPathName());
+        $categoriesAnnuaire->setName($media->getClientOriginalName());
+        $categoriesAnnuaire->upload();
+        $em->persist($categoriesAnnuaire);
+        $em->flush();
+
+        //infos sur le document envoyé
+        //var_dump($request->files->get('file'));die;
+        return new JsonResponse(array('success' => true));
     }
 }
