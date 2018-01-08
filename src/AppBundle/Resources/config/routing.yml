@@ -60,6 +60,33 @@ annuaire_delete:
     defaults: { _controller: AppBundle:Annuaire:delete }
     methods:    [DELETE]
 
+## CATÉGORIES
+
+categorie_annuaire_index:
+    path:     /categorie_annuaire
+    defaults: { _controller: AppBundle:CategoriesAnnuaire:index }
+    methods:    [GET]
+
+categorie_annuaire_new:
+    path:     /categorie_annuaire/new
+    defaults: { _controller: AppBundle:CategoriesAnnuaire:new }
+    methods:    [GET, POST]
+
+categorie_annuaire_show:
+    path:     /categorie_annuaire/{id}
+    defaults: { _controller: AppBundle:CategoriesAnnuaire:show }
+    methods:    [DELETE]
+
+categorie_annuaire_edit:
+    path:     /categorie_annuaire/{id}/edit
+    defaults: { _controller: AppBundle:CategoriesAnnuaire:edit }
+    methods:    [GET, POST]
+
+categorie_annuaire_delete:
+    path:     /categorie_annuaire/{id}
+    defaults: { _controller: AppBundle:CategoriesAnnuaire:delete }
+    methods:    [DELETE]
+
 upload_img_categorie_annuaire:
     path:     /upload_img/categorie/annuaire
     defaults: { _controller: AppBundle:CategoriesAnnuaire:uploadImage }

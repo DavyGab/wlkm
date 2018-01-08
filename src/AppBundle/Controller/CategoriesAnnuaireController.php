@@ -3,9 +3,12 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\CategoriesAnnuaire;
+use AppBundle\Entity\Image;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Categoriesannuaire controller.
@@ -14,12 +17,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component
  */
 class CategoriesAnnuaireController extends Controller
 {
-    /**
-     * Lists all categoriesAnnuaire entities.
-     *
-     * @Route("/", name="categoriesannuaire_index")
-     * @Method("GET")
-     */
+
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
@@ -30,13 +28,7 @@ class CategoriesAnnuaireController extends Controller
             'categoriesAnnuaires' => $categoriesAnnuaires,
         ));
     }
-
-    /**
-     * Creates a new categoriesAnnuaire entity.
-     *
-     * @Route("/new", name="categoriesannuaire_new")
-     * @Method({"GET", "POST"})
-     */
+    
     public function newAction(Request $request)
     {
         $categoriesAnnuaire = new Categoriesannuaire();
@@ -48,21 +40,16 @@ class CategoriesAnnuaireController extends Controller
             $em->persist($categoriesAnnuaire);
             $em->flush();
 
-            return $this->redirectToRoute('AppBundle:CategoriesAnnuaire:form.html.twig', array('id' => $categoriesAnnuaire->getId()));
+            return $this->redirectToRoute('categorie_annuaire_edit', array('id' => $categoriesAnnuaire->getId()));
         }
 
         return $this->render('categoriesannuaire/new.html.twig', array(
             'categoriesAnnuaire' => $categoriesAnnuaire,
             'form' => $form->createView(),
+            'action' => 'new'
         ));
     }
-
-    /**
-     * Finds and displays a categoriesAnnuaire entity.
-     *
-     * @Route("/{id}", name="categoriesannuaire_show")
-     * @Method("GET")
-     */
+    
     public function showAction(CategoriesAnnuaire $categoriesAnnuaire)
     {
         $deleteForm = $this->createDeleteForm($categoriesAnnuaire);
@@ -72,13 +59,7 @@ class CategoriesAnnuaireController extends Controller
             'delete_form' => $deleteForm->createView(),
         ));
     }
-
-    /**
-     * Displays a form to edit an existing categoriesAnnuaire entity.
-     *
-     * @Route("/{id}/edit", name="categoriesannuaire_edit")
-     * @Method({"GET", "POST"})
-     */
+    
     public function editAction(Request $request, CategoriesAnnuaire $categoriesAnnuaire)
     {
         $deleteForm = $this->createDeleteForm($categoriesAnnuaire);
@@ -88,22 +69,17 @@ class CategoriesAnnuaireController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('categoriesannuaire_edit', array('id' => $categoriesAnnuaire->getId()));
+            return $this->redirectToRoute('categorie_annuaire_delete', array('id' => $categoriesAnnuaire->getId()));
         }
 
         return $this->render('AppBundle:CategoriesAnnuaire:form.html.twig', array(
             'categoriesAnnuaire' => $categoriesAnnuaire,
-            'edit_form' => $editForm->createView(),
+            'form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
+            'action' => 'edit'
         ));
     }
 
-    /**
-     * Deletes a categoriesAnnuaire entity.
-     *
-     * @Route("/{id}", name="categoriesannuaire_delete")
-     * @Method("DELETE")
-     */
     public function deleteAction(Request $request, CategoriesAnnuaire $categoriesAnnuaire)
     {
         $form = $this->createDeleteForm($categoriesAnnuaire);
@@ -128,30 +104,34 @@ class CategoriesAnnuaireController extends Controller
     private function createDeleteForm(CategoriesAnnuaire $categoriesAnnuaire)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('categoriesannuaire_delete', array('id' => $categoriesAnnuaire->getId())))
+            ->setAction($this->generateUrl('categorie_annuaire_delete', array('id' => $categoriesAnnuaire->getId())))
             ->setMethod('DELETE')
             ->getForm()
         ;
     }
 
     /**
+     * Image uploadé en ajax
      */
-    private function uploadImage (Request $request)
+    public function uploadImageAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $categoriesAnnuaire = new CategoriesAnnuaire();
+        $image = new Image();
         $media = $request->files->get('file');
 
-        $categoriesAnnuaire->setFile($media);
-        $categoriesAnnuaire->setPath($media->getPathName());
-        $categoriesAnnuaire->setName($media->getClientOriginalName());
-        $categoriesAnnuaire->upload();
-        $em->persist($categoriesAnnuaire);
-        $em->flush();
+        $image->setFile($media);
+        $image->setPath($media->getPathName());
+        $image->preUpload();
+        $image->upload();
 
         //infos sur le document envoyé
-        //var_dump($request->files->get('file'));die;
-        return new JsonResponse(array('success' => true));
+//        var_dump($request->files->get('file'));die;
+        return new JsonResponse(
+            array(
+                'success' => true,
+                'path' => $image->getPath()
+            )
+        );
     }
 }

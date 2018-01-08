@@ -14,12 +14,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component
  */
 class CategoriesAnnonceController extends Controller
 {
-    /**
-     * Lists all categoriesAnnonce entities.
-     *
-     * @Route("/", name="categoriesannonce_index")
-     * @Method("GET")
-     */
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
@@ -31,12 +25,6 @@ class CategoriesAnnonceController extends Controller
         ));
     }
 
-    /**
-     * Creates a new categoriesAnnonce entity.
-     *
-     * @Route("/new", name="categoriesannonce_new")
-     * @Method({"GET", "POST"})
-     */
     public function newAction(Request $request)
     {
         $categoriesAnnonce = new Categoriesannonce();
@@ -56,13 +44,7 @@ class CategoriesAnnonceController extends Controller
             'form' => $form->createView(),
         ));
     }
-
-    /**
-     * Finds and displays a categoriesAnnonce entity.
-     *
-     * @Route("/{id}", name="categoriesannonce_show")
-     * @Method("GET")
-     */
+    
     public function showAction(CategoriesAnnonce $categoriesAnnonce)
     {
         $deleteForm = $this->createDeleteForm($categoriesAnnonce);
@@ -72,13 +54,7 @@ class CategoriesAnnonceController extends Controller
             'delete_form' => $deleteForm->createView(),
         ));
     }
-
-    /**
-     * Displays a form to edit an existing categoriesAnnonce entity.
-     *
-     * @Route("/{id}/edit", name="categoriesannonce_edit")
-     * @Method({"GET", "POST"})
-     */
+    
     public function editAction(Request $request, CategoriesAnnonce $categoriesAnnonce)
     {
         $deleteForm = $this->createDeleteForm($categoriesAnnonce);
@@ -98,12 +74,6 @@ class CategoriesAnnonceController extends Controller
         ));
     }
 
-    /**
-     * Deletes a categoriesAnnonce entity.
-     *
-     * @Route("/{id}", name="categoriesannonce_delete")
-     * @Method("DELETE")
-     */
     public function deleteAction(Request $request, CategoriesAnnonce $categoriesAnnonce)
     {
         $form = $this->createDeleteForm($categoriesAnnonce);

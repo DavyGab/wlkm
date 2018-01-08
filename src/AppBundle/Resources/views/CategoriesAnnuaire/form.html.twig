@@ -6,7 +6,7 @@
             <div class="col-md-10 col-md-offset-1">
                 <div class="widget-container fluid-height clearfix">
                     <div class="heading">
-                        <i class="fa fa-bars"></i>Annuaire
+                        <i class="fa fa-bars"></i>Catégories
                     </div>
                     <div class="widget-content padded">
                         {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
@@ -19,6 +19,8 @@
 
                             <div class="dropzone my-dropzone" id="form_snippet_image" data-action="{{ path('upload_img_categorie_annuaire') }}">
                             </div>
+
+                            {{ form_widget(form.image, {'attr': {'class': 'hidden imgupload'}}) }}
 
                             <div class="form-group">
                                 <div class="col-md-3 col-md-offset-2">
@@ -51,5 +53,8 @@
         //je définis ma zone de drop grâce à l'ID de ma div citée plus haut.
         Dropzone.autoDiscover = false;
         var myDropzone = new Dropzone("#form_snippet_image", { url: _actionToDropZone });
+        myDropzone.on('success',function(e, response) {
+            $('.imgupload').val(response.path);
+        });
     </script>
 {% endblock %}
