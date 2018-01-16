@@ -13,7 +13,7 @@ class ImagesAnnuaireType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('url')->add('inFront')->add('borne')->add('annuaire');
+        $builder->add('url')->add('annuaire');
     }
     
     /**

@@ -37,13 +37,6 @@ class Annuaire
     private $adresse;
 
     /**
-     * @var boolean
-     *
-     * @ORM\Column(name="Annuaire_Is_In_Front", type="boolean", nullable=true)
-     */
-    private $inFront;
-
-    /**
      * @var string
      *
      * @ORM\Column(name="Annuaire_Horaires", type="string", length=0, nullable=true)
@@ -85,10 +78,16 @@ class Annuaire
     * @ORM\OneToMany(targetEntity="AppBundle\Entity\AnnuaireBorne", mappedBy="annuaire", cascade={"persist"})
     */
     private $annuaireBorne;
+
+    /**
+    * @ORM\OneToMany(targetEntity="AppBundle\Entity\ImagesAnnuaire", mappedBy="annuaire", cascade={"persist"})
+    */
+    private $annuaireImage;
     
     public function __construct()
     {
         $this->annuaireBorne = new ArrayCollection();
+        $this->annuaireImage = new ArrayCollection();
     }
 
     public function __toString() {
@@ -111,6 +110,24 @@ class Annuaire
     public function getAnnuaireBorne()
     {
         return $this->annuaireBorne;
+    }
+
+    public function addAnnuaireImage(ImagesAnnuaire $annuaireImage)
+    {
+        $this->annuaireImage[] = $annuaireImage;
+        $annuaireImage->setAnnuaire($this);
+
+        return $this;
+    }
+
+    public function removeAnnuaireImage(ImagesAnnuaire $annuaireImage)
+    {
+        $this->annuaireImage->removeElement($annuaireImage);
+    }
+
+    public function getAnnuaireImage()
+    {
+        return $this->annuaireImage;
     }
 
 
@@ -152,22 +169,6 @@ class Annuaire
     public function setAdresse($adresse)
     {
         $this->adresse = $adresse;
-    }
-
-    /**
-     * @return boolean
-     */
-    public function isInFront()
-    {
-        return $this->inFront;
-    }
-
-    /**
-     * @param boolean $inFront
-     */
-    public function setInFront($inFront)
-    {
-        $this->inFront = $inFront;
     }
 
     /**

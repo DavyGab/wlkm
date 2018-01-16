@@ -48,7 +48,7 @@ annuaire_new:
 annuaire_show:
     path:     /annuaire/{id}
     defaults: { _controller: AppBundle:Annuaire:show }
-    methods:    [DELETE]
+    methods:    [GET, POST]
 
 annuaire_edit:
     path:     /annuaire/{id}/edit
@@ -75,7 +75,7 @@ categorie_annuaire_new:
 categorie_annuaire_show:
     path:     /categorie_annuaire/{id}
     defaults: { _controller: AppBundle:CategoriesAnnuaire:show }
-    methods:    [DELETE]
+    methods:    [GET, POST]
 
 categorie_annuaire_edit:
     path:     /categorie_annuaire/{id}/edit
@@ -87,9 +87,9 @@ categorie_annuaire_delete:
     defaults: { _controller: AppBundle:CategoriesAnnuaire:delete }
     methods:    [DELETE]
 
-upload_img_categorie_annuaire:
-    path:     /upload_img/categorie/annuaire
-    defaults: { _controller: AppBundle:CategoriesAnnuaire:uploadImage }
+upload_img:
+    path:     /upload_img/
+    defaults: { _controller: AppBundle:Image:uploadImage }
     methods:    [GET, POST]
 
 ##
@@ -109,7 +109,7 @@ infosutiles_new:
 infosutiles_show:
     path:     /infosutiles/{id}
     defaults: { _controller: AppBundle:InfosUtiles:show }
-    methods:    [DELETE]
+    methods:    [GET, POST]
 
 infosutiles_edit:
     path:     /infosutiles/{id}/edit
@@ -137,7 +137,7 @@ petitesannonces_new:
 petitesannonces_show:
     path:     /petitesannonces/{id}
     defaults: { _controller: AppBundle:PetitesAnnonces:show }
-    methods:    [DELETE]
+    methods:    [GET, POST]
 
 petitesannonces_edit:
     path:     /petitesannonces/{id}/edit

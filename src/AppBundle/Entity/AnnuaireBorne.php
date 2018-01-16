@@ -23,22 +23,29 @@ class AnnuaireBorne
 
     /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Annuaire", inversedBy="annuaireBorne")
-     * @ORM\JoinColumn(name="Annuaire_ID", referencedColumnName="Annuaire_ID")
+     * @ORM\JoinColumn(name="Annuaire_Borne_Annuaire_ID", referencedColumnName="Annuaire_ID")
      */
     private $annuaire;
 
     /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Borne", inversedBy="annuaireBorne")
-     * @ORM\JoinColumn(name="Borne_ID", referencedColumnName="Borne_ID")
+     * @ORM\JoinColumn(name="Annuaire_Borne_Borne_ID", referencedColumnName="Borne_ID")
      */
     private $borne;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="Distance", type="integer", nullable=false)
+     * @ORM\Column(name="Annuaire_Borne_Distance", type="integer", nullable=false)
      */
     private $distance;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="Annuaire_Borne_In_Front", type="integer", nullable=false)
+     */
+    private $inFront;
 
     /**
      * @return int

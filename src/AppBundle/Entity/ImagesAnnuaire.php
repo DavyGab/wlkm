@@ -29,23 +29,6 @@ class ImagesAnnuaire
     private $url;
 
     /**
-     * @var boolean
-     *
-     * @ORM\Column(name="Images_Annuaire_Is_In_Front", type="boolean", nullable=true)
-     */
-    private $inFront;
-
-    /**
-     * @var \AppBundle\Entity\Borne
-     *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Borne")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="Images_Annuaire_ID_Borne", referencedColumnName="Borne_ID")
-     * })
-     */
-    private $borne;
-
-    /**
      * @var \AppBundle\Entity\Annuaire
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Annuaire")
@@ -77,38 +60,6 @@ class ImagesAnnuaire
     public function setUrl($url)
     {
         $this->url = $url;
-    }
-
-    /**
-     * @return boolean
-     */
-    public function isInFront()
-    {
-        return $this->inFront;
-    }
-
-    /**
-     * @param boolean $inFront
-     */
-    public function setInFront($inFront)
-    {
-        $this->inFront = $inFront;
-    }
-
-    /**
-     * @return ParcBornes
-     */
-    public function getBorne()
-    {
-        return $this->borne;
-    }
-
-    /**
-     * @param ParcBornes $borne
-     */
-    public function setBorne($borne)
-    {
-        $this->borne = $borne;
     }
 
     /**

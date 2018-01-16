@@ -53,13 +53,16 @@ class CategoriesAnnuaireController extends Controller
     public function showAction(CategoriesAnnuaire $categoriesAnnuaire)
     {
         $deleteForm = $this->createDeleteForm($categoriesAnnuaire);
+        $form = $this->createForm('AppBundle\Form\CategoriesAnnuaireType', $categoriesAnnuaire);
 
         return $this->render('AppBundle:CategoriesAnnuaire:form.html.twig', array(
             'categoriesAnnuaire' => $categoriesAnnuaire,
+            'form' => $form->createView(),
             'delete_form' => $deleteForm->createView(),
+            'action' => 'edit'
         ));
     }
-    
+
     public function editAction(Request $request, CategoriesAnnuaire $categoriesAnnuaire)
     {
         $deleteForm = $this->createDeleteForm($categoriesAnnuaire);
@@ -108,30 +111,5 @@ class CategoriesAnnuaireController extends Controller
             ->setMethod('DELETE')
             ->getForm()
         ;
-    }
-
-    /**
-     * Image uploadé en ajax
-     */
-    public function uploadImageAction(Request $request)
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $image = new Image();
-        $media = $request->files->get('file');
-
-        $image->setFile($media);
-        $image->setPath($media->getPathName());
-        $image->preUpload();
-        $image->upload();
-
-        //infos sur le document envoyé
-//        var_dump($request->files->get('file'));die;
-        return new JsonResponse(
-            array(
-                'success' => true,
-                'path' => $image->getPath()
-            )
-        );
     }
 }
