@@ -4,21 +4,14 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\PetitesAnnonces;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Request;
 
-/**
- * Petitesannonce controller.
- *
- * @Route("petitesannonces")
- */
+
 class PetitesAnnoncesController extends Controller
 {
     /**
      * Lists all petitesAnnonce entities.
      *
-     * @Route("/", name="petitesannonces_index")
-     * @Method("GET")
      */
     public function indexAction()
     {
@@ -26,20 +19,19 @@ class PetitesAnnoncesController extends Controller
 
         $petitesAnnonces = $em->getRepository('AppBundle:PetitesAnnonces')->findAll();
 
-        return $this->render('petitesannonces/index.html.twig', array(
+        return $this->render('AppBundle:PetitesAnnonces:index.html.twig', array(
             'petitesAnnonces' => $petitesAnnonces,
         ));
     }
 
     /**
      * Creates a new petitesAnnonce entity.
-     *
-     * @Route("/new", name="petitesannonces_new")
-     * @Method({"GET", "POST"})
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function newAction(Request $request)
     {
-        $petitesAnnonce = new Petitesannonce();
+        $petitesAnnonce = new PetitesAnnonces();
         $form = $this->createForm('AppBundle\Form\PetitesAnnoncesType', $petitesAnnonce);
         $form->handleRequest($request);
 
@@ -48,36 +40,37 @@ class PetitesAnnoncesController extends Controller
             $em->persist($petitesAnnonce);
             $em->flush();
 
-            return $this->redirectToRoute('petitesannonces_show', array('id' => $petitesAnnonce->getId()));
+            return $this->redirectToRoute('petitesannonces_edit', array('id' => $petitesAnnonce->getId()));
         }
 
-        return $this->render('petitesannonces/new.html.twig', array(
+        return $this->render('AppBundle:PetitesAnnonces:form.html.twig', array(
             'petitesAnnonce' => $petitesAnnonce,
             'form' => $form->createView(),
+            'action' => 'new'
         ));
     }
 
     /**
      * Finds and displays a petitesAnnonce entity.
-     *
-     * @Route("/{id}", name="petitesannonces_show")
-     * @Method("GET")
+     * @param PetitesAnnonces $petitesAnnonce
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function showAction(PetitesAnnonces $petitesAnnonce)
     {
         $deleteForm = $this->createDeleteForm($petitesAnnonce);
 
-        return $this->render('petitesannonces/show.html.twig', array(
+        return $this->render('AppBundle:PetitesAnnonces:form.html.twig', array(
             'petitesAnnonce' => $petitesAnnonce,
             'delete_form' => $deleteForm->createView(),
+            'action' => 'edit'
         ));
     }
 
     /**
      * Displays a form to edit an existing petitesAnnonce entity.
-     *
-     * @Route("/{id}/edit", name="petitesannonces_edit")
-     * @Method({"GET", "POST"})
+     * @param Request $request
+     * @param PetitesAnnonces $petitesAnnonce
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function editAction(Request $request, PetitesAnnonces $petitesAnnonce)
     {
@@ -91,18 +84,19 @@ class PetitesAnnoncesController extends Controller
             return $this->redirectToRoute('petitesannonces_edit', array('id' => $petitesAnnonce->getId()));
         }
 
-        return $this->render('petitesannonces/edit.html.twig', array(
+        return $this->render('AppBundle:PetitesAnnonces:form.html.twig', array(
             'petitesAnnonce' => $petitesAnnonce,
-            'edit_form' => $editForm->createView(),
+            'form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
+            'action' => 'edit'
         ));
     }
 
     /**
      * Deletes a petitesAnnonce entity.
-     *
-     * @Route("/{id}", name="petitesannonces_delete")
-     * @Method("DELETE")
+     * @param Request $request
+     * @param PetitesAnnonces $petitesAnnonce
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function deleteAction(Request $request, PetitesAnnonces $petitesAnnonce)
     {

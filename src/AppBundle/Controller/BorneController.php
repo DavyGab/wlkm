@@ -37,7 +37,7 @@ class BorneController extends Controller
             $em->persist($borne);
             $em->flush();
 
-            return $this->redirectToRoute('borne_show', array('id' => $borne->getId()));
+            return $this->redirectToRoute('borne_edit', array('id' => $borne->getId()));
         }
 
         return $this->render('AppBundle:Borne:form.html.twig', array(

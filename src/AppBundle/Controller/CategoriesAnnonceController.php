@@ -20,14 +20,14 @@ class CategoriesAnnonceController extends Controller
 
         $categoriesAnnonces = $em->getRepository('AppBundle:CategoriesAnnonce')->findAll();
 
-        return $this->render('categoriesannonce/index.html.twig', array(
-            'categoriesAnnonces' => $categoriesAnnonces,
+        return $this->render('AppBundle:CategoriesAnnonce:index.html.twig', array(
+            'categories' => $categoriesAnnonces,
         ));
     }
 
     public function newAction(Request $request)
     {
-        $categoriesAnnonce = new Categoriesannonce();
+        $categoriesAnnonce = new CategoriesAnnonce();
         $form = $this->createForm('AppBundle\Form\CategoriesAnnonceType', $categoriesAnnonce);
         $form->handleRequest($request);
 
@@ -36,12 +36,13 @@ class CategoriesAnnonceController extends Controller
             $em->persist($categoriesAnnonce);
             $em->flush();
 
-            return $this->redirectToRoute('categoriesannonce_show', array('id' => $categoriesAnnonce->getId()));
+            return $this->redirectToRoute('categorie_annonce_show', array('id' => $categoriesAnnonce->getId()));
         }
 
-        return $this->render('categoriesannonce/new.html.twig', array(
+        return $this->render('AppBundle:CategoriesAnnonce:form.html.twig', array(
             'categoriesAnnonce' => $categoriesAnnonce,
             'form' => $form->createView(),
+            'action' => 'new'
         ));
     }
     
@@ -49,9 +50,10 @@ class CategoriesAnnonceController extends Controller
     {
         $deleteForm = $this->createDeleteForm($categoriesAnnonce);
 
-        return $this->render('categoriesannonce/show.html.twig', array(
+        return $this->render('AppBundle:CategoriesAnnonce:form.html.twig', array(
             'categoriesAnnonce' => $categoriesAnnonce,
-            'delete_form' => $deleteForm->createView(),
+            'form' => $deleteForm->createView(),
+            'action' => 'edit'
         ));
     }
     
@@ -64,13 +66,14 @@ class CategoriesAnnonceController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('categoriesannonce_edit', array('id' => $categoriesAnnonce->getId()));
+            return $this->redirectToRoute('categorie_annonce_edit', array('id' => $categoriesAnnonce->getId()));
         }
 
-        return $this->render('categoriesannonce/edit.html.twig', array(
+        return $this->render('AppBundle:CategoriesAnnonce:form.html.twig', array(
             'categoriesAnnonce' => $categoriesAnnonce,
-            'edit_form' => $editForm->createView(),
+            'form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
+            'action' => 'edit'
         ));
     }
 
@@ -98,7 +101,7 @@ class CategoriesAnnonceController extends Controller
     private function createDeleteForm(CategoriesAnnonce $categoriesAnnonce)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('categoriesannonce_delete', array('id' => $categoriesAnnonce->getId())))
+            ->setAction($this->generateUrl('categorie_annonce_delete', array('id' => $categoriesAnnonce->getId())))
             ->setMethod('DELETE')
             ->getForm()
         ;

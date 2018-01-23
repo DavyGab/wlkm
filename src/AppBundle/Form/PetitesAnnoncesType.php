@@ -3,6 +3,7 @@
 namespace AppBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -13,7 +14,13 @@ class PetitesAnnoncesType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('titre')->add('annonce')->add('telephone')->add('dateHeure')->add('prix')->add('nombreVues')->add('categorie')->add('borne');
+        $builder
+            ->add('titre')
+            ->add('annonce', TextareaType::class)
+            ->add('telephone')
+            ->add('prix')
+            ->add('categorie')
+            ->add('borne');
     }
     
     /**

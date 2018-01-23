@@ -83,6 +83,10 @@ class PetitesAnnonces
      */
     private $borne;
 
+    function _construct() {
+        $this->dateHeure = date('c');
+    }
+
     /**
      * @return int
      */

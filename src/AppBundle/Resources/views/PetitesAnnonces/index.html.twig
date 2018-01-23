@@ -1,0 +1,69 @@
+{% extends 'AppBundle:Base:base.html.twig' %}
+
+{% block body %}
+    <div class="container main-content">
+            <div class="row">
+                <div class="col-md-10 col-md-offset-1">
+                    <div class="widget-container fluid-height clearfix">
+                        <div class="heading">
+                            <i class="fa fa-table"></i>Liste des petites annonces
+                        </div>
+                        <div class="widget-content padded clearfix">
+                            <table class="table table-bordered table-striped" id="dataTable1">
+                                <thead>
+                                    <th class="check-header">
+                                        <label><input id="checkAll" name="checkAll" type="checkbox"><span></span></label>
+                                    </th>
+                                    <th> Titre </th>
+                                    <th> Date </th>
+                                    <th> Prix </th>
+                                    {#<th> Catégorie </th>#}
+                                    <th> Borne </th>
+                                    <th> Nombre de vues </th>
+                                    <th> Action </th>
+                                </thead>
+                                <tbody>
+                                {% for petitesAnnonce in petitesAnnonces %}
+                                    <tr>
+                                        <td class="check ">
+                                            <label><input name="optionsRadios1" type="checkbox" value="option1"><span></span></label>
+                                        </td>
+                                        <td> {{ petitesAnnonce.titre }} </td>
+                                        <td> {{ petitesAnnonce.dateHeure |date("d/m/Y") }} </td>
+                                        <td> {{ petitesAnnonce.prix }} </td>
+                                        {#<td> {{ petitesAnnonce.categorie }} </td>#}
+                                        <td> {{ petitesAnnonce.borne }} </td>
+                                        {#<td>#}
+                                            {#<span class="label label-warning">Validé</span>#}
+                                        {#</td>#}
+                                        <td> {% if petitesAnnonce.nombreVues is null %}
+                                                0
+                                            {% else %}
+                                                {{ petitesAnnonce.nombreVues }}
+                                            {% endif %}
+                                        </td>
+                                        <td class="actions">
+                                            <div class="action-buttons">
+                                                <a class="table-actions" href="{{ path('petitesannonces_show', { 'id': petitesAnnonce.id }) }}"><i class="fa fa-eye"></i></a>
+                                                <a class="table-actions" href="{{ path('petitesannonces_edit', { 'id': petitesAnnonce.id }) }}"><i class="fa fa-pencil"></i></a>
+                                                <a class="table-actions" href="{{ path('petitesannonces_delete', { 'id': petitesAnnonce.id }) }}"><i class="fa fa-trash-o"></i></a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+{% endblock %}
+
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="application/javascript">
+        $('.dataTable1').dataTable();
+    </script>
+{% endblock %}

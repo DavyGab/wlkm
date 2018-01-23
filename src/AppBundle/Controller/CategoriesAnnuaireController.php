@@ -25,13 +25,13 @@ class CategoriesAnnuaireController extends Controller
         $categoriesAnnuaires = $em->getRepository('AppBundle:CategoriesAnnuaire')->findAll();
 
         return $this->render('AppBundle:CategoriesAnnuaire:index.html.twig', array(
-            'categoriesAnnuaires' => $categoriesAnnuaires,
+            'categories' => $categoriesAnnuaires,
         ));
     }
     
     public function newAction(Request $request)
     {
-        $categoriesAnnuaire = new Categoriesannuaire();
+        $categoriesAnnuaire = new CategoriesAnnuaire();
         $form = $this->createForm('AppBundle\Form\CategoriesAnnuaireType', $categoriesAnnuaire);
         $form->handleRequest($request);
 

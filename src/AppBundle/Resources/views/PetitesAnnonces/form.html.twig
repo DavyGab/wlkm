@@ -1,0 +1,92 @@
+{% extends 'AppBundle:Base:base.html.twig' %}
+
+{% block body %}
+    <div class="container main-content">
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+                <div class="widget-container fluid-height clearfix">
+                    <div class="heading">
+                        <i class="fa fa-bars"></i>Petite Annonce
+                    </div>
+                    <div class="widget-content padded">
+                        {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+                            {% if action == 'edit' %}
+                                <div class="form-group">
+                                    <div class="alert alert-info">Nombre de vues :
+                                        {% if petitesAnnonce.nombreVues is null %}
+                                            0
+                                        {% else %}
+                                            {{ petitesAnnonce.nombreVues }}
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            {% endif %}
+                            <div class="form-group">
+                                <label class="control-label col-md-2">Titre</label>
+                                <div class="col-md-10">
+                                    {{ form_widget(form.titre, {'attr': {'class': 'form-control'}}) }}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2">Description</label>
+                                <div class="col-md-10">
+                                    {{ form_widget(form.annonce, {'attr': {'class': 'form-control', 'style': 'height:200px'}}) }}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2">Téléphone</label>
+                                <div class="col-md-10">
+                                    {{ form_widget(form.telephone, {'attr': {'class': 'form-control'}}) }}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2">Prix</label>
+                                <div class="col-md-10">
+                                    {{ form_widget(form.prix, {'attr': {'class': 'form-control'}}) }}
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-md-2">Categorie</label>
+                                <div class="col-md-10">
+                                    {{ form_widget(form.categorie, {'attr': {'class': 'select2'}}) }}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2">Borne</label>
+                                <div class="col-md-10">
+                                    {{ form_widget(form.borne, {'attr': {'class': 'select2'}}) }}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-3 col-md-offset-2">
+                                    <button class="btn btn-primary" type="submit">Enregistrer</button>
+                                </div>
+                            </div>
+                        {{ form_end(form) }}
+                        {% if action == "edit" %}
+                            <div class="form-group">
+                                <div class="col-md-3 col-md-offset-9">
+                                    {{ form_start(delete_form) }}
+                                    <button class="btn btn-danger text-right" type="submit">Supprimer</button>
+                                    {{ form_end(delete_form) }}
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="application/javascript">
+        $('.select2').select2({
+            placeholder: "-- Select --",
+            width: "100%",
+            height: "34px",
+        });
+    </script>
+{% endblock %}

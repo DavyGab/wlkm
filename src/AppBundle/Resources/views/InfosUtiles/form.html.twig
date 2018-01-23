@@ -2,18 +2,6 @@
 
 {% form_theme form _self %}
 
-{% block _annuaire_borne_entry_widget %}
-    <div class="row">
-        <div class="col-md-6">
-            {{ form_widget(form.borne, {'attr' : {'class' : 'select2 borneInput' }}) }}
-        </div>
-        <div class="col-md-4 col-md-offset-1">
-            {{ form_widget(form.distance, {'attr' : {'class' : 'form-control' }}) }}
-        </div>
-        <div class="deleteForm col-md-1">Sup</div>
-    </div>
-    {{ form_widget(form.annuaire, {'attr' : {'class' : 'hidden', 'value' : '{{ annuaire.id }}'}}) }}
-{% endblock %}
 
 {% block body %}
     <div class="container main-content">
@@ -26,84 +14,34 @@
                     <div class="widget-content padded">
                         {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
                             <div class="form-group">
-                                <label class="control-label col-md-2">Description</label>
+                                <label class="control-label col-md-2">Titre</label>
+                                <div class="col-md-7">
+                                    {{ form_widget(form.titre, {'attr': {'class': 'form-control'}}) }}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2">Texte</label>
                                 <div class="col-md-7">
                                     {{ form_widget(form.texte, {'attr': {'class': 'form-control'}}) }}
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-md-2">Date</label>
+                                <label class="control-label col-md-2">Type</label>
                                 <div class="col-md-7">
-                                    {{ form_widget(form.dateHeure, {'attr': {'class': 'form-control'}}) }}
+                                    {{ form_widget(form.type, {'attr': {'class': 'select2'}}) }}
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-md-2">Ville</label>
+                                <label class="control-label col-md-2">Borne</label>
                                 <div class="col-md-7">
-                                    {{ form_widget(form.ville, {'attr': {'class': 'form-control'}}) }}
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-md-2">Code Postal</label>
-                                <div class="col-md-7">
-                                    {{ form_widget(form.codePostal, {'attr': {'class': 'form-control'}}) }}
+                                    {{ form_widget(form.borne, {'attr': {'class': 'select2'}}) }}
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label class="control-label col-md-2">Description</label>
+                                <label class="control-label col-md-2">Status</label>
                                 <div class="col-md-7">
-                                    {{ form_widget(form.description, {'attr': {'class': 'form-control'}}) }}
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-md-2">Mis en avant</label>
-                                <div class="col-md-7">
-                                    {{ form_widget(form.inFront, {'attr': {'class': 'form-control'}}) }}
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-md-2">Horaires</label>
-                                <div class="col-md-7">
-                                    {{ form_widget(form.horaires, {'attr': {'class': 'form-control'}}) }}
-                                </div>
-                            </div>
-                            {#<div class="form-group">#}
-                                {#<label class="control-label col-md-2">Catégorie</label>#}
-                                {#<div class="col-md-7">#}
-                                    {#{{ form_widget(form.categorie, {'attr': {'class': 'form-control'}}) }}#}
-                                {#</div>#}
-                            {#</div>#}
-                            <div class="form-group">
-                                <label class="control-label col-md-2">Borne</label>
-                                <div class="col-md-7">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <span>Nom</span>
-                                        </div>
-                                        <div class="col-md-4 col-md-offset-2">
-                                            <span>Distance</span>
-                                        </div>
-                                    </div>
-                                    <div id="annuaireBorneDiv" data-prototype="{{ form_widget(form.annuaireBorne.vars.prototype)|e('html_attr') }}">
-                                        {% for annuaireBorne in form.annuaireBorne %}
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    {{ form_widget(annuaireBorne.borne, {'attr' : {'class' : 'select2 borneInput' }}) }}
-                                                </div>
-                                                <div class="col-md-4 col-md-offset-1">
-                                                    {{ form_widget(annuaireBorne.distance, {'attr' : {'class' : 'form-control' }}) }}
-                                                </div>
-                                                <div class="deleteForm col-md-1">Sup</div>
-                                            </div>
-                                            {{ form_widget(annuaireBorne.annuaire, {'attr' : {'class' : 'hidden', 'value' : '{{ annuaire.id }}'}}) }}
-                                        {% endfor %}
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-12 text-center">
-                                            <button class="btn btn-default" id="addForm">Ajouter</button>
-                                        </div>
-                                    </div>
+                                    {{ form_widget(form.status, {'attr': {'class': 'form-control'}}) }}
                                 </div>
                             </div>
                             <div class="form-group">
@@ -131,20 +69,10 @@
 {% block javascripts %}
     {{ parent() }}
     <script type="application/javascript">
-        $('#addForm').click(function(e) {
-            e.preventDefault();
-            var i = $('.borneInput').length;
-            addAnnuuaireBorneForm(i);
+        $('.select2').select2({
+            placeholder: "-- Select --",
+            width: "100%",
+            height: "34px",
         });
-        $('.deleteForm').click(function(e) {
-            e.preventDefault();
-            $(this).parent().remove();
-            return false;
-        });
-        function addAnnuuaireBorneForm(index) {
-            var annuaireBorneForm = $("{{ form_widget(annuaireBorne.vars.prototype)|e('html_attr') }}");
-            annuaireBorneForm = annuaireBorneForm.replace('__name__', index);
-            $('#annuaireBorneDiv').appendChild(annuaireBorneForm);
-        }
     </script>
 {% endblock %}

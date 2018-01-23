@@ -1,0 +1,60 @@
+{% extends 'AppBundle:Base:base.html.twig' %}
+
+{% block body %}
+    <div class="container main-content">
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+                <div class="widget-container fluid-height clearfix">
+                    <div class="heading">
+                        <i class="fa fa-bars"></i>Catégories
+                    </div>
+                    <div class="widget-content padded">
+                        {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+                            <div class="form-group">
+                                <label class="control-label col-md-2">Nom</label>
+                                <div class="col-md-10">
+                                    {{ form_widget(form.nom, {'attr': {'class': 'form-control'}}) }}
+                                </div>
+                            </div>
+
+                            <div class="dropzone my-dropzone" id="form_snippet_image" data-action="{{ path('upload_img') }}">
+                            </div>
+
+                            {{ form_widget(form.image, {'attr': {'class': 'hidden imgupload'}}) }}
+
+                            <div class="form-group">
+                                <div class="col-md-3 col-md-offset-2">
+                                    <button class="btn btn-primary" type="submit">Enregistrer</button>
+                                </div>
+                            </div>
+                        {{ form_end(form) }}
+                        {% if action == "edit" %}
+                            <div class="form-group">
+                                <div class="col-md-3 col-md-offset-9">
+                                    {{ form_start(delete_form) }}
+                                    <button class="btn btn-danger text-right" type="submit">Supprimer</button>
+                                    {{ form_end(delete_form) }}
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="application/javascript">
+        //je récupère l'action où sera traité l'upload en PHP
+        var _actionToDropZone = $("#form_snippet_image").data('action');
+
+        //je définis ma zone de drop grâce à l'ID de ma div citée plus haut.
+        Dropzone.autoDiscover = false;
+        var myDropzone = new Dropzone("#form_snippet_image", { url: _actionToDropZone });
+        myDropzone.on('success',function(e, response) {
+            $('.imgupload').val(response.path);
+        });
+    </script>
+{% endblock %}

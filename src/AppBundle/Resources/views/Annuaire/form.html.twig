@@ -242,15 +242,9 @@
                             <div class="form-group">
                                 <label class="control-label col-md-2">Images</label>
                                 <div class="col-md-10">
-                                    <div class="dropzone my-dropzone" id="form_snippet_image" data-action="{{ path('upload_img') }}">
-                                </div>
-                                <div id="annuaireImages" class="hidden" data-prototype="{% filter escape %}{% include 'AppBundle:AnnuaireImage:AnnuaireImageCollection.html.twig' with {'form': form.annuaireImage.vars.prototype} %}{% endfilter %}">
-                                    {% for annuaireImage in form.annuaireImage %}
-                                        <div class="hidden imgUploaded">
-                                            {{ form_widget(annuaireImage.url, {'attr': {'class': 'hidden'}}) }}
-                                            {{ form_widget(annuaireImage.annuaire, {'attr': {'class': 'hidden'}}) }}
-                                        </div>
-                                    {% endfor %}
+                                    <div class="file-loading">
+                                        <input id="input-img" name="input-img[]" type="file" multiple>
+                                    </div>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -325,33 +319,15 @@
                 }).prop('disabled', true);
             });
         }
-        
 
-        //je récupère l'action où sera traité l'upload en PHP
-        var _actionToDropZone = $("#form_snippet_image").data('action');
 
-        //je définis ma zone de drop grâce à l'ID de ma div citée plus haut.
-        Dropzone.autoDiscover = false;
-        var myDropzone = new Dropzone("#form_snippet_image", { url: _actionToDropZone });
-        myDropzone.on('success',function(e, response) {
-            var i = $('.imgUploaded').length;
-            addAnnuuaireImageForm(i, response.path);
+        $("#input-img").fileinput({
+            initialPreview: ['http://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/FullMoon2010.jpg/631px-FullMoon2010.jpg'],
+            initialPreviewAsData: true,
+            showUpload: false,
+            maxFileCount: 10,
+            mainClass: "input-group-sm",
+            allowedFileExtensions: ["jpg", "jpeg", "png"]
         });
-
-
-        function addAnnuuaireImageForm(index, url_path) {
-            var annuaireImageForm = $("#annuaireImages").data('prototype');
-            annuaireImageForm = replaceAll(annuaireImageForm, '__name__', index);
-            annuaireImageForm = replaceAll(annuaireImageForm, '__path__', url_path);
-            $('#annuaireImages').append(annuaireImageForm);
-        }
-
-        function replaceAll(chaine, chaine_a_remplacer, chaine_par){
-            var re = new RegExp(chaine_a_remplacer);
-            while(chaine.match(re)) {
-                chaine = chaine.replace(chaine_a_remplacer, chaine_par)
-            }
-            return chaine;
-        }
     </script>
 {% endblock %}

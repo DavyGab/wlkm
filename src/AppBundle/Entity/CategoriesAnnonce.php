@@ -36,6 +36,14 @@ class CategoriesAnnonce
     private $image;
 
     /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->nom;
+    }
+
+    /**
      * @return int
      */
     public function getId()

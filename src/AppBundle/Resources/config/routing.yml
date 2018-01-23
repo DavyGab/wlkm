@@ -121,6 +121,32 @@ infosutiles_delete:
     defaults: { _controller: AppBundle:InfosUtiles:delete }
     methods:    [DELETE]
 
+
+type_infos_index:
+    path:     /type_infos
+    defaults: { _controller: AppBundle:CategoriesAnnonce:index }
+    methods:    [GET]
+
+type_infos_new:
+    path:     /type_infos/new
+    defaults: { _controller: AppBundle:CategoriesAnnonce:new }
+    methods:    [GET, POST]
+
+type_infos_show:
+    path:     /type_infos/{id}
+    defaults: { _controller: AppBundle:CategoriesAnnonce:show }
+    methods:    [GET, POST]
+
+type_infos_edit:
+    path:     /type_infos/{id}/edit
+    defaults: { _controller: AppBundle:CategoriesAnnonce:edit }
+    methods:    [GET, POST]
+
+type_infos_delete:
+    path:     /type_infos/{id}
+    defaults: { _controller: AppBundle:CategoriesAnnonce:delete }
+    methods:    [DELETE]
+
 ##
 ## PETITES ANNONCES
 ##
@@ -147,4 +173,31 @@ petitesannonces_edit:
 petitesannonces_delete:
     path:     /petitesannonces/{id}
     defaults: { _controller: AppBundle:PetitesAnnonces:delete }
+    methods:    [DELETE]
+
+
+
+categorie_annonce_index:
+    path:     /categorie_annonce
+    defaults: { _controller: AppBundle:CategoriesAnnonce:index }
+    methods:    [GET]
+
+categorie_annonce_new:
+    path:     /categorie_annonce/new
+    defaults: { _controller: AppBundle:CategoriesAnnonce:new }
+    methods:    [GET, POST]
+
+categorie_annonce_show:
+    path:     /categorie_annonce/{id}
+    defaults: { _controller: AppBundle:CategoriesAnnonce:show }
+    methods:    [GET, POST]
+
+categorie_annonce_edit:
+    path:     /categorie_annonce/{id}/edit
+    defaults: { _controller: AppBundle:CategoriesAnnonce:edit }
+    methods:    [GET, POST]
+
+categorie_annonce_delete:
+    path:     /categorie_annonce/{id}
+    defaults: { _controller: AppBundle:CategoriesAnnonce:delete }
     methods:    [DELETE]

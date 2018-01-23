@@ -24,6 +24,13 @@ class InfosUtiles
     /**
      * @var string
      *
+     * @ORM\Column(name="Infos_Utiles_Titre", type="string", length=50, nullable=false)
+     */
+    private $titre;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="Infos_Utiles_Texte", type="string", length=200, nullable=true)
      */
     private $texte;
@@ -158,6 +165,22 @@ class InfosUtiles
     {
         $this->borne = $borne;
         return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTitre()
+    {
+        return $this->titre;
+    }
+
+    /**
+     * @param string $titre
+     */
+    public function setTitre($titre)
+    {
+        $this->titre = $titre;
     }
 
 

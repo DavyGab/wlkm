@@ -36,6 +36,13 @@ class TypesInfosUtiles
     private $image;
 
     /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->titre;
+    }
+    /**
      * @return int
      */
     public function getId()

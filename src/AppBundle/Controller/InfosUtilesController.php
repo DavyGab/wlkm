@@ -25,7 +25,7 @@ class InfosUtilesController extends Controller
 
     public function newAction(Request $request)
     {
-        $infosUtile = new Infosutile();
+        $infosUtile = new Infosutiles();
         $form = $this->createForm('AppBundle\Form\InfosUtilesType', $infosUtile);
         $form->handleRequest($request);
 
@@ -40,6 +40,7 @@ class InfosUtilesController extends Controller
         return $this->render('AppBundle:InfosUtiles:form.html.twig', array(
             'infosUtile' => $infosUtile,
             'form' => $form->createView(),
+            'action' => 'new'
         ));
     }
 
@@ -50,6 +51,7 @@ class InfosUtilesController extends Controller
         return $this->render('AppBundle:InfosUtiles:show.html.twig', array(
             'infosUtile' => $infosUtile,
             'delete_form' => $deleteForm->createView(),
+            'action' => 'edit'
         ));
     }
 
@@ -67,8 +69,9 @@ class InfosUtilesController extends Controller
 
         return $this->render('AppBundle:InfosUtiles:form.html.twig', array(
             'infosUtile' => $infosUtile,
-            'edit_form' => $editForm->createView(),
+            'form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
+            'action' => 'edit'
         ));
     }
 
