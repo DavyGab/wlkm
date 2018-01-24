@@ -242,10 +242,12 @@
                             <div class="form-group">
                                 <label class="control-label col-md-2">Images</label>
                                 <div class="col-md-10">
-                                    <div class="file-loading">
-                                        <input id="input-img" name="input-img[]" type="file" multiple>
+                                    <div class="dropzone my-dropzone" id="form_snippet_image">
                                     </div>
                                 </div>
+                                <input name="file" type="file" />
+                                <input type="file" name="newFiles" id="newFiles" class="hidden">
+                                <input type="hidden" name="deletedFiles" id="deletedFiles">
                             </div>
                             <div class="form-group">
                                 <div class="col-md-3 col-md-offset-2">
@@ -321,13 +323,44 @@
         }
 
 
-        $("#input-img").fileinput({
-            initialPreview: ['http://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/FullMoon2010.jpg/631px-FullMoon2010.jpg'],
-            initialPreviewAsData: true,
-            showUpload: false,
-            maxFileCount: 10,
-            mainClass: "input-group-sm",
-            allowedFileExtensions: ["jpg", "jpeg", "png"]
+        Dropzone.autoDiscover = false;
+        var myDropzone = new Dropzone("#form_snippet_image");
+        Dropzone.options.myDropzone = {
+            autoProcessQueue: false,
+            addRemoveLinks: true,
+            uploadMultiple: true,
+            removedfile: function(file) {
+                if ($('#deletedFiles').val() == '') {
+                    $('#deletedFiles').val(file.id);
+                } else {
+                    $('#deletedFiles').val($('#deletedFiles').val() + ',' + file.id)
+                }
+            },
+            init: function (e) {
+                var myDropzone = this;
+
+                $('#btn_upload').on("click", function() {
+                    myDropzone.processQueue(); // Tell Dropzone to process all queued files.
+                });
+
+                // Event to send your custom data to your server
+                myDropzone.on("sending", function(file, xhr, data) {
+
+                    // First param is the variable name used server side
+                    // Second param is the value, you can add what you what
+                    // Here I added an input value
+                    data.append("newFiles", $('#newFiles').val());
+                });
+            }
+        };
+        var alreadyLoadedFiles = [
+            {% for annuaireImage in form.annuaireImage %}
+                {name: "{{ annuaireImage.url }}", id: {{ annuaireImage.id }} },
+            {% endfor %}
+        ];
+        alreadyLoadedFiles.forEach(function (img) {
+            myDropzone.emit("addedfile", img);
+            myDropzone.emit("thumbnail", img, "/image/url");
         });
     </script>
 {% endblock %}
