@@ -242,10 +242,8 @@
                             <div class="form-group">
                                 <label class="control-label col-md-2">Images</label>
                                 <div class="col-md-10">
-                                    <div class="dropzone my-dropzone" id="form_snippet_image">
-                                    </div>
+                                    <div id="form_snippet_image">Upload</div>
                                 </div>
-                                <input name="file" type="file" />
                                 <input type="file" name="newFiles" id="newFiles" class="hidden">
                                 <input type="hidden" name="deletedFiles" id="deletedFiles">
                             </div>
@@ -322,45 +320,62 @@
             });
         }
 
-
-        Dropzone.autoDiscover = false;
-        var myDropzone = new Dropzone("#form_snippet_image");
-        Dropzone.options.myDropzone = {
-            autoProcessQueue: false,
-            addRemoveLinks: true,
-            uploadMultiple: true,
-            removedfile: function(file) {
-                if ($('#deletedFiles').val() == '') {
-                    $('#deletedFiles').val(file.id);
-                } else {
-                    $('#deletedFiles').val($('#deletedFiles').val() + ',' + file.id)
-                }
-            },
-            init: function (e) {
-                var myDropzone = this;
-
-                $('#btn_upload').on("click", function() {
-                    myDropzone.processQueue(); // Tell Dropzone to process all queued files.
-                });
-
-                // Event to send your custom data to your server
-                myDropzone.on("sending", function(file, xhr, data) {
-
-                    // First param is the variable name used server side
-                    // Second param is the value, you can add what you what
-                    // Here I added an input value
-                    data.append("newFiles", $('#newFiles').val());
-                });
-            }
-        };
         var alreadyLoadedFiles = [
             {% for annuaireImage in form.annuaireImage %}
-                {name: "{{ annuaireImage.url }}", id: {{ annuaireImage.id }} },
+            /**
+             * Ajouter chemin vers fichiers
+             */
+                {name: "{{ annuaireImage.url }}", url:"{{ path('') }}{{ annuaireImage.url }}", id: {{ annuaireImage.id }} },
             {% endfor %}
         ];
-        alreadyLoadedFiles.forEach(function (img) {
-            myDropzone.emit("addedfile", img);
-            myDropzone.emit("thumbnail", img, "/image/url");
+
+        var newFilesList = [];
+        var deletedFilesList = [];
+
+        $("#form_snippet_image").uploadFile({
+            url:"{{ path('upload_img') }}",
+            multiple:true,
+            dragDrop:true,
+            fileName:"myfile",
+
+            dragDropStr: "<span><b>Faites glisser et déposez les fichiers</b></span>",
+            abortStr:"abandonner",
+            cancelStr:"résilier",
+            doneStr:"fait",
+            multiDragErrorStr: "Plusieurs Drag &amp; Drop de fichiers ne sont pas autorisés.",
+            extErrorStr:"n'est pas autorisé. Extensions autorisées:",
+            sizeErrorStr:"n'est pas autorisé. Admis taille max:",
+            uploadErrorStr:"Upload n'est pas autorisé",
+            uploadStr:"Téléchargez",
+
+            allowedTypes: "jpg,png,gif",
+
+            onload: function(obj) {
+                alreadyLoadedFiles.forEach(function(img){
+                    obj.createProgress(img["name"],img["url"]);
+                });
+            },
+            onSuccess: function(files,data,xhr,pd) {
+                /**
+                 * Enregistrer le nom du fichier dans une variable hidden
+                 */
+                newFilesList.push(data);
+                $('#newFiles').val(newFilesList.join());
+            },
+            deleteCallback: function(data,pd) {
+                /***
+                 * Enregistrer le nom du fichier dans une variable hidden
+                 */
+                var index = newFilesList.indexOf(data[0]);
+                if (index > -1) {
+                    newFilesList.splice(index, 1);
+                } else {
+                    deletedFilesList.push(data[0]);
+                    $('#deletedFiles').val(deletedFilesList.join());
+                }
+                pd.statusbar.hide(); //You choice to hide/not.
+            }
         });
+
     </script>
 {% endblock %}

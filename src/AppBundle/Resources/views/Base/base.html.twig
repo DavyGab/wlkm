@@ -25,10 +25,11 @@
                 {#'bundles/app/css/social-buttons.css'#}
                 {#'bundles/app/css/pygments.css'#}
                 {#'bundles/app/css/fileinput.min.css'#}
+                {#'bundles/app/css/dropzone.css'#}
             {% stylesheets
                 'bundles/app/css/font-awesome.min.css'
                 'bundles/app/css/bootstrap-switch.css'
-                'bundles/app/css/dropzone.css'
+                'bundles/app/css/uploadfile.css'
                 'bundles/app/css/style.css'
                 filter='cssrewrite' output='css/main.css' %}
                 <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
@@ -88,16 +89,15 @@
                 {#'bundles/app/js/jquery.sparkline.min.js'#}
                 {#'bundles/app/js/respond.js'#}
                 {#'bundles/app/js/bootstrap.min.js'#}
-                'bundles/app/js/fileinput.min.js'
+                {#'bundles/app/js/fileinput.min.js'#}
+                {#'bundles/app/js/dropzone.js'#}
         {% block javascripts %}
             {% javascripts
                 'bundles/app/js/jquery.dataTables.min.js'
                 'bundles/app/js/bootstrap-switch.min.js'
                 'bundles/app/js/styleswitcher.js'
-                'bundles/app/js/dropzone.js'
-                'bundles/app/js/main.js'
-
-                filter='cssrewrite' output='js/main.js' %}
+                'bundles/app/js/jqueryUploadFile.js'
+                'bundles/app/js/main.js' %}
                 <script src="{{ asset_url }}"></script>
             {% endjavascripts %}
                 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>

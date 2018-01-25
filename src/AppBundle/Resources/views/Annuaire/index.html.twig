@@ -20,7 +20,7 @@
                                     <th> Code Postal </th>
                                     {#<th> Bornes </th>#}
                                     <th> Status </th>
-                                    <th> Actions </th>
+                                    <th> Modifier </th>
                                 </thead>
                                 <tbody>
                                 {% for annuaire in annuaires %}
@@ -34,13 +34,19 @@
                                         <td> {{ annuaire.codePostal }} </td>
                                         {#<td> {{ annuaire.borne }} </td>#}
                                         <td>
-                                            <span class="label label-warning">Validé</span>
+                                            {#{% if annuaire.status  == 1 %}#}
+                                                {#<span class="label label-warning">Validé</span>#}
+                                            {#{% elseif annuaire.status  == 1 %}#}
+                                                {#<span class="label label-warning">Suspendu</span>#}
+                                            {#{% elseif annuaire.status  == 1 %}#}
+                                                {#<span class="label label-warning">En cours</span>#}
+                                            {#{% elseif annuaire.status  == 1 %}#}
+                                                {#<span class="label label-warning"></span>#}
+                                            {#{% endif %}#}
                                         </td>
                                         <td class="actions">
                                             <div class="action-buttons">
-                                                <a class="table-actions" href="{{ path('annuaire_show', { 'id': annuaire.id }) }}"><i class="fa fa-eye"></i></a>
                                                 <a class="table-actions" href="{{ path('annuaire_edit', { 'id': annuaire.id }) }}"><i class="fa fa-pencil"></i></a>
-                                                <a class="table-actions" href="{{ path('annuaire_delete', { 'id': annuaire.id }) }}"><i class="fa fa-trash-o"></i></a>
                                             </div>
                                         </td>
                                     </tr>

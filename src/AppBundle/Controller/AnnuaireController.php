@@ -5,6 +5,7 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Annuaire;
 use AppBundle\Entity\AnnuaireBorne;
 use AppBundle\Entity\Borne;
+use AppBundle\Entity\ImagesAnnuaire;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
@@ -74,17 +75,19 @@ class AnnuaireController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $em = $this->getDoctrine()->getManager();
 
+            /**
+             * nregistrement des horaires
+             */
             $horaires = array();
-            $horaires['lun'] = $request->get('lun', '');
-            $horaires['mar'] = $request->get('mar', '');
-            $horaires['mer'] = $request->get('mer', '');
-            $horaires['jeu'] = $request->get('jeu', '');
-            $horaires['ven'] = $request->get('ven', '');
-            $horaires['sam'] = $request->get('sam', '');
-            $horaires['dim'] = $request->get('dim', '');
-
+            $horairesNom = ['lun', 'mar', 'mer', 'jeu', 'ven', 'sam', 'dim'];
+            foreach ($horairesNom as $horaireNom) {
+                $horaires[$horaireNom] = $request->get($horaireNom, '');
+            }
             $annuaire->setHoraires(json_encode($horaires));
 
+            /**
+             * Enregistrement des bornes
+             */
             foreach($annuaire->getAnnuaireBorne() as $annuaireBorne) {
                 $annuaireBorne->setAnnuaire($annuaire);
                 if ($annuaireBorne->getBorne() == null) {
@@ -92,6 +95,22 @@ class AnnuaireController extends Controller
                     $em->remove($annuaireBorne);
                 }
             }
+
+            /**
+             * Enregistrement des images
+             */
+            $addImagesNames = request->request->get('newFiles', '');
+            foreach ($addImagesNames as $imageName) {
+                $annuaireImage = new ImagesAnnuaire();
+                $annuaireImage->setUrl($imageName);
+                $annuaire->addAnnuaireImage($annuaireImage);
+            }
+            $removeImagesUrl = request->request->get('deletedFiles', '');
+            foreach ($removeImagesUrl as $imageUrl) {
+                $annuaireImage = $em->getRepository('AppBundle:ImagesAnnuaire')->findByUrl($imageUrl);
+                $annuaire->removeAnnuaireImage($annuaireImage);
+            }
+
             $em->flush();
 
             return $this->redirectToRoute('annuaire_edit', array('id' => $annuaire->getId()));
