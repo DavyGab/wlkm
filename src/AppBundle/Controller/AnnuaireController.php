@@ -36,11 +36,41 @@ class AnnuaireController extends Controller
 //        $bornes = $em->getRepository('AppBundle:Borne')->findAll();
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            /**
+             * nregistrement des horaires
+             */
+            $horaires = array();
+            $horairesNom = ['lun', 'mar', 'mer', 'jeu', 'ven', 'sam', 'dim'];
+            foreach ($horairesNom as $horaireNom) {
+                $horaires[$horaireNom] = $request->get($horaireNom, '');
+            }
+            $annuaire->setHoraires(json_encode($horaires));
+
+            /**
+             * Enregistrement des bornes
+             */
             foreach($annuaire->getAnnuaireBorne() as $annuaireBorne) {
                 $annuaireBorne->setAnnuaire($annuaire);
                 if ($annuaireBorne->getBorne() == null) {
                     $annuaire->removeAnnuaireBorne($annuaireBorne);
                     $em->remove($annuaireBorne);
+                }
+            }
+
+            /**
+             * Enregistrement des images
+             */
+            $addImagesNames = request->request->get('newFiles', '');
+            foreach ($addImagesNames as $imageName) {
+                $annuaireImage = new ImagesAnnuaire();
+                $annuaireImage->setUrl($imageName);
+                $annuaire->addAnnuaireImage($annuaireImage);
+            }
+            $removeImagesUrl = request->request->get('deletedFiles', '');
+            foreach ($removeImagesUrl as $imageUrl) {
+                if ($annuaireImage = $em->getRepository('AppBundle:ImagesAnnuaire')->findByUrl($imageUrl)) {
+                    $annuaire->removeAnnuaireImage($annuaireImage);
                 }
             }
             $em->flush();
@@ -107,8 +137,9 @@ class AnnuaireController extends Controller
             }
             $removeImagesUrl = request->request->get('deletedFiles', '');
             foreach ($removeImagesUrl as $imageUrl) {
-                $annuaireImage = $em->getRepository('AppBundle:ImagesAnnuaire')->findByUrl($imageUrl);
-                $annuaire->removeAnnuaireImage($annuaireImage);
+                if ($annuaireImage = $em->getRepository('AppBundle:ImagesAnnuaire')->findByUrl($imageUrl)) {
+                    $annuaire->removeAnnuaireImage($annuaireImage);
+                }
             }
 
             $em->flush();
