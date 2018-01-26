@@ -322,12 +322,14 @@
             }
 
             var alreadyLoadedFiles = [
-                {#{% for annuaireImage in form.annuaireImage %}#}
-                /**
-                 * Ajouter chemin vers fichiers
-                 */
-                    {#{name: "{{ annuaireImage.url }}", url:"{{ path('') }}{{ annuaireImage.url }}", id: {{ annuaireImage.id }} },#}
-                {#{% endfor %}#}
+                {% if action == 'edit' %}
+                    {% for annuaireImage in imagesAnnuaire %}
+                        {
+                            name: "{{ annuaireImage.url }}",
+                            url:"/{{ constant('UPLOAD_DIR', image) ~ annuaireImage.url }}"
+                        },
+                    {% endfor %}
+                {% endif %}
             ];
 
             var newFilesList = [];

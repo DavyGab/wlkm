@@ -33,7 +33,6 @@ class AnnuaireController extends Controller
         $form->handleRequest($request);
 
         $em = $this->getDoctrine()->getManager();
-//        $bornes = $em->getRepository('AppBundle:Borne')->findAll();
 
         if ($form->isSubmitted() && $form->isValid()) {
 
@@ -61,13 +60,13 @@ class AnnuaireController extends Controller
             /**
              * Enregistrement des images
              */
-            $addImagesNames = $request->get('newFiles', '');
+            $addImagesNames = $request->request->get('newFiles', '');
             foreach ($addImagesNames as $imageName) {
                 $annuaireImage = new ImagesAnnuaire();
                 $annuaireImage->setUrl($imageName);
                 $annuaire->addAnnuaireImage($annuaireImage);
             }
-            $removeImagesUrl = $request->get('deletedFiles', '');
+            $removeImagesUrl = $request->request->get('deletedFiles', '');
             foreach ($removeImagesUrl as $imageUrl) {
                 if ($annuaireImage = $em->getRepository('AppBundle:ImagesAnnuaire')->findByUrl($imageUrl)) {
                     $annuaire->removeAnnuaireImage($annuaireImage);
@@ -149,6 +148,7 @@ class AnnuaireController extends Controller
         
         return $this->render('AppBundle:Annuaire:form.html.twig', array(
             'annuaire' => $annuaire,
+            'imagesAnnuaire' => $annuaire->getAnnuaireImage(),
             'horaires' => json_decode($annuaire->getHoraires()),
             'form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),

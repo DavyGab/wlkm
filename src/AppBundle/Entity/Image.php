@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
  */
 class Image
 {
-    
+    const UPLOAD_DIR = 'uploads/';
 
     /**
      * @Assert\File(maxSize="6000000")
@@ -60,21 +60,14 @@ class Image
     {
         return null === $this->path
             ? null
-            : $this->getUploadDir().'/'.$this->path;
+            : self::UPLOAD_DIR . '/'.$this->path;
     }
 
     protected function getUploadRootDir()
     {
         // the absolute directory path where uploaded
         // documents should be saved
-        return __DIR__.'/../../../web/'.$this->getUploadDir();
-    }
-
-    protected function getUploadDir()
-    {
-        // get rid of the __DIR__ so it doesn't screw up
-        // when displaying uploaded doc/image in the view.
-        return 'uploads/documents';
+        return __DIR__.'/../../../web/'. self::UPLOAD_DIR;
     }
 
     /**
