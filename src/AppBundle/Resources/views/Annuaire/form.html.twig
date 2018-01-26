@@ -343,17 +343,17 @@
                 fileName:"file",
 
                 dragDropStr: "<span><b>Faites glisser et déposez les fichiers</b></span>",
-                abortStr:"Annuler",
-                deleteStr:"Supprimer",
-                cancelStr:"résilier",
-                doneStr:"fait",
+                abortStr: "Annuler",
+                deleteStr: "Supprimer",
+                cancelStr: "Résilier",
+                doneStr: "Fait",
                 multiDragErrorStr: "Plusieurs Drag &amp; Drop de fichiers ne sont pas autorisés.",
-                extErrorStr:"n'est pas autorisé. Extensions autorisées:",
-                sizeErrorStr:"n'est pas autorisé. Admis taille max:",
-                uploadErrorStr:"Upload n'est pas autorisé",
-                uploadStr:"Téléchargez",
+                extErrorStr: "N'est pas autorisé. Extensions autorisées: ",
+                sizeErrorStr: "N'est pas autorisé. Admis taille max:",
+                uploadErrorStr: "Upload n'est pas autorisé",
+                uploadStr: "Téléchargez",
 
-                allowedTypes: "jpg,png,gif",
+                allowedTypes: "jpg, jpeg, png, gif",
 
                 onload: function(obj) {
                     alreadyLoadedFiles.forEach(function(img){
@@ -361,20 +361,10 @@
                     });
                 },
                 onSuccess: function(files,data,xhr,pd) {
-                    /**
-                     * Enregistrer le nom du fichier dans une variable hidden
-                     */
                     newFilesList.push(data.path);
-                    console.debug(newFilesList);
                     $('#newFiles').val(newFilesList.join());
                 },
                 deleteCallback: function(data,pd) {
-                    console.debug(data);
-                    console.debug(data.path);
-                    console.debug(newFilesList.indexOf(data.path));
-                    /***
-                     * Enregistrer le nom du fichier dans une variable hidden
-                     */
                     var index = newFilesList.indexOf(data.path);
                     if (index > -1) {
                         newFilesList.splice(index, 1);
