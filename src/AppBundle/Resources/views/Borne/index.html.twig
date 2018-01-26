@@ -11,9 +11,6 @@
                         <div class="widget-content padded clearfix">
                             <table class="table table-bordered table-striped" id="dataTable1">
                                 <thead>
-                                    <th class="check-header ">
-                                        <label><input id="checkAll" name="checkAll" type="checkbox"><span></span></label>
-                                    </th>
                                     <th> Nom </th>
                                     <th> Ville </th>
                                     <th> Adresse </th>
@@ -24,9 +21,6 @@
                                 <tbody>
                                 {% for borne in bornes %}
                                     <tr>
-                                        <td class="check ">
-                                            <label><input name="optionsRadios1" type="checkbox" value="option1"><span></span></label>
-                                        </td>
                                         <td> {{ borne.nom }} </td>
                                         <td> {{ borne.ville }} </td>
                                         <td> {{ borne.adresse }} </td>
@@ -50,4 +44,11 @@
                 </div>
             </div>
         </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="application/javascript">
+        $('#dataTable1').dataTable();
+    </script>
 {% endblock %}
