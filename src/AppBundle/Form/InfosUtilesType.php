@@ -19,7 +19,8 @@ class InfosUtilesType extends AbstractType
             ->add('status')
             ->add('type')
             ->add('borne')
-            ->add('titre');
+            ->add('titre')
+            ->add('status');
     }
     
     /**

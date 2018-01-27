@@ -58,9 +58,12 @@ class Borne
     private $codePostal;
 
     /**
-     * @var integer
+     * @var \AppBundle\Entity\Status
      *
-     * @ORM\Column(name="Borne_Status", type="integer", nullable=false)
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Status")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="Borne_Status", referencedColumnName="Status_Id")
+     * })
      */
     private $status;
 

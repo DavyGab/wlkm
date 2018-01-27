@@ -43,9 +43,12 @@ class InfosUtiles
     private $dateHeure;
 
     /**
-     * @var integer
+     * @var \AppBundle\Entity\Status
      *
-     * @ORM\Column(name="Status", type="smallint", nullable=true)
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Status")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="Status", referencedColumnName="Status_Id")
+     * })
      */
     private $status;
 

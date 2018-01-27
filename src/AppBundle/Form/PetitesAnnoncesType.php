@@ -20,7 +20,8 @@ class PetitesAnnoncesType extends AbstractType
             ->add('telephone')
             ->add('prix')
             ->add('categorie')
-            ->add('borne');
+            ->add('borne')
+            ->add('status');
     }
     
     /**

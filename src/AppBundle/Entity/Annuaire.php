@@ -75,6 +75,16 @@ class Annuaire
     private $categorie;
 
     /**
+     * @var \AppBundle\Entity\Status
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Status")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="Annuaire_Status", referencedColumnName="Status_Id")
+     * })
+     */
+    private $status;
+
+    /**
     * @ORM\OneToMany(targetEntity="AppBundle\Entity\AnnuaireBorne", mappedBy="annuaire", cascade={"persist"})
     */
     private $annuaireBorne;
@@ -249,6 +259,22 @@ class Annuaire
     public function setCategorie($categorie)
     {
         $this->categorie = $categorie;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * @param mixed $status
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
     }
 }
 

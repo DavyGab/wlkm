@@ -3,6 +3,8 @@
 namespace AppBundle\Form;
 
 use AppBundle\Entity\ImagesAnnuaire;
+use AppBundle\Repository\StatusRepository;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -30,11 +32,13 @@ class AnnuaireType extends AbstractType
                 'allow_add' => true,
                 'allow_delete' => true,
             ))
-            ->add('annuaireImage', CollectionType::class, array(
-                'entry_type' => ImagesAnnuaireType::class,
-                'entry_options' => array('label' => false),
-                'allow_add' => true,
-                'allow_delete' => true,
+            ->add('status', EntityType::class, array(
+                'class' => 'AppBundle:Status',
+                'query_builder' => function($er) {
+//                    return $statusRepository->findByEntite('Annuaire');
+                    return $er->createQueryBuilder('s')->where('s.entite = ?1')->setParameter(1, 'Annuaire');
+                },
+                'required'  => true,
             ));
     }
     

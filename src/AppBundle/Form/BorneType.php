@@ -19,14 +19,7 @@ class BorneType extends AbstractType
             ->add('adresse')
             ->add('ville')
             ->add('codePostal')
-            ->add('status', ChoiceType::class, array(
-            'choices'  => array(
-                'En cours' => 1,
-                'Validée' => 2,
-                'Déployée' => 3,
-                'Suspendue' => 4,
-            )
-        ));
+            ->add('status');
     }
     
     /**

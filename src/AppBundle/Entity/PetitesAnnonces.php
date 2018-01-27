@@ -83,6 +83,16 @@ class PetitesAnnonces
      */
     private $borne;
 
+    /**
+     * @var \AppBundle\Entity\Status
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Status")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="Petites_Annonces_Status", referencedColumnName="Status_Id")
+     * })
+     */
+    private $status;
+
     function _construct() {
         $this->dateHeure = date('c');
     }
@@ -221,6 +231,22 @@ class PetitesAnnonces
     public function setBorne($borne)
     {
         $this->borne = $borne;
+    }
+
+    /**
+     * @return Status
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * @param Status $status
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
     }
 
 
