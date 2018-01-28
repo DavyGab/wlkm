@@ -8,8 +8,8 @@
                     <div class="heading">
                         <i class="fa fa-bars"></i>Annuaire
                     </div>
-                    <div class="widget-content padded">
-                        {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+                    {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+                        <div class="widget-content padded">
                             <div class="form-group">
                                 <label class="control-label col-md-2">Nom</label>
                                 <div class="col-md-10">
@@ -202,12 +202,6 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-md-2">Catégorie</label>
-                                <div class="col-md-10">
-                                    {{ form_widget(form.categorie, {'attr': {'class': 'select2'}}) }}
-                                </div>
-                            </div>
-                            <div class="form-group">
                                 <label class="control-label col-md-2">Bornes</label>
                                 <div class="col-md-10">
                                     <div class="col-md-12 hidden-sm hidden-xs">
@@ -240,12 +234,10 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-md-2">Images</label>
+                                <label class="control-label col-md-2">Catégorie</label>
                                 <div class="col-md-10">
-                                    <div id="form_snippet_image">Upload</div>
+                                    {{ form_widget(form.categorie, {'attr': {'class': 'select2'}}) }}
                                 </div>
-                                <input type="hidden" name="newFiles" id="newFiles">
-                                <input type="hidden" name="deletedFiles" id="deletedFiles">
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-md-2">Status</label>
@@ -254,11 +246,19 @@
                                 </div>
                             </div>
                             <div class="form-group">
+                                <label class="control-label col-md-2">Images</label>
+                                <div class="col-md-10">
+                                    <div id="form_snippet_image">Upload</div>
+                                </div>
+                                <input type="hidden" name="newFiles" id="newFiles">
+                                <input type="hidden" name="deletedFiles" id="deletedFiles">
+                            </div>
+                            <div class="form-group">
                                 <div class="col-md-3 col-md-offset-2">
                                     <button class="btn btn-primary" type="submit">Enregistrer</button>
                                 </div>
                             </div>
-                        {{ form_end(form) }}
+                    {{ form_end(form) }}
                         {% if action == "edit" %}
                             <div class="form-group">
                                 <div class="col-md-3 col-md-offset-9 padB25">
@@ -280,7 +280,7 @@
     <script type="application/javascript">
         $(document).ready(function() {
             $('.select2').select2({
-                placeholder: "-- Select --",
+                placeholder: "-- Selectionnez --",
                 width: "100%",
                 height: "34px",
             });
@@ -332,7 +332,7 @@
                     {% for annuaireImage in imagesAnnuaire %}
                         {
                             name: "{{ annuaireImage.url }}",
-                            url:"/{{ constant('UPLOAD_DIR', image) ~ annuaireImage.url }}"
+                            url:"/wellcom/{{ constant('AppBundle\\Entity\\Image::UPLOAD_DIR') ~ annuaireImage.url }}"
                         },
                     {% endfor %}
                 {% endif %}
@@ -346,6 +346,8 @@
                 multiple:true,
                 dragDrop:true,
                 showDelete: true,
+                showPreview:true,
+                showFileSize: false,
                 fileName:"file",
 
                 dragDropStr: "<span><b>Faites glisser et déposez les fichiers</b></span>",
@@ -361,7 +363,7 @@
 
                 allowedTypes: "jpg, jpeg, png, gif",
 
-                onload: function(obj) {
+                onLoad: function(obj) {
                     alreadyLoadedFiles.forEach(function(img){
                         obj.createProgress(img["name"],img["url"]);
                     });

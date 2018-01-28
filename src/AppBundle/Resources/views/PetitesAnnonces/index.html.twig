@@ -17,12 +17,16 @@
                                     {#<th> Catégorie </th>#}
                                     <th> Borne </th>
                                     <th> Nombre de vues </th>
-                                    <th> Action </th>
+                                    <th> Status </th>
                                 </thead>
                                 <tbody>
                                 {% for petitesAnnonce in petitesAnnonces %}
                                     <tr>
-                                        <td> {{ petitesAnnonce.titre }} </td>
+                                        <td>
+                                            <a href="{{ path('petitesannonces_delete', { 'id': petitesAnnonce.id }) }}">
+                                                {{ petitesAnnonce.titre }}
+                                            </a>
+                                        </td>
                                         <td> {{ petitesAnnonce.dateHeure |date("d/m/Y") }} </td>
                                         <td> {{ petitesAnnonce.prix }} </td>
                                         {#<td> {{ petitesAnnonce.categorie }} </td>#}
@@ -36,12 +40,10 @@
                                                 {{ petitesAnnonce.nombreVues }}
                                             {% endif %}
                                         </td>
-                                        <td class="actions">
-                                            <div class="action-buttons">
-                                                <a class="table-actions" href="{{ path('petitesannonces_show', { 'id': petitesAnnonce.id }) }}"><i class="fa fa-eye"></i></a>
-                                                <a class="table-actions" href="{{ path('petitesannonces_edit', { 'id': petitesAnnonce.id }) }}"><i class="fa fa-pencil"></i></a>
-                                                <a class="table-actions" href="{{ path('petitesannonces_delete', { 'id': petitesAnnonce.id }) }}"><i class="fa fa-trash-o"></i></a>
-                                            </div>
+                                        <td>
+                                            {% if petitesAnnonce.status.libelle is defined %}
+                                                {{ petitesAnnonce.status.libelle }}
+                                            {% endif %}
                                         </td>
                                     </tr>
                                 {% endfor %}

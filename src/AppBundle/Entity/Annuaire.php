@@ -4,11 +4,12 @@ namespace AppBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Annuaire
  *
- * @ORM\Table(name="Annuaire", indexes={@ORM\Index(name="IDX_BC1DC55D9FF5F4D4", columns={"Annuaire_Catégorie_ID"}), @ORM\Index(name="IDX_BC1DC55DDC04D878", columns={"Annuaire_Borne_ID"})})
+ * @ORM\Table(name="Annuaire", indexes={@ORM\Index(name="IDX_BC1DC55D9FF5F4D4", columns={"Annuaire_Catégorie_ID"})})
  * @ORM\Entity(repositoryClass="AppBundle\Repository\AnnuaireRepository")
  */
 class Annuaire
@@ -93,6 +94,18 @@ class Annuaire
     * @ORM\OneToMany(targetEntity="AppBundle\Entity\ImagesAnnuaire", mappedBy="annuaire", cascade={"persist"})
     */
     private $annuaireImage;
+
+    /**
+     * @Gedmo\Timestampable(on="create")
+     * @ORM\Column(name="Annuaire_Created_At", type="datetime", nullable=true)
+     */
+    private $createdAt;
+
+    /**
+     * @Gedmo\Timestampable(on="update")
+     * @ORM\Column(name="Annuaire_Updated_At", type="datetime", nullable=true)
+     */
+    private $updatedAt;
     
     public function __construct()
     {
@@ -275,6 +288,22 @@ class Annuaire
     public function setStatus($status)
     {
         $this->status = $status;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
     }
 }
 

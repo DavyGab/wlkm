@@ -16,24 +16,22 @@
                                     <th> Adresse </th>
                                     <th> Code Postal </th>
                                     <th> Status </th>
-                                    <th> Actions </th>
                                 </thead>
                                 <tbody>
                                 {% for borne in bornes %}
                                     <tr>
-                                        <td> {{ borne.nom }} </td>
+                                        <td>
+                                            <a class="table-actions" href="{{ path('borne_edit', { 'id': borne.id }) }}">
+                                                {{ borne.nom }}
+                                            </a>
+                                        </td>
                                         <td> {{ borne.ville }} </td>
                                         <td> {{ borne.adresse }} </td>
                                         <td> {{ borne.codePostal }} </td>
                                         <td>
-                                            <span class="label label-warning">Validé</span>
-                                        </td>
-                                        <td class="actions">
-                                            <div class="action-buttons">
-                                                <a class="table-actions" href="{{ path('borne_show', { 'id': borne.id }) }}"><i class="fa fa-eye"></i></a>
-                                                <a class="table-actions" href="{{ path('borne_edit', { 'id': borne.id }) }}"><i class="fa fa-pencil"></i></a>
-                                                <a class="table-actions" href="{{ path('borne_delete', { 'id': borne.id }) }}"><i class="fa fa-trash-o"></i></a>
-                                            </div>
+                                            {% if borne.status.libelle is defined %}
+                                                {{ borne.status.libelle }}
+                                            {% endif %}
                                         </td>
                                     </tr>
                                 {% endfor %}

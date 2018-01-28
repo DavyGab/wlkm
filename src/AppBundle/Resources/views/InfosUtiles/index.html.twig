@@ -15,22 +15,21 @@
                                     <th> Type</th>
                                     <th> Borne </th>
                                     <th> Status </th>
-                                    <th> Actions </th>
                                 </thead>
                                 <tbody>
                                 {% for infoUtile in infosUtiles %}
                                     <tr>
-                                        <td> {{ infoUtile.titre }} </td>
+                                        <td>
+                                            <a class="table-actions" href="{{ path('infosutiles_edit', { 'id': infoUtile.id }) }}">
+                                                {{ infoUtile.titre }}
+                                            </a>
+                                        </td>
                                         <td> {{ infoUtile.Type }} </td>
                                         <td> {{ infoUtile.Borne }} </td>
                                         <td>
-                                            <span class="label label-warning">Validé</span>
-                                        </td>
-                                        <td class="actions">
-                                            <div class="action-buttons">
-                                                <a class="table-actions" href="{{ path('infosutiles_edit', { 'id': infoUtile.id }) }}"><i class="fa fa-pencil"></i></a>
-                                                <a class="table-actions" href="{{ path('infosutiles_delete', { 'id': infoUtile.id }) }}"><i class="fa fa-trash-o"></i></a>
-                                            </div>
+                                            {% if infoUtile.status.libelle is defined %}
+                                                {{ infoUtile.status.libelle }}
+                                            {% endif %}
                                         </td>
                                     </tr>
                                 {% endfor %}

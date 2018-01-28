@@ -19,7 +19,7 @@ class AnnuaireController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $annuaires = $em->getRepository('AppBundle:Annuaire')->findAll();
+        $annuaires = $em->getRepository('AppBundle:Annuaire')->findAllWithStatus();
 
         return $this->render('AppBundle:Annuaire:index.html.twig', array(
             'annuaires' => $annuaires,
@@ -105,7 +105,7 @@ class AnnuaireController extends Controller
             $em = $this->getDoctrine()->getManager();
 
             /**
-             * nregistrement des horaires
+             * Enregistrement des horaires
              */
             $horaires = array();
             $horairesNom = ['lun', 'mar', 'mer', 'jeu', 'ven', 'sam', 'dim'];
@@ -129,21 +129,25 @@ class AnnuaireController extends Controller
              * Enregistrement des images
              */
             $addImagesNames = $request->request->get('newFiles', '');
+            $addImagesNames = explode(',', $addImagesNames);
             foreach ($addImagesNames as $imageName) {
+                if ($imageName == '') { continue; }
                 $annuaireImage = new ImagesAnnuaire();
                 $annuaireImage->setUrl($imageName);
                 $annuaire->addAnnuaireImage($annuaireImage);
             }
             $removeImagesUrl = $request->request->get('deletedFiles', '');
+            $removeImagesUrl = explode(',', $removeImagesUrl);
             foreach ($removeImagesUrl as $imageUrl) {
-                if ($annuaireImage = $em->getRepository('AppBundle:ImagesAnnuaire')->findByUrl($imageUrl)) {
+                if ($imageUrl == '') { continue; }
+                if ($annuaireImage = $em->getRepository('AppBundle:ImagesAnnuaire')->findOneByUrl($imageUrl)) {
                     $annuaire->removeAnnuaireImage($annuaireImage);
                 }
             }
 
             $em->flush();
 
-            return $this->redirectToRoute('annuaire_edit', array('id' => $annuaire->getId()));
+//            return $this->redirectToRoute('annuaire_edit', array('id' => $annuaire->getId()));
         }
         
         return $this->render('AppBundle:Annuaire:form.html.twig', array(

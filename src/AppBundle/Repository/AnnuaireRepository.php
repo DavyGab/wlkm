@@ -3,7 +3,6 @@
 namespace AppBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
-use Doctrine\ORM\QueryBuilder;
 
 class AnnuaireRepository extends EntityRepository
 {
@@ -31,6 +30,18 @@ class AnnuaireRepository extends EntityRepository
             ->leftJoin('a.annuaireBorne', 'ab')
             ->leftJoin('ab.borne', 'b')
             ->addSelect('b');
+
+        return $qb
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findAllWithStatus()
+    {
+        $qb = $this
+            ->createQueryBuilder('a')
+            ->leftJoin('a.status', 's')
+            ->addSelect('s');
 
         return $qb
             ->getQuery()

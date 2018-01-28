@@ -3,12 +3,13 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * InfosUtiles
  *
  * @ORM\Table(name="Infos_Utiles", indexes={@ORM\Index(name="IDX_FAA829BD304E345E", columns={"Infos_Utiles_Type_ID"}), @ORM\Index(name="IDX_FAA829BD9901E0CB", columns={"Infos_Utiles_Borne_ID"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\InfosUtilesRepository")
  */
 class InfosUtiles
 {
@@ -47,7 +48,7 @@ class InfosUtiles
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Status")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="Status", referencedColumnName="Status_Id")
+     *   @ORM\JoinColumn(name="Infos_Utiles_Status", referencedColumnName="Status_Id")
      * })
      */
     private $status;
@@ -71,6 +72,18 @@ class InfosUtiles
      * })
      */
     private $borne;
+
+    /**
+     * @Gedmo\Timestampable(on="create")
+     * @ORM\Column(name="Infos_Utiles_Created_At", type="datetime", nullable=true)
+     */
+    private $createdAt;
+
+    /**
+     * @Gedmo\Timestampable(on="update")
+     * @ORM\Column(name="Infos_Utiles_Updated_At", type="datetime", nullable=true)
+     */
+    private $updatedAt;
 
     /**
      * @return int
@@ -184,6 +197,22 @@ class InfosUtiles
     public function setTitre($titre)
     {
         $this->titre = $titre;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
     }
 
 

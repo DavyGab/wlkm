@@ -16,7 +16,7 @@ class InfosUtilesController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $infosUtiles = $em->getRepository('AppBundle:InfosUtiles')->findAll();
+        $infosUtiles = $em->getRepository('AppBundle:InfosUtiles')->findAllWithStatus();
 
         return $this->render('AppBundle:InfosUtiles:index.html.twig', array(
             'infosUtiles' => $infosUtiles,

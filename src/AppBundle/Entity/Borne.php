@@ -4,12 +4,13 @@ namespace AppBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Borne
  *
  * @ORM\Table(name="Parc_Bornes")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\BorneRepository")
  */
 class Borne
 {
@@ -71,6 +72,18 @@ class Borne
     * @ORM\OneToMany(targetEntity="AppBundle\Entity\AnnuaireBorne", mappedBy="borne", cascade={"persist"})
     */
     private $annuaireBorne;
+
+    /**
+     * @Gedmo\Timestampable(on="create")
+     * @ORM\Column(name="Borne_Created_At", type="datetime", nullable=true)
+     */
+    private $createdAt;
+
+    /**
+     * @Gedmo\Timestampable(on="update")
+     * @ORM\Column(name="Borne_Updated_At", type="datetime", nullable=true)
+     */
+    private $updatedAt;
     
     public function __construct()
     {
@@ -203,6 +216,20 @@ class Borne
         $this->status = $status;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
 
+    /**
+     * @return mixed
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
 }
 

@@ -3,12 +3,13 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * PetitesAnnonces
  *
  * @ORM\Table(name="Petites_Annonces", indexes={@ORM\Index(name="IDX_CE68952CFBB88C40", columns={"Petites_Annonces_Catégorie_ID"}), @ORM\Index(name="IDX_CE68952C9640AF6E", columns={"Petites_Annonces_Borne_ID"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\PetitesAnnoncesRepository")
  */
 class PetitesAnnonces
 {
@@ -92,6 +93,18 @@ class PetitesAnnonces
      * })
      */
     private $status;
+
+    /**
+     * @Gedmo\Timestampable(on="create")
+     * @ORM\Column(name="Petites_Annonces_Created_At", type="datetime", nullable=true)
+     */
+    private $createdAt;
+
+    /**
+     * @Gedmo\Timestampable(on="update")
+     * @ORM\Column(name="Petites_Annonces_Updated_At", type="datetime", nullable=true)
+     */
+    private $updatedAt;
 
     function _construct() {
         $this->dateHeure = date('c');
@@ -247,6 +260,22 @@ class PetitesAnnonces
     public function setStatus($status)
     {
         $this->status = $status;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
     }
 
 

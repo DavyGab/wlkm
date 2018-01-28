@@ -17,12 +17,15 @@
                                     <th> Code Postal </th>
                                     {#<th> Bornes </th>#}
                                     <th> Status </th>
-                                    <th> Modifier </th>
                                 </thead>
                                 <tbody>
                                 {% for annuaire in annuaires %}
                                     <tr>
-                                        <td> {{ annuaire.nom }} </td>
+                                        <td>
+                                            <a href="{{ path('annuaire_edit', { 'id': annuaire.id }) }}">
+                                                {{ annuaire.nom }}
+                                            </a>
+                                        </td>
                                         <td> {{ annuaire.ville }} </td>
                                         <td> {{ annuaire.adresse }} </td>
                                         <td> {{ annuaire.codePostal }} </td>
@@ -37,11 +40,9 @@
                                             {#{% elseif annuaire.status  == 1 %}#}
                                                 {#<span class="label label-warning"></span>#}
                                             {#{% endif %}#}
-                                        </td>
-                                        <td class="actions">
-                                            <div class="action-buttons">
-                                                <a class="table-actions" href="{{ path('annuaire_edit', { 'id': annuaire.id }) }}"><i class="fa fa-pencil"></i></a>
-                                            </div>
+                                            {% if annuaire.status.libelle is defined %}
+                                                {{ annuaire.status.libelle }}
+                                            {% endif %}
                                         </td>
                                     </tr>
                                 {% endfor %}

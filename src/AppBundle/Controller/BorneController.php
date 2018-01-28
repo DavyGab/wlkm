@@ -18,7 +18,7 @@ class BorneController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $bornes = $em->getRepository('AppBundle:Borne')->findAll();
+        $bornes = $em->getRepository('AppBundle:Borne')->findAllWithStatus();
 
         return $this->render('AppBundle:Borne:index.html.twig', array(
             'bornes' => $bornes,
@@ -67,8 +67,6 @@ class BorneController extends Controller
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
-
-            return $this->redirectToRoute('borne_edit', array('id' => $borne->getId()));
         }
 
         return $this->render('AppBundle:Borne:form.html.twig', array(
