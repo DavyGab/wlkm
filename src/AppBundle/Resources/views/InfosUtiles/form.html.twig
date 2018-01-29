@@ -15,31 +15,42 @@
                         {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
                             <div class="form-group">
                                 <label class="control-label col-md-2">Titre</label>
-                                <div class="col-md-7">
+                                <div class="col-md-10">
                                     {{ form_widget(form.titre, {'attr': {'class': 'form-control'}}) }}
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-md-2">Texte</label>
-                                <div class="col-md-7">
+                                <div class="col-md-10">
                                     {{ form_widget(form.texte, {'attr': {'class': 'form-control'}}) }}
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-md-2">Type</label>
-                                <div class="col-md-7">
+                                <div class="col-md-10">
                                     {{ form_widget(form.type, {'attr': {'class': 'select2'}}) }}
                                 </div>
                             </div>
                             <div class="form-group">
+                                <label class="control-label col-md-2">Date de publication</label>
+                                <div class='col-md-5 datepicker' data-date-autoclose='true' data-date-format='dd-mm-yyyy'>
+                                    <span>Du : </span>
+                                    {{ form_widget(form.debut_publication, {'attr': {'class': 'form-control'}}) }}<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                </div>
+                                <div class='col-md-5 datepicker' data-date-autoclose='true' data-date-format='dd-mm-yyyy'>
+                                    <span> au : </span>
+                                    {{ form_widget(form.fin_publication, {'attr': {'class': 'form-control'}}) }}<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
                                 <label class="control-label col-md-2">Borne</label>
-                                <div class="col-md-7">
+                                <div class="col-md-10">
                                     {{ form_widget(form.borne, {'attr': {'class': 'select2'}}) }}
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-md-2">Status</label>
-                                <div class="col-md-7">
+                                <div class="col-md-10">
                                     {{ form_widget(form.status, {'attr': {'class': 'select2'}}) }}
                                 </div>
                             </div>
@@ -73,5 +84,6 @@
             width: "100%",
             height: "34px",
         });
+        $('.datepicker').datepicker()
     </script>
 {% endblock %}

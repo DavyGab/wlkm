@@ -13,7 +13,9 @@ class CategoriesAnnonceType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('nom')->add('image');
+        $builder
+            ->add('nom')
+            ->add('image');
     }
     
     /**

@@ -36,24 +36,13 @@ class CategoriesAnnonceController extends Controller
             $em->persist($categoriesAnnonce);
             $em->flush();
 
-            return $this->redirectToRoute('categorie_annonce_show', array('id' => $categoriesAnnonce->getId()));
+            return $this->redirectToRoute('categorie_annonce_edit', array('id' => $categoriesAnnonce->getId()));
         }
 
         return $this->render('AppBundle:CategoriesAnnonce:form.html.twig', array(
             'categoriesAnnonce' => $categoriesAnnonce,
             'form' => $form->createView(),
             'action' => 'new'
-        ));
-    }
-    
-    public function showAction(CategoriesAnnonce $categoriesAnnonce)
-    {
-        $deleteForm = $this->createDeleteForm($categoriesAnnonce);
-
-        return $this->render('AppBundle:CategoriesAnnonce:form.html.twig', array(
-            'categoriesAnnonce' => $categoriesAnnonce,
-            'form' => $deleteForm->createView(),
-            'action' => 'edit'
         ));
     }
     

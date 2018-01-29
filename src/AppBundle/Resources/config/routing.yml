@@ -72,11 +72,6 @@ categorie_annuaire_new:
     defaults: { _controller: AppBundle:CategoriesAnnuaire:new }
     methods:    [GET, POST]
 
-categorie_annuaire_show:
-    path:     /categorie_annuaire/{id}
-    defaults: { _controller: AppBundle:CategoriesAnnuaire:show }
-    methods:    [GET, POST]
-
 categorie_annuaire_edit:
     path:     /categorie_annuaire/{id}/edit
     defaults: { _controller: AppBundle:CategoriesAnnuaire:edit }

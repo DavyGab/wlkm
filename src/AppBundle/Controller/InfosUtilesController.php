@@ -5,7 +5,8 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\InfosUtiles;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Infosutile controller.
@@ -25,7 +26,7 @@ class InfosUtilesController extends Controller
 
     public function newAction(Request $request)
     {
-        $infosUtile = new Infosutiles();
+        $infosUtile = new InfosUtiles();
         $form = $this->createForm('AppBundle\Form\InfosUtilesType', $infosUtile);
         $form->handleRequest($request);
 

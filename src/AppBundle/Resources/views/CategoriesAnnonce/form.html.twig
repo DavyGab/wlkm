@@ -17,10 +17,13 @@
                                 </div>
                             </div>
 
-                            <div class="dropzone my-dropzone" id="form_snippet_image" data-action="{{ path('upload_img') }}">
+                            <div class="form-group">
+                                <label class="control-label col-md-2">Images</label>
+                                <div class="col-md-10">
+                                    <div id="form_snippet_image">Upload</div>
+                                </div>
+                                {{ form_widget(form.image, {'attr': {'class': 'hidden'}}) }}
                             </div>
-
-                            {{ form_widget(form.image, {'attr': {'class': 'hidden imgupload'}}) }}
 
                             <div class="form-group">
                                 <div class="col-md-3 col-md-offset-2">
@@ -47,14 +50,49 @@
 {% block javascripts %}
     {{ parent() }}
     <script type="application/javascript">
-        //je récupère l'action où sera traité l'upload en PHP
-        var _actionToDropZone = $("#form_snippet_image").data('action');
+        var alreadyLoadedFiles = [
+            {% if action == 'edit' %}
+                {
+                    name: "{{ categoriesAnnonce.image }}",
+                    url:"/wellcom/{{ constant('AppBundle\\Entity\\Image::UPLOAD_DIR') ~ categoriesAnnonce.image }}"
+                },
+            {% endif %}
+        ];
 
-        //je définis ma zone de drop grâce à l'ID de ma div citée plus haut.
-        Dropzone.autoDiscover = false;
-        var myDropzone = new Dropzone("#form_snippet_image", { url: _actionToDropZone });
-        myDropzone.on('success',function(e, response) {
-            $('.imgupload').val(response.path);
+        $("#form_snippet_image").uploadFile({
+            url:"{{ path('upload_img') }}",
+            multiple:true,
+            dragDrop:true,
+            showDelete: true,
+            showPreview:true,
+            showFileSize: false,
+            fileName:"file",
+
+            dragDropStr: "<span><b>Faites glisser et déposez les fichiers</b></span>",
+            abortStr: "Annuler",
+            deleteStr: "Supprimer",
+            cancelStr: "Résilier",
+            doneStr: "Fait",
+            multiDragErrorStr: "Plusieurs Drag &amp; Drop de fichiers ne sont pas autorisés.",
+            extErrorStr: "N'est pas autorisé. Extensions autorisées: ",
+            sizeErrorStr: "N'est pas autorisé. Admis taille max:",
+            uploadErrorStr: "Upload n'est pas autorisé",
+            uploadStr: "Téléchargez",
+
+            allowedTypes: "jpg, jpeg, png, gif",
+
+            onLoad: function(obj) {
+                alreadyLoadedFiles.forEach(function(img){
+                    obj.createProgress(img["name"],img["url"]);
+                });
+            },
+            onSuccess: function(files,data,xhr,pd) {
+                $('#newFiles').val(data.path);
+            },
+            deleteCallback: function(data,pd) {
+                $('#newFiles').val('');
+                pd.statusbar.hide(); //You choice to hide/not.
+            }
         });
     </script>
 {% endblock %}

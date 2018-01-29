@@ -86,6 +86,20 @@ class InfosUtiles
     private $updatedAt;
 
     /**
+     * @var datetime
+     *
+     * @ORM\Column(name="Infos_Utiles_Date_Debut_Validite", type="datetime", length=200, nullable=true)
+     */
+    private $debut_publication;
+
+    /**
+     * @var datetime
+     *
+     * @ORM\Column(name="Infos_Utiles_Date_Fin_Validite", type="datetime", length=200, nullable=true)
+     */
+    private $fin_publication;
+
+    /**
      * @return int
      */
     public function getId()
@@ -213,6 +227,38 @@ class InfosUtiles
     public function getUpdatedAt()
     {
         return $this->updatedAt;
+    }
+
+    /**
+     * @return datetime
+     */
+    public function getFinPublication()
+    {
+        return $this->fin_publication;
+    }
+
+    /**
+     * @param datetime $fin_publication
+     */
+    public function setFinPublication($fin_publication)
+    {
+        $this->fin_publication = $fin_publication;
+    }
+
+    /**
+     * @return datetime
+     */
+    public function getDebutPublication()
+    {
+        return $this->debut_publication;
+    }
+
+    /**
+     * @param datetime $debut_publication
+     */
+    public function setDebutPublication($debut_publication)
+    {
+        $this->debut_publication = $debut_publication;
     }
 
 

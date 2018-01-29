@@ -49,19 +49,6 @@ class CategoriesAnnuaireController extends Controller
             'action' => 'new'
         ));
     }
-    
-    public function showAction(CategoriesAnnuaire $categoriesAnnuaire)
-    {
-        $deleteForm = $this->createDeleteForm($categoriesAnnuaire);
-        $form = $this->createForm('AppBundle\Form\CategoriesAnnuaireType', $categoriesAnnuaire);
-
-        return $this->render('AppBundle:CategoriesAnnuaire:form.html.twig', array(
-            'categoriesAnnuaire' => $categoriesAnnuaire,
-            'form' => $form->createView(),
-            'delete_form' => $deleteForm->createView(),
-            'action' => 'edit'
-        ));
-    }
 
     public function editAction(Request $request, CategoriesAnnuaire $categoriesAnnuaire)
     {

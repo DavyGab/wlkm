@@ -21,6 +21,8 @@ class InfosUtilesType extends AbstractType
             ->add('type')
             ->add('borne')
             ->add('titre')
+            ->add('date_publication')
+            ->add('fin_publication')
             ->add('status', EntityType::class, array(
                 'class' => 'AppBundle:Status',
                 'query_builder' => function($er) {
