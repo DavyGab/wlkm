@@ -9,7 +9,7 @@
                             <i class="fa fa-table"></i>Liste des catégories
                         </div>
                         <div class="heading">
-                            <a href="{{ path('categorie_annuaire_new') }}">
+                            <a href="{{ path('categorie_annonce_new') }}">
                                 <i class="fa fa-plus"></i>Ajouter une catgéorie
                             </a>
                         </div>
@@ -22,7 +22,7 @@
                                 {% for categorie in categories %}
                                     <tr>
                                         <td>
-                                            <a href="{{ path('categorie_annuaire_edit', { 'id': categorie.id }) }}">
+                                            <a href="{{ path('categorie_annonce_edit', { 'id': categorie.id }) }}">
                                                 {{ categorie.nom }}
                                             </a>
                                         </td>

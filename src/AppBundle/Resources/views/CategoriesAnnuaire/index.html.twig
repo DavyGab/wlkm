@@ -17,17 +17,14 @@
                             <table class="table table-bordered table-striped" id="dataTable1">
                                 <thead>
                                     <th> Nom </th>
-                                    <th> Actions </th>
                                 </thead>
                                 <tbody>
                                 {% for categorie in categories %}
                                     <tr>
-                                        <td> {{ categorie.nom }} </td>
-                                        <td class="actions">
-                                            <div class="action-buttons">
-                                                <a class="table-actions" href="{{ path('categorie_annuaire_edit', { 'id': categorie.id }) }}"><i class="fa fa-pencil"></i></a>
-                                                <a class="table-actions" href="{{ path('categorie_annuaire_delete', { 'id': categorie.id }) }}"><i class="fa fa-trash-o"></i></a>
-                                            </div>
+                                        <td>
+                                            <a href="{{ path('categorie_annuaire_edit', { 'id': categorie.id }) }}">
+                                                {{ categorie.nom }}
+                                            </a>
                                         </td>
                                     </tr>
                                 {% endfor %}
