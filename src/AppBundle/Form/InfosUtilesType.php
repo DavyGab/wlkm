@@ -2,9 +2,12 @@
 
 namespace AppBundle\Form;
 
+use DateTime;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -21,8 +24,28 @@ class InfosUtilesType extends AbstractType
             ->add('type')
             ->add('borne')
             ->add('titre')
-            ->add('date_publication')
-            ->add('fin_publication')
+            ->add(
+                $builder->create('debut_publication', TextType::class)
+                ->addModelTransformer(new CallbackTransformer(
+                    function ($dateToString) {
+                        return $dateToString->format('d-m-Y');
+                    },
+                    function ($stringToDate) {
+                        return DateTime::createFromFormat('j-m-Y', $stringToDate);
+                    }
+                ))
+            )
+            ->add(
+                $builder->create('fin_publication', TextType::class)
+                ->addModelTransformer(new CallbackTransformer(
+                    function ($dateToString) {
+                        return $dateToString->format('d-m-Y');
+                    },
+                    function ($stringToDate) {
+                        return DateTime::createFromFormat('j-m-Y', $stringToDate);
+                    }
+                ))
+            )
             ->add('status', EntityType::class, array(
                 'class' => 'AppBundle:Status',
                 'query_builder' => function($er) {

@@ -13,7 +13,6 @@
                 {#'bundles/app/css/fullcalendar.css'#}
                 {#'bundles/app/css/wizard.css'#}
                 {#'bundles/app/css/morris.css'#}
-                {#'bundles/app/css/datepicker.css'#}
                 {#'bundles/app/css/timepicker.css'#}
                 {#'bundles/app/css/colorpicker.css'#}
                 {#'bundles/app/css/bootstrap-editable.css'#}
@@ -28,6 +27,7 @@
             {% stylesheets
                 'bundles/app/css/font-awesome.min.css'
                 'bundles/app/css/bootstrap-switch.css'
+                'bundles/app/css/datepicker.css'
                 'bundles/app/css/datatables.css'
                 'bundles/app/css/uploadfile.css'
                 'bundles/app/css/style.css'
@@ -43,8 +43,8 @@
         {% include 'AppBundle:Base:navigation.html.twig' %}
         {% block body %}{% endblock %}
         </div>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-        {#<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>#}
+        {#<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>#}
+        <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
                 {#'bundles/app/js/raphael.min.js'#}
@@ -69,7 +69,6 @@
                 {#'bundles/app/js/jquery.inputmask.min.js'#}
                 {#'bundles/app/js/jquery.validate.js'#}
                 {#'bundles/app/js/bootstrap-fileupload.js'#}
-                {#'bundles/app/js/bootstrap-datepicker.js'#}
                 {#'bundles/app/js/bootstrap-timepicker.js'#}
                 {#'bundles/app/js/bootstrap-colorpicker.js'#}
                 {#'bundles/app/js/typeahead.js'#}
@@ -95,6 +94,8 @@
             {% javascripts
                 'bundles/app/js/jquery.dataTables.min.js'
                 'bundles/app/js/bootstrap-switch.min.js'
+                'bundles/app/js/bootstrap-datepicker.js'
+                'bundles/app/js/datepicker_fr.min.js'
                 'bundles/app/js/styleswitcher.js'
                 'bundles/app/js/jqueryUploadFile.js'
                 'bundles/app/js/main.js' %}

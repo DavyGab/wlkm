@@ -33,13 +33,19 @@
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-md-2">Date de publication</label>
-                                <div class='col-md-5 datepicker' data-date-autoclose='true' data-date-format='dd-mm-yyyy'>
+                                <div class="col-md-5">
                                     <span>Du : </span>
-                                    {{ form_widget(form.debut_publication, {'attr': {'class': 'form-control'}}) }}<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                    <div class="input-group date">
+                                        {{ form_widget(form.debut_publication, {'attr': {'class': 'datepicker form-control', 'data-date-format': 'dd-mm-yyyy'}}) }}
+                                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                    </div>
                                 </div>
-                                <div class='col-md-5 datepicker' data-date-autoclose='true' data-date-format='dd-mm-yyyy'>
+                                <div class="col-md-5">
                                     <span> au : </span>
-                                    {{ form_widget(form.fin_publication, {'attr': {'class': 'form-control'}}) }}<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                    <div class="input-group date">
+                                        {{ form_widget(form.fin_publication, {'attr': {'class': 'datepicker form-control', 'data-date-format': 'dd-mm-yyyy'}}) }}
+                                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                    </div>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -84,6 +90,9 @@
             width: "100%",
             height: "34px",
         });
-        $('.datepicker').datepicker()
+        $('.datepicker').datepicker({
+            language: "fr",
+            autoclose: true
+        })
     </script>
 {% endblock %}

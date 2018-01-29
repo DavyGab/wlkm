@@ -43,7 +43,7 @@ class CategoriesAnnuaireController extends Controller
             return $this->redirectToRoute('categorie_annuaire_edit', array('id' => $categoriesAnnuaire->getId()));
         }
 
-        return $this->render('categoriesannuaire/new.html.twig', array(
+        return $this->render('AppBundle:CategoriesAnnuaire:form.html.twig', array(
             'categoriesAnnuaire' => $categoriesAnnuaire,
             'form' => $form->createView(),
             'action' => 'new'
@@ -58,8 +58,6 @@ class CategoriesAnnuaireController extends Controller
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
-
-            return $this->redirectToRoute('categorie_annuaire_delete', array('id' => $categoriesAnnuaire->getId()));
         }
 
         return $this->render('AppBundle:CategoriesAnnuaire:form.html.twig', array(

@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
@@ -88,14 +89,14 @@ class InfosUtiles
     /**
      * @var datetime
      *
-     * @ORM\Column(name="Infos_Utiles_Date_Debut_Validite", type="datetime", length=200, nullable=true)
+     * @ORM\Column(name="Infos_Utiles_Date_Début_Validité", type="datetime", length=200, nullable=true)
      */
     private $debut_publication;
 
     /**
      * @var datetime
      *
-     * @ORM\Column(name="Infos_Utiles_Date_Fin_Validite", type="datetime", length=200, nullable=true)
+     * @ORM\Column(name="Infos_Utiles_Date_Fin_Validité", type="datetime", length=200, nullable=true)
      */
     private $fin_publication;
 
@@ -241,7 +242,9 @@ class InfosUtiles
      * @param datetime $fin_publication
      */
     public function setFinPublication($fin_publication)
-    {
+    {if (is_string($fin_publication)) {
+            $fin_publication = DateTime::createFromFormat('d-m-Y', $fin_publication);
+        }
         $this->fin_publication = $fin_publication;
     }
 
@@ -258,6 +261,9 @@ class InfosUtiles
      */
     public function setDebutPublication($debut_publication)
     {
+        if (is_string($debut_publication)) {
+            $debut_publication = DateTime::createFromFormat('d-m-Y', $debut_publication);
+        }
         $this->debut_publication = $debut_publication;
     }
 
