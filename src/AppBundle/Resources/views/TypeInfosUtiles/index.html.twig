@@ -8,26 +8,32 @@
                         <div class="heading">
                             <i class="fa fa-table"></i>Liste des types d'infos utiles
                         </div>
+                        <div class="heading">
+                            <a href="{{ path('type_infos_new') }}">
+                                <i class="fa fa-plus"></i>Ajouter un type
+                            </a>
+                        </div>
                         <div class="widget-content padded clearfix">
-                            <table class="table table-bordered table-striped" id="dataTable1">
-                                <thead>
-                                    <th> Nom </th>
-                                    <th> Actions </th>
-                                </thead>
-                                <tbody>
-                                {% for type in types %}
-                                    <tr>
-                                        <td> {{ type.nom }} </td>
-                                        <td class="actions">
-                                            <div class="action-buttons">
-                                                <a class="table-actions" href="{{ path('type_infos_edit', { 'id': categorie.id }) }}"><i class="fa fa-pencil"></i></a>
-                                                <a class="table-actions" href="{{ path('type_infos_delete', { 'id': categorie.id }) }}"><i class="fa fa-trash-o"></i></a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                {% endfor %}
-                                </tbody>
-                            </table>
+                            <div class="row">
+                                <div class="col-md-10 col-md-offset-1">
+                                    <table class="table table-bordered table-striped" id="dataTable1">
+                                        <thead>
+                                            <th> Nom </th>
+                                        </thead>
+                                        <tbody>
+                                        {% for type in types %}
+                                            <tr>
+                                                <td>
+                                                    <a href="{{ path('type_infos_edit', { 'id': categorie.id }) }}">
+                                                        {{ type.nom }}
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

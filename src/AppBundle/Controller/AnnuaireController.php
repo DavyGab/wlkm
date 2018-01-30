@@ -85,16 +85,6 @@ class AnnuaireController extends Controller
         ));
     }
 
-    public function showAction(Annuaire $annuaire)
-    {
-        $deleteForm = $this->createDeleteForm($annuaire);
-
-        return $this->render('AppBundle:Annuaire:show.html.twig', array(
-            'annuaire' => $annuaire,
-            'delete_form' => $deleteForm->createView(),
-        ));
-    }
-
     public function editAction(Request $request, Annuaire $annuaire)
     {
         $deleteForm = $this->createDeleteForm($annuaire);

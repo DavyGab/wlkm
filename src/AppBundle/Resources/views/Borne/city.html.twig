@@ -6,27 +6,26 @@
                 <div class="col-md-10 col-md-offset-1">
                     <div class="widget-container fluid-height clearfix">
                         <div class="heading">
-                            <i class="fa fa-table"></i>Liste des catégories
-                        </div>
-                        <div class="heading">
-                            <a href="{{ path('categorie_annuaire_new') }}">
-                                <i class="fa fa-plus"></i>Ajouter une catgéorie
-                            </a>
+                            <i class="fa fa-table"></i>Liste des villes
                         </div>
                         <div class="widget-content padded clearfix">
                             <div class="row">
                                 <div class="col-md-10 col-md-offset-1">
                                     <table class="table table-bordered table-striped" id="dataTable1">
                                         <thead>
-                                            <th> Nom </th>
+                                            <th> Ville </th>
+                                            <th> Nombre de bornes </th>
                                         </thead>
                                         <tbody>
-                                        {% for categorie in categories %}
+                                        {% for ville in villes %}
                                             <tr>
                                                 <td>
-                                                    <a href="{{ path('categorie_annuaire_edit', { 'id': categorie.id }) }}">
-                                                        {{ categorie.nom }}
+                                                    <a href="{{ path('borne_by_city', { 'ville': ville.ville }) }}">
+                                                        {{ ville.ville }}
                                                     </a>
+                                                </td>
+                                                <td>
+                                                    {{ ville.number }}
                                                 </td>
                                             </tr>
                                         {% endfor %}

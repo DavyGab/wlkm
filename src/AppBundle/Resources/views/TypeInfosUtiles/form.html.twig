@@ -17,10 +17,14 @@
                                 </div>
                             </div>
 
-                            <div class="dropzone my-dropzone" id="form_snippet_image" data-action="{{ path('upload_img') }}">
+                            <div class="form-group">
+                                <label class="control-label col-md-2">Images</label>
+                                <div class="col-md-10">
+                                    <div id="form_snippet_image">... Chargement ...</div>
+                                </div>
+                                {{ app.session.set('imageFormId', form.image.vars.id) }}
+                                {{ form_widget(form.image, {'attr': {'class': 'hidden'}}) }}
                             </div>
-
-                            {{ form_widget(form.image, {'attr': {'class': 'hidden imgupload'}}) }}
 
                             <div class="form-group">
                                 <div class="col-md-3 col-md-offset-2">
@@ -30,7 +34,7 @@
                         {{ form_end(form) }}
                         {% if action == "edit" %}
                             <div class="form-group">
-                                <div class="col-md-3 col-md-offset-9">
+                                <div class="col-md-3 col-md-offset-9 padB25">
                                     {{ form_start(delete_form) }}
                                     <button class="btn btn-danger text-right" type="submit">Supprimer</button>
                                     {{ form_end(delete_form) }}
@@ -47,14 +51,52 @@
 {% block javascripts %}
     {{ parent() }}
     <script type="application/javascript">
-        //je récupère l'action où sera traité l'upload en PHP
-        var _actionToDropZone = $("#form_snippet_image").data('action');
+        {% set imageFormId = app.session.get('imageFormId') %}
+        var alreadyLoadedFiles = [
+            {% if action == 'edit' and typesInfosUtile.image is not null %}
+                {
+                    name: "{{ typesInfosUtile.image }}",
+                    url:"/wellcom/{{ constant('AppBundle\\Entity\\Image::UPLOAD_DIR') ~ typesInfosUtile.image }}"
+                },
+            {% endif %}
+        ];
 
-        //je définis ma zone de drop grâce à l'ID de ma div citée plus haut.
-        Dropzone.autoDiscover = false;
-        var myDropzone = new Dropzone("#form_snippet_image", { url: _actionToDropZone });
-        myDropzone.on('success',function(e, response) {
-            $('.imgupload').val(response.path);
+        $("#form_snippet_image").uploadFile({
+            url:"{{ path('upload_img') }}",
+            multiple:false,
+            dragDrop:true,
+            showDelete: true,
+            showPreview:true,
+            showFileSize: false,
+            maxFileCount:1,
+            fileName:"file",
+
+            dragDropStr: "<span><b>Faites glisser et déposez les fichiers</b></span>",
+            abortStr: "Annuler",
+            deleteStr: "Supprimer",
+            cancelStr: "Résilier",
+            doneStr: "Fait",
+            multiDragErrorStr: "Plusieurs Drag &amp; Drop de fichiers ne sont pas autorisés.",
+            extErrorStr: "n'est pas autorisé. Extensions autorisées: ",
+            sizeErrorStr: "n'est pas autorisé. Admis taille max:",
+            uploadErrorStr: "upload n'est pas autorisé",
+            uploadStr: "Téléchargez",
+            maxFileCountErrorStr: "n'est pas autorisé. Supprimez d'abord l'image avant d'en uploader une nouvelle.",
+
+            allowedTypes: "jpg, jpeg, png, gif",
+
+            onLoad: function(obj) {
+                alreadyLoadedFiles.forEach(function(img){
+                    obj.createProgress(img["name"],img["url"]);
+                });
+            },
+            onSuccess: function(files,data,xhr,pd) {
+                $('#{{ imageFormId }}').val(data.path);
+            },
+            deleteCallback: function(data,pd) {
+                $('#{{ imageFormId }}').val('');
+                pd.statusbar.hide(); //You choice to hide/not.
+            }
         });
     </script>
 {% endblock %}

@@ -30,4 +30,16 @@ class BorneRepository extends EntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function findDistinctCity()
+    {
+        $qb = $this
+            ->createQueryBuilder('b')
+            ->addselect('COUNT(b) as number')
+            ->groupBy('b.ville');
+
+        return $qb
+            ->getQuery()
+            ->getResult();
+    }
 }

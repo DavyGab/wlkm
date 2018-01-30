@@ -35,24 +35,13 @@ class InfosUtilesController extends Controller
             $em->persist($infosUtile);
             $em->flush();
 
-            return $this->redirectToRoute('infosutiles_show', array('id' => $infosUtile->getId()));
+            return $this->redirectToRoute('infosutiles_edit', array('id' => $infosUtile->getId()));
         }
 
         return $this->render('AppBundle:InfosUtiles:form.html.twig', array(
             'infosUtile' => $infosUtile,
             'form' => $form->createView(),
             'action' => 'new'
-        ));
-    }
-
-    public function showAction(InfosUtiles $infosUtile)
-    {
-        $deleteForm = $this->createDeleteForm($infosUtile);
-
-        return $this->render('AppBundle:InfosUtiles:show.html.twig', array(
-            'infosUtile' => $infosUtile,
-            'delete_form' => $deleteForm->createView(),
-            'action' => 'edit'
         ));
     }
 

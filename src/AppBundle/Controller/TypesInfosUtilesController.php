@@ -5,7 +5,8 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\TypesInfosUtiles;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Typesinfosutile controller.
@@ -27,7 +28,7 @@ class TypesInfosUtilesController extends Controller
 
     public function newAction(Request $request)
     {
-        $typesInfosUtile = new Typesinfosutile();
+        $typesInfosUtile = new TypesInfosUtiles();
         $form = $this->createForm('AppBundle\Form\TypesInfosUtilesType', $typesInfosUtile);
         $form->handleRequest($request);
 
@@ -36,22 +37,13 @@ class TypesInfosUtilesController extends Controller
             $em->persist($typesInfosUtile);
             $em->flush();
 
-            return $this->redirectToRoute('type_infos_show', array('id' => $typesInfosUtile->getId()));
+            return $this->redirectToRoute('type_infos_edit', array('id' => $typesInfosUtile->getId()));
         }
 
         return $this->render('AppBundle:TypeInfosUtiles:form.html.twig', array(
             'typesInfosUtile' => $typesInfosUtile,
             'form' => $form->createView(),
-        ));
-    }
-
-    public function showAction(TypesInfosUtiles $typesInfosUtile)
-    {
-        $deleteForm = $this->createDeleteForm($typesInfosUtile);
-
-        return $this->render('AppBundle:TypeInfosUtiles:form.html.twig', array(
-            'typesInfosUtile' => $typesInfosUtile,
-            'delete_form' => $deleteForm->createView(),
+            'action' => 'new',
         ));
     }
 
@@ -63,14 +55,13 @@ class TypesInfosUtilesController extends Controller
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
-
-            return $this->redirectToRoute('type_infos_edit', array('id' => $typesInfosUtile->getId()));
         }
 
         return $this->render('AppBundle:TypeInfosUtiles:form.html.twig', array(
             'typesInfosUtile' => $typesInfosUtile,
             'form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
+            'action' => 'edit',
         ));
     }
 
@@ -85,7 +76,7 @@ class TypesInfosUtilesController extends Controller
             $em->flush();
         }
 
-        return $this->redirectToRoute('typesinfosutiles_index');
+        return $this->redirectToRoute('type_infos_delete');
     }
 
     /**

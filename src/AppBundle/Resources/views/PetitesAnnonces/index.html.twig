@@ -8,6 +8,11 @@
                         <div class="heading">
                             <i class="fa fa-table"></i>Liste des petites annonces
                         </div>
+                        <div class="heading">
+                            <a href="{{ path('petitesannonces_new') }}">
+                                <i class="fa fa-plus"></i>Ajouter une petite annonce
+                            </a>
+                        </div>
                         <div class="widget-content padded clearfix">
                             <table class="table table-bordered table-striped" id="dataTable1">
                                 <thead>
@@ -23,7 +28,7 @@
                                 {% for petitesAnnonce in petitesAnnonces %}
                                     <tr>
                                         <td>
-                                            <a href="{{ path('petitesannonces_delete', { 'id': petitesAnnonce.id }) }}">
+                                            <a href="{{ path('petitesannonces_edit', { 'id': petitesAnnonce.id }) }}">
                                                 {{ petitesAnnonce.titre }}
                                             </a>
                                         </td>

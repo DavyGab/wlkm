@@ -24,6 +24,28 @@ class BorneController extends Controller
             'bornes' => $bornes,
         ));
     }
+
+    public function showByCityAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $villes = $em->getRepository('AppBundle:Borne')->findDistinctCity();
+
+        return $this->render('AppBundle:Borne:city.html.twig', array(
+            'villes' => $villes,
+        ));
+    }
+
+    public function borneByCityAction($ville)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $bornes = $em->getRepository('AppBundle:Borne')->findByVille($ville);
+
+        return $this->render('AppBundle:Borne:index.html.twig', array(
+            'bornes' => $bornes,
+        ));
+    }
     
     
     public function newAction(Request $request)
@@ -44,17 +66,6 @@ class BorneController extends Controller
             'borne' => $borne,
             'form' => $form->createView(),
             'action' => 'new'
-        ));
-    }
-    
-    
-    public function showAction(Borne $borne)
-    {
-        $deleteForm = $this->createDeleteForm($borne);
-
-        return $this->render('borne/show.html.twig', array(
-            'borne' => $borne,
-            'delete_form' => $deleteForm->createView(),
         ));
     }
     

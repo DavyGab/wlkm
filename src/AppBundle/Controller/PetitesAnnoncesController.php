@@ -41,17 +41,6 @@ class PetitesAnnoncesController extends Controller
         ));
     }
 
-    public function showAction(PetitesAnnonces $petitesAnnonce)
-    {
-        $deleteForm = $this->createDeleteForm($petitesAnnonce);
-
-        return $this->render('AppBundle:PetitesAnnonces:form.html.twig', array(
-            'petitesAnnonce' => $petitesAnnonce,
-            'delete_form' => $deleteForm->createView(),
-            'action' => 'edit'
-        ));
-    }
-
     public function editAction(Request $request, PetitesAnnonces $petitesAnnonce)
     {
         $deleteForm = $this->createDeleteForm($petitesAnnonce);
@@ -60,8 +49,6 @@ class PetitesAnnoncesController extends Controller
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
-
-//            return $this->redirectToRoute('petitesannonces_edit', array('id' => $petitesAnnonce->getId()));
         }
 
         return $this->render('AppBundle:PetitesAnnonces:form.html.twig', array(

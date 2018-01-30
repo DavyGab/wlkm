@@ -16,9 +16,14 @@ borne_new:
     defaults: { _controller: AppBundle:Borne:new }
     methods:    [GET, POST]
 
-borne_show:
-    path:     /borne/{id}
-    defaults: { _controller: AppBundle:Borne:show }
+city_of_bornes:
+    path:     /borne/ville
+    defaults: { _controller: AppBundle:Borne:city }
+    methods:    [GET, POST]
+
+borne_by_city:
+    path:     /bornes/ville/{ville}
+    defaults: { _controller: AppBundle:Borne:borneByCity }
     methods:    [GET, POST]
 
 borne_edit:
