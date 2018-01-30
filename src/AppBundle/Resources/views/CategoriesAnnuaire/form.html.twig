@@ -52,57 +52,59 @@
 {% block javascripts %}
     {{ parent() }}
     <script type="application/javascript">
-        {% set imageFormId = app.session.get('imageFormId') %}
-        $('.select2').select2({
-            placeholder: "-- Select --",
-            width: "100%",
-            height: "34px",
-        });
-        var alreadyLoadedFiles = [
-            {% if action == 'edit' and categoriesAnnuaire.image is not null %}
-                {
-                    name: "{{ categoriesAnnuaire.image }}",
-                    url:"/wellcom/{{ constant('AppBundle\\Entity\\Image::UPLOAD_DIR') ~ categoriesAnnuaire.image }}"
+        $(document).ready(function() {
+            {% set imageFormId = app.session.get('imageFormId') %}
+            $('.select2').select2({
+                placeholder: "-- Select --",
+                width: "100%",
+                height: "34px",
+            });
+            var alreadyLoadedFiles = [
+                {% if action == 'edit' and categoriesAnnuaire.image is not null %}
+                    {
+                        name: "{{ categoriesAnnuaire.image }}",
+                        url:"/wellcom/{{ constant('AppBundle\\Entity\\Image::UPLOAD_DIR') ~ categoriesAnnuaire.image }}"
+                    },
+                {% endif %}
+            ];
+
+            $("#form_snippet_image").uploadFile({
+                url:"{{ path('upload_img') }}",
+                multiple:false,
+                dragDrop:true,
+                showDelete: true,
+                showPreview:true,
+                showFileSize: false,
+                maxFileCount:1,
+                fileName:"file",
+
+                dragDropStr: "<span><b>Faites glisser et déposez les fichiers</b></span>",
+                abortStr: "Annuler",
+                deleteStr: "Supprimer",
+                cancelStr: "Résilier",
+                doneStr: "Fait",
+                multiDragErrorStr: "Plusieurs Drag &amp; Drop de fichiers ne sont pas autorisés.",
+                extErrorStr: "n'est pas autorisé. Extensions autorisées: ",
+                sizeErrorStr: "n'est pas autorisé. Admis taille max:",
+                uploadErrorStr: "upload n'est pas autorisé",
+                uploadStr: "Téléchargez",
+                maxFileCountErrorStr: "n'est pas autorisé. Supprimez d'abord l'image avant d'en uploader une nouvelle.",
+
+                allowedTypes: "jpg, jpeg, png, gif",
+
+                onLoad: function(obj) {
+                    alreadyLoadedFiles.forEach(function(img){
+                        obj.createProgress(img["name"],img["url"]);
+                    });
                 },
-            {% endif %}
-        ];
-
-        $("#form_snippet_image").uploadFile({
-            url:"{{ path('upload_img') }}",
-            multiple:false,
-            dragDrop:true,
-            showDelete: true,
-            showPreview:true,
-            showFileSize: false,
-            maxFileCount:1,
-            fileName:"file",
-
-            dragDropStr: "<span><b>Faites glisser et déposez les fichiers</b></span>",
-            abortStr: "Annuler",
-            deleteStr: "Supprimer",
-            cancelStr: "Résilier",
-            doneStr: "Fait",
-            multiDragErrorStr: "Plusieurs Drag &amp; Drop de fichiers ne sont pas autorisés.",
-            extErrorStr: "n'est pas autorisé. Extensions autorisées: ",
-            sizeErrorStr: "n'est pas autorisé. Admis taille max:",
-            uploadErrorStr: "upload n'est pas autorisé",
-            uploadStr: "Téléchargez",
-            maxFileCountErrorStr: "n'est pas autorisé. Supprimez d'abord l'image avant d'en uploader une nouvelle.",
-
-            allowedTypes: "jpg, jpeg, png, gif",
-
-            onLoad: function(obj) {
-                alreadyLoadedFiles.forEach(function(img){
-                    obj.createProgress(img["name"],img["url"]);
-                });
-            },
-            onSuccess: function(files,data,xhr,pd) {
-                $('#{{ imageFormId }}').val(data.path);
-            },
-            deleteCallback: function(data,pd) {
-                $('#{{ imageFormId }}').val('');
-                pd.statusbar.hide(); //You choice to hide/not.
-            }
+                onSuccess: function(files,data,xhr,pd) {
+                    $('#{{ imageFormId }}').val(data.path);
+                },
+                deleteCallback: function(data,pd) {
+                    $('#{{ imageFormId }}').val('');
+                    pd.statusbar.hide(); //You choice to hide/not.
+                }
+            });
         });
     </script>
 {% endblock %}

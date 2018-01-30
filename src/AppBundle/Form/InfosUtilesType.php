@@ -28,10 +28,11 @@ class InfosUtilesType extends AbstractType
                 $builder->create('debut_publication', TextType::class)
                 ->addModelTransformer(new CallbackTransformer(
                     function ($dateToString) {
-                        return $dateToString->format('d-m-Y');
+                        return $dateToString ? $dateToString->format('d-m-Y') : '';
                     },
                     function ($stringToDate) {
-                        return DateTime::createFromFormat('j-m-Y', $stringToDate);
+                        $stringToDate = $stringToDate ? $stringToDate : date('d-m-Y');
+                        return DateTime::createFromFormat('d-m-Y', $stringToDate);
                     }
                 ))
             )
@@ -39,9 +40,10 @@ class InfosUtilesType extends AbstractType
                 $builder->create('fin_publication', TextType::class)
                 ->addModelTransformer(new CallbackTransformer(
                     function ($dateToString) {
-                        return $dateToString->format('d-m-Y');
+                        return $dateToString ? $dateToString->format('d-m-Y') : '';
                     },
                     function ($stringToDate) {
+                        $stringToDate = $stringToDate ? $stringToDate : date('d-m-Y');
                         return DateTime::createFromFormat('j-m-Y', $stringToDate);
                     }
                 ))

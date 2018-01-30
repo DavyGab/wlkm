@@ -89,10 +89,12 @@
 {% block javascripts %}
     {{ parent() }}
     <script type="application/javascript">
-        $('.select2').select2({
-            placeholder: "-- Select --",
-            width: "100%",
-            height: "34px",
+        $(document).ready(function() {
+            $('.select2').select2({
+                placeholder: "-- Select --",
+                width: "100%",
+                height: "34px",
+            });
         });
     </script>
 {% endblock %}

@@ -25,7 +25,7 @@ class BorneController extends Controller
         ));
     }
 
-    public function showByCityAction()
+    public function cityAction()
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -78,6 +78,11 @@ class BorneController extends Controller
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
+            
+            $this->addFlash(
+                'notice',
+                'Les modifications ont bien été enregistrées.'
+            );
         }
 
         return $this->render('AppBundle:Borne:form.html.twig', array(

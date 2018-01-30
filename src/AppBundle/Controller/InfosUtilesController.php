@@ -53,8 +53,10 @@ class InfosUtilesController extends Controller
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
-
-            return $this->redirectToRoute('infosutiles_edit', array('id' => $infosUtile->getId()));
+            $this->addFlash(
+                'notice',
+                'Les modifications ont bien été enregistrées.'
+            );
         }
 
         return $this->render('AppBundle:InfosUtiles:form.html.twig', array(

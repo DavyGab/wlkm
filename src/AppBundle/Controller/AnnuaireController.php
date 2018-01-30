@@ -9,6 +9,7 @@ use AppBundle\Entity\ImagesAnnuaire;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 /**
  * Annuaire controller.
@@ -136,8 +137,11 @@ class AnnuaireController extends Controller
             }
 
             $em->flush();
-
-//            return $this->redirectToRoute('annuaire_edit', array('id' => $annuaire->getId()));
+            
+            $request->getSession()->getFlashBag()->add(
+                'notice',
+                'Les modifications ont bien été enregistrées.'
+            );
         }
         
         return $this->render('AppBundle:Annuaire:form.html.twig', array(

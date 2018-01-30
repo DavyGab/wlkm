@@ -58,6 +58,10 @@ class CategoriesAnnuaireController extends Controller
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
+            $this->addFlash(
+                'notice',
+                'Les modifications ont bien été enregistrées.'
+            );
         }
 
         return $this->render('AppBundle:CategoriesAnnuaire:form.html.twig', array(
@@ -79,7 +83,7 @@ class CategoriesAnnuaireController extends Controller
             $em->flush();
         }
 
-        return $this->redirectToRoute('categoriesannuaire_index');
+        return $this->redirectToRoute('categorie_annuaire_index');
     }
 
     /**

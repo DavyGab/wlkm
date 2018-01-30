@@ -77,7 +77,7 @@ class CategoriesAnnonceController extends Controller
             $em->flush();
         }
 
-        return $this->redirectToRoute('categoriesannonce_index');
+        return $this->redirectToRoute('categorie_annonce_index');
     }
 
     /**

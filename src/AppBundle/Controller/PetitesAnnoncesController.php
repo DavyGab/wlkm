@@ -49,6 +49,10 @@ class PetitesAnnoncesController extends Controller
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
+            $this->addFlash(
+                'notice',
+                'Les modifications ont bien été enregistrées.'
+            );
         }
 
         return $this->render('AppBundle:PetitesAnnonces:form.html.twig', array(

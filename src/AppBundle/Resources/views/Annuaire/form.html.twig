@@ -8,6 +8,13 @@
                     <div class="heading">
                         <i class="fa fa-bars"></i>Annuaire
                     </div>
+                     {% if app.session.flashBag.has('notice') %}
+                        <div class="alert alert-success flashBag">
+                            {% for msg in app.session.flashBag.get('notice') %}
+                                {{ msg }}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
                     {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
                         <div class="widget-content padded">
                             <div class="form-group">
@@ -384,6 +391,8 @@
                     pd.statusbar.hide(); //You choice to hide/not.
                 }
             });
+
+            $('.flashBag').delay(5000).fadeOut('slow');
         });
     </script>
 {% endblock %}

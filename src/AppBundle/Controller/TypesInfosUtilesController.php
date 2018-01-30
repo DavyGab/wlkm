@@ -55,6 +55,10 @@ class TypesInfosUtilesController extends Controller
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
+            $this->addFlash(
+                'notice',
+                'Les modifications ont bien été enregistrées.'
+            );
         }
 
         return $this->render('AppBundle:TypeInfosUtiles:form.html.twig', array(

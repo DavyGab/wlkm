@@ -35,7 +35,7 @@ class BorneRepository extends EntityRepository
     {
         $qb = $this
             ->createQueryBuilder('b')
-            ->addselect('COUNT(b) as number')
+            ->addSelect('COUNT(b) as number')
             ->groupBy('b.ville');
 
         return $qb

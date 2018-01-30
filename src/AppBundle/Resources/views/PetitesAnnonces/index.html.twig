@@ -65,6 +65,8 @@
 {% block javascripts %}
     {{ parent() }}
     <script type="application/javascript">
-        $('#dataTable1').dataTable();
+        $(document).ready(function() {
+            $('#dataTable1').dataTable();
+        });
     </script>
 {% endblock %}
