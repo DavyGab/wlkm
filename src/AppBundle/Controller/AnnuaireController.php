@@ -62,16 +62,12 @@ class AnnuaireController extends Controller
              * Enregistrement des images
              */
             $addImagesNames = $request->request->get('newFiles', '');
+            $addImagesNames = explode(',', $addImagesNames);
             foreach ($addImagesNames as $imageName) {
+                if ($imageName == '') { continue; }
                 $annuaireImage = new ImagesAnnuaire();
                 $annuaireImage->setUrl($imageName);
                 $annuaire->addAnnuaireImage($annuaireImage);
-            }
-            $removeImagesUrl = $request->request->get('deletedFiles', '');
-            foreach ($removeImagesUrl as $imageUrl) {
-                if ($annuaireImage = $em->getRepository('AppBundle:ImagesAnnuaire')->findByUrl($imageUrl)) {
-                    $annuaire->removeAnnuaireImage($annuaireImage);
-                }
             }
             $em->flush();
 
