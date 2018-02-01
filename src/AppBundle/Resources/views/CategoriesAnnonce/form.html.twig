@@ -58,7 +58,7 @@
                 {% if action == 'edit' and categoriesAnnonce.image is not null %}
                     {
                         name: "{{ categoriesAnnonce.image }}",
-                        url:"/wellcom/{{ constant('AppBundle\\Entity\\Image::UPLOAD_DIR') ~ categoriesAnnonce.image }}"
+                        url:"/{{ constant('AppBundle\\Entity\\Image::UPLOAD_DIR') ~ categoriesAnnonce.image }}"
                     },
                 {% endif %}
             ];

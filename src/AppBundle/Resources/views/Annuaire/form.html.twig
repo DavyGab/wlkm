@@ -340,7 +340,7 @@
                     {% for annuaireImage in imagesAnnuaire %}
                         {
                             name: "{{ annuaireImage.url }}",
-                            url:"/wellcom/{{ constant('AppBundle\\Entity\\Image::UPLOAD_DIR') ~ annuaireImage.url }}"
+                            url:"/{{ constant('AppBundle\\Entity\\Image::UPLOAD_DIR') ~ annuaireImage.url }}"
                         },
                     {% endfor %}
                 {% endif %}
