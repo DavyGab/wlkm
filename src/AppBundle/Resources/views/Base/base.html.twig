@@ -38,11 +38,12 @@
         {% endblock %}
     </head>
 
-    <body class="page-header-fixed bg-1">
-        <div class="modal-shiftfix">
-        {% include 'AppBundle:Base:navigation.html.twig' %}
-        {% block body %}{% endblock %}
-        </div>
+    <body class="{% block bodyClass %}page-header-fixed bg-1{% endblock %}">
+        {% block body %}
+            <div class="modal-shiftfix">
+                {% include 'AppBundle:Base:navigation.html.twig' %}
+            </div>
+        {% endblock %}
         {#<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>#}
         <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js"></script>

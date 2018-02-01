@@ -10,21 +10,24 @@
         <div class="pull-right">
             <ul class="nav navbar-nav pull-right">
                 <li class="dropdown user hidden-xs"><a data-toggle="dropdown" class="dropdown-toggle" href="#">
-        Admin Admin<b class="caret"></b></a>
+                    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                        {{ app.user.username }}
+                    {% endif %}
+                    <b class="caret"></b></a>
                     <ul class="dropdown-menu">
+                        {#<li>#}
+                            {#<a href="#">#}
+                                {#<i class="fa fa-user"></i>Mon compte</a>#}
+                        {#</li>#}
                         <li>
-                            <a href="#">
-                                <i class="fa fa-user"></i>Mon compte</a>
-                        </li>
-                        <li>
-                            <a href="login1.html">
+                            <a href="{{ path('fos_user_security_logout') }}">
                                 <i class="fa fa-sign-out"></i>Déconnexion</a>
                         </li>
                     </ul>
                 </li>
             </ul>
         </div>
-        <button class="navbar-toggle"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a class="logo" href="{{ path('homepage') }}">se7en</a>
+        <button class="navbar-toggle"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a class="logo" href="{{ path('homepage') }}">Wellkom</a>
     </div>
 
 
@@ -39,33 +42,35 @@
                 <li>
                     <a class="current" href="{{ path('homepage') }}"><i class="fa fa-tachometer fa-2x logo-menu" aria-hidden="true"></i>Dashboard</a>
                 </li>
-                <li class="dropdown">
-                    <a data-toggle="dropdown" href="#">
-                        <i class="fa fa-cubes fa-2x logo-menu" aria-hidden="true"></i></span>Bornes<b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li>
-                            <a href="{{ path('borne_index') }}">Toutes les bornes</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('borne_new') }}">Ajouter</a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <a data-toggle="dropdown" href="#">
-                        <i class="fa fa-vcard-o fa-2x logo-menu" aria-hidden="true"></i></span>Annuaire<b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li>
-                            <a href="{{ path('annuaire_index') }}">Tous les commercants</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('annuaire_new') }}">Ajouter</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('categorie_annuaire_index') }}">Catégories</a>
-                        </li>
-                    </ul>
-                </li>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <li class="dropdown">
+                        <a data-toggle="dropdown" href="#">
+                            <i class="fa fa-cubes fa-2x logo-menu" aria-hidden="true"></i></span>Bornes<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="{{ path('borne_index') }}">Toutes les bornes</a>
+                            </li>
+                            <li>
+                                <a href="{{ path('borne_new') }}">Ajouter</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a data-toggle="dropdown" href="#">
+                            <i class="fa fa-vcard-o fa-2x logo-menu" aria-hidden="true"></i></span>Annuaire<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="{{ path('annuaire_index') }}">Tous les commercants</a>
+                            </li>
+                            <li>
+                                <a href="{{ path('annuaire_new') }}">Ajouter</a>
+                            </li>
+                            <li>
+                                <a href="{{ path('categorie_annuaire_index') }}">Catégories</a>
+                            </li>
+                        </ul>
+                    </li>
+                {% endif %}
                 <li class="dropdown">
                     <a data-toggle="dropdown" href="#">
                         <i class="fa fa-sticky-note-o fa-2x logo-menu" aria-hidden="true"></i></span>Petites annonces<b class="caret"></b></a>
@@ -76,9 +81,11 @@
                         <li>
                             <a href="{{ path('petitesannonces_new') }}">Ajouter</a>
                         </li>
-                        <li>
-                            <a href="{{ path('categorie_annonce_index') }}">Catégories</a>
-                        </li>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <li>
+                                <a href="{{ path('categorie_annonce_index') }}">Catégories</a>
+                            </li>
+                        {% endif %}
                     </ul>
                 </li>
                 <li class="dropdown">
@@ -91,26 +98,30 @@
                         <li>
                             <a href="{{ path('infosutiles_new') }}">Ajouter</a>
                         </li>
-                        <li>
-                            <a href="{{ path('type_infos_index') }}">Types</a>
-                        </li>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <li>
+                                <a href="{{ path('type_infos_index') }}">Types</a>
+                            </li>
+                        {% endif %}
                     </ul>
                 </li>
-                <li class="dropdown">
-                    <a data-toggle="dropdown" href="#">
-                        <i class="fa fa-user-o fa-2x logo-menu" aria-hidden="true"></i>Utilisateurs<b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li>
-                            <a href="#">Tous</a>
-                        </li>
-                        <li>
-                            <a href="#">Ajouter</a>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <a class="" href="index.html"><i class="fa fa-cog fa-2x logo-menu" aria-hidden="true"></i>Configuration</a>
-                </li>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <li class="dropdown">
+                        <a data-toggle="dropdown" href="#">
+                            <i class="fa fa-user-o fa-2x logo-menu" aria-hidden="true"></i>Utilisateurs<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="#">Tous</a>
+                            </li>
+                            <li>
+                                <a href="#">Ajouter</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a class="" href="index.html"><i class="fa fa-cog fa-2x logo-menu" aria-hidden="true"></i>Configuration</a>
+                    </li>
+                {% endif %}
             </ul>
         </div>
     </div>

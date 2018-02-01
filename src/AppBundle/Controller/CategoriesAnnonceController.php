@@ -5,13 +5,11 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\CategoriesAnnonce;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
 
-/**
- * Categoriesannonce controller.
- *
- * @Route("categoriesannonce")
- */
+
+
 class CategoriesAnnonceController extends Controller
 {
     public function indexAction()
@@ -66,6 +64,7 @@ class CategoriesAnnonceController extends Controller
         ));
     }
 
+    
     public function deleteAction(Request $request, CategoriesAnnonce $categoriesAnnonce)
     {
         $form = $this->createDeleteForm($categoriesAnnonce);

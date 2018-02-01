@@ -25,7 +25,6 @@ class PetitesAnnoncesType extends AbstractType
             ->add('status', EntityType::class, array(
                 'class' => 'AppBundle:Status',
                 'query_builder' => function($er) {
-//                    return $statusRepository->findByEntite('Annuaire');
                     return $er->createQueryBuilder('s')->where('s.entite = ?1')->setParameter(1, 'PetiteAnnonce');
                 },
                 'required'  => true,

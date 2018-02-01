@@ -17,7 +17,16 @@ class InfosUtilesController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $infosUtiles = $em->getRepository('AppBundle:InfosUtiles')->findAllWithStatus();
+        $infosUtiles = $em->getRepository('AppBundle:InfosUtiles');
+
+        if ($this->isGranted('ROLE_ADMIN')) {
+            $infosUtiles = $infosUtiles->findAllWithStatus();
+        } elseif ($this->isGranted('ROLE_GARDIEN')) {
+            $usr = $this->get('security.context')->getToken()->getUser();
+            $infosUtiles = $infosUtiles->findWithStatusByBorneId($usr->getBorne());
+        } else {
+            return $this->redirectToRoute('homepage');
+        }
 
         return $this->render('AppBundle:InfosUtiles:index.html.twig', array(
             'infosUtiles' => $infosUtiles,
@@ -30,12 +39,20 @@ class InfosUtilesController extends Controller
         $form = $this->createForm('AppBundle\Form\InfosUtilesType', $infosUtile);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) 
+        {
+            if (!$this->isGranted('ROLE_ADMIN')) {
+                $infosUtile->setBorne($usr = $this->get('security.context')->getToken()->getUser()->getBorne());
+            }
             $em = $this->getDoctrine()->getManager();
             $em->persist($infosUtile);
             $em->flush();
 
             return $this->redirectToRoute('infosutiles_edit', array('id' => $infosUtile->getId()));
+        }
+
+        if (!$this->isGranted('ROLE_ADMIN')) {
+            $form->remove('borne');
         }
 
         return $this->render('AppBundle:InfosUtiles:form.html.twig', array(
@@ -57,6 +74,10 @@ class InfosUtilesController extends Controller
                 'notice',
                 'Les modifications ont bien été enregistrées.'
             );
+        }
+
+        if (!$this->isGranted('ROLE_ADMIN')) {
+            $editForm->remove('borne');
         }
 
         return $this->render('AppBundle:InfosUtiles:form.html.twig', array(

@@ -1,6 +1,7 @@
 {% extends 'AppBundle:Base:base.html.twig' %}
 
 {% block body %}
+    {{ parent() }}
     <div class="container main-content">
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
@@ -52,12 +53,14 @@
                                     {{ form_widget(form.categorie, {'attr': {'class': 'select2'}}) }}
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label class="control-label col-md-2">Borne</label>
-                                <div class="col-md-10">
-                                    {{ form_widget(form.borne, {'attr': {'class': 'select2'}}) }}
+                            {% if form.borne is defined %}
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">Borne</label>
+                                    <div class="col-md-10">
+                                        {{ form_widget(form.borne, {'attr': {'class': 'select2'}}) }}
+                                    </div>
                                 </div>
-                            </div>
+                            {% endif %}
                             <div class="form-group">
                                 <label class="control-label col-md-2">Status</label>
                                 <div class="col-md-10">

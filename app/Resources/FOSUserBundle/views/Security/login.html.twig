@@ -1,0 +1,32 @@
+{% extends 'AppBundle:Base:base.html.twig' %}
+
+{% block bodyClass %}login1{% endblock %}
+
+{% block body %}
+    <div class="login-wrapper">
+        <div class="login-container">
+            <img height="18" src="{{ asset('bundles/app/images/welcom-logo.png') }}" />
+            <form action="{{ path("fos_user_security_check") }}" method="POST">
+                {% if csrf_token %}
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+                {% endif %}
+                <div class="form-group">
+                    <input class="form-control" name="_username" placeholder="E-mail" type="text" value="{{ last_username }}" required="required">
+                </div>
+                <div class="form-group">
+                    <input class="form-control" placeholder="Mot de passe" type="password" name="_password" required="required"><input type="submit">
+                </div>
+                <div class="form-options clearfix">
+                    <a class="pull-right" href="#">Mot de passe oublié ?</a>
+                    <div class="text-left">
+                      <label class="checkbox"><input type="checkbox" name="_remember_me"><span>Rester connecté</span></label>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}

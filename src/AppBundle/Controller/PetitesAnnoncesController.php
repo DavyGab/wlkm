@@ -13,7 +13,16 @@ class PetitesAnnoncesController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $petitesAnnonces = $em->getRepository('AppBundle:PetitesAnnonces')->findAllWithStatus();
+        $petitesAnnonces = $em->getRepository('AppBundle:PetitesAnnonces');
+
+        if ($this->isGranted('ROLE_ADMIN')) {
+            $petitesAnnonces = $petitesAnnonces->findAllWithStatus();
+        } elseif ($this->isGranted('ROLE_GARDIEN')) {
+            $usr = $this->get('security.context')->getToken()->getUser();
+            $petitesAnnonces = $petitesAnnonces->findWithStatusByBorneId($usr->getBorne());
+        } else {
+            return $this->redirectToRoute('homepage');
+        }
 
         return $this->render('AppBundle:PetitesAnnonces:index.html.twig', array(
             'petitesAnnonces' => $petitesAnnonces,
@@ -26,12 +35,20 @@ class PetitesAnnoncesController extends Controller
         $form = $this->createForm('AppBundle\Form\PetitesAnnoncesType', $petitesAnnonce);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            if (!$this->isGranted('ROLE_ADMIN')) {
+                $petitesAnnonce->setBorne($usr = $this->get('security.context')->getToken()->getUser()->getBorne());
+            }
             $em = $this->getDoctrine()->getManager();
             $em->persist($petitesAnnonce);
             $em->flush();
 
             return $this->redirectToRoute('petitesannonces_edit', array('id' => $petitesAnnonce->getId()));
+        }
+
+        if (!$this->isGranted('ROLE_ADMIN')) {
+            $form->remove('borne');
         }
 
         return $this->render('AppBundle:PetitesAnnonces:form.html.twig', array(
@@ -53,6 +70,10 @@ class PetitesAnnoncesController extends Controller
                 'notice',
                 'Les modifications ont bien été enregistrées.'
             );
+        }
+
+        if (!$this->isGranted('ROLE_ADMIN')) {
+            $editForm->remove('borne');
         }
 
         return $this->render('AppBundle:PetitesAnnonces:form.html.twig', array(

@@ -18,4 +18,19 @@ class InfosUtilesRepository extends EntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function findWithStatusByBorneId($borne)
+    {
+        $qb = $this
+            ->createQueryBuilder('a')
+            ->leftJoin('a.status', 's')
+            ->addSelect('s')
+            ->andWhere('a.borne = ?1')
+            ->setParameter('1', $borne);
+            ;
+
+        return $qb
+            ->getQuery()
+            ->getResult();
+    }
 }

@@ -640,7 +640,7 @@ body.login2 .login-wrapper .social-login .twitter:hover {
 .navbar .container-fluid.top-bar .nav>li.user {
     width: auto;
     margin-left: 5px;
-    margin-right: 0;
+    margin-right: 75px;
 }
 
 .navbar .container-fluid.top-bar .nav>li.user>a {
