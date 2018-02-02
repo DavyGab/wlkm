@@ -127,11 +127,12 @@ class AnnuaireController extends Controller
             $removeImagesUrl = explode(',', $removeImagesUrl);
             foreach ($removeImagesUrl as $imageUrl) {
                 if ($imageUrl == '') { continue; }
-                if ($annuaireImage = $em->getRepository('AppBundle:ImagesAnnuaire')->findOneByUrl($imageUrl)) {
+                if ($annuaireImage = $em->getRepository('AppBundle:ImagesAnnuaire')->findOneBy(array('url' => $imageUrl, 'annuaire' => $annuaire))) {
                     $annuaire->removeAnnuaireImage($annuaireImage);
+                    $em->remove($annuaireImage);
                 }
             }
-
+            
             $em->flush();
             
             $request->getSession()->getFlashBag()->add(

@@ -380,13 +380,13 @@
                     newFilesList.push(data.path);
                     $('#newFiles').val(newFilesList.join());
                 },
-                deleteCallback: function(data,pd) {
-                    var index = newFilesList.indexOf(data.path);
+                deleteCallback: function(datas,pd) {
+                    var index = newFilesList.indexOf(data[0]);
                     if (index > -1) {
                         newFilesList.splice(index, 1);
                         $('#newFiles').val(newFilesList.join());
                     } else {
-                        deletedFilesList.push(data.path);
+                        deletedFilesList.push(data[0]);
                         $('#deletedFiles').val(deletedFilesList.join());
                     }
                     pd.statusbar.hide(); //You choice to hide/not.
