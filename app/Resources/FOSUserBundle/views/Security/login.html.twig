@@ -4,7 +4,7 @@
 
 {% block body %}
     <div class="login-wrapper">
-        <div class="login-container">
+        <div class="login-container active">
             <img height="18" src="{{ asset('bundles/app/images/welcom-logo.png') }}" />
             <form action="{{ path("fos_user_security_check") }}" method="POST">
                 {% if csrf_token %}
