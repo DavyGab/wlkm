@@ -20,8 +20,8 @@ class PetitesAnnoncesType extends AbstractType
             ->add('annonce', TextareaType::class)
             ->add('telephone')
             ->add('prix')
-            ->add('categorie')
-            ->add('borne')
+            ->add('categorie', null, array('required' => true))
+            ->add('borne', null, array('required' => true))
             ->add('status', EntityType::class, array(
                 'class' => 'AppBundle:Status',
                 'query_builder' => function($er) {

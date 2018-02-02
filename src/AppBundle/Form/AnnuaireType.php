@@ -25,7 +25,7 @@ class AnnuaireType extends AbstractType
             ->add('description', TextareaType::class)
             ->add('ville')
             ->add('codePostal')
-            ->add('categorie')
+            ->add('categorie', null, array('required' => true))
             ->add('annuaireBorne', CollectionType::class, array(
                 'entry_type' => AnnuaireBorneType::class,
                 'entry_options' => array('label' => false),

@@ -69,8 +69,9 @@ class AnnuaireController extends Controller
                 $annuaireImage->setUrl($imageName);
                 $annuaire->addAnnuaireImage($annuaireImage);
             }
+			$em->persist($annuaire);
             $em->flush();
-
+			
             return $this->redirectToRoute('annuaire_edit', array('id' => $annuaire->getId()));
         }
 
